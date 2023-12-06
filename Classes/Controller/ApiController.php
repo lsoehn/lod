@@ -27,6 +27,7 @@ namespace Digicademy\Lod\Controller;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Psr\Http\Message\ResponseInterface;
 use Digicademy\Lod\Domain\Model\Iri;
 use Digicademy\Lod\Domain\Repository\IriNamespaceRepository;
 use Digicademy\Lod\Domain\Repository\IriRepository;
@@ -45,44 +46,54 @@ use TYPO3\CMS\Core\Http\ImmediateResponseException;
 class ApiController extends ActionController
 {
     /**
-     * @var \Digicademy\Lod\Domain\Repository\IriNamespaceRepository
+     * @var IriNamespaceRepository
      */
-    protected $iriNamespaceRepository;
+    protected $iriNamespaceRepository = null;
 
     /**
-     * @var \Digicademy\Lod\Domain\Repository\IriRepository
+     * @var IriRepository
      */
     protected $iriRepository = null;
 
     /**
-     * @var \Digicademy\Lod\Domain\Repository\GraphRepository
+     * @var GraphRepository
      */
     protected $graphRepository = null;
 
     /**
-     * @var \Digicademy\Lod\Domain\Repository\StatementRepository
+     * @var StatementRepository
      */
     protected $statementRepository = null;
 
     /**
-     * @var \Digicademy\Lod\Service\ContentNegotiationService
+     * @var ContentNegotiationService
      */
     protected $contentNegotiationService;
 
     /**
-     * @var \Digicademy\Lod\Service\ResolverService
+     * @var ResolverService
      */
     protected $resolverService;
 
     /**
+     * @var Iri
+     */
+    protected $resource = null;
+
+    /**
+     * @var ResponseInterface
+     */
+    protected $response = null;
+
+    /**
      * Initializes the controller and dependencies
      *
-     * @param \Digicademy\Lod\Domain\Repository\IriNamespaceRepository      $iriNamespaceRepository
-     * @param \Digicademy\Lod\Domain\Repository\IriRepository               $iriRepository
-     * @param \Digicademy\Lod\Domain\Repository\GraphRepository             $graphRepository
-     * @param \Digicademy\Lod\Domain\Repository\StatementRepository         $statementRepository
-     * @param \Digicademy\Lod\Service\ContentNegotiationService             $contentNegotiationService
-     * @param \Digicademy\Lod\Service\ResolverService                       $resolverService
+     * @param IriNamespaceRepository      $iriNamespaceRepository
+     * @param IriRepository               $iriRepository
+     * @param GraphRepository             $graphRepository
+     * @param StatementRepository         $statementRepository
+     * @param ContentNegotiationService   $contentNegotiationService
+     * @param ResolverService             $resolverService
      */
     public function __construct(
         IriNamespaceRepository $iriNamespaceRepository,
@@ -121,12 +132,31 @@ class ApiController extends ActionController
             $pageType = 0;
         }
 
+        // get configured mime types, expected content type and template format
+        $availableMimeTypes = $this->contentNegotiationService->getAvailableMimeTypes();
+        $contentType = $this->contentNegotiationService->getContentType();
+        $format = $this->contentNegotiationService->getFormat();
+
+        // if iri argument exists try to set resource
+        if ($this->request->hasArgument('iri')) {
+            $this->resource = $this->iriRepository->findByValue(
+                $this->request->getArgument('iri'),
+                'show'
+            );
+        }
+
         // set environment
         $environment = [
             'TYPO3_REQUEST_HOST' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'),
             'TYPO3_REQUEST_URL' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'),
             'TSFE' => ['pageArguments' => $GLOBALS['TSFE']->pageArguments, 'page' => $GLOBALS['TSFE']->page]
         ];
+
+        // prepare response
+        $this->response = $this->responseFactory->createResponse();
+        if (array_key_exists($pageType, $availableMimeTypes)) {
+            $this->response = $this->response->withAddedHeader('Content-Type', $availableMimeTypes[$pageType] . '; charset=utf-8');
+        }
 
         // hydra link headers (@see: https://www.hydra-cg.com/spec/latest/core/#example-16-discovering-hydra-api-documentation-documents)
         if (is_array($this->settings['apiDocumentation']['keys'])) {
@@ -137,7 +167,7 @@ class ApiController extends ActionController
                 $apiDocumentationKey = $this->settings['apiDocumentation']['keys'][0];
             }
 
-            $uriBuilder = $this->objectManager->get(UriBuilder::class);
+            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
             $uri = $uriBuilder
               ->reset()
               ->setTargetPageUid($GLOBALS['TSFE']->id)
@@ -145,11 +175,11 @@ class ApiController extends ActionController
               ->uriFor('about', ['apiDocumentation' => $apiDocumentationKey], 'Api', 'lod', 'api');
             $apiDocumentationPath = preg_replace('/(\?|\&)(cHash)(.*)$/', '', $uri);
 
-            $this->response->setHeader('Access-Control-Allow-Origin', $this->settings['general']['CORS']['accessControlAllowOrigin']);
-            $this->response->setHeader('Access-Control-Allow-Methods', $this->settings['general']['CORS']['accessControlAllowMethods']);
-            $this->response->setHeader('Access-Control-Allow-Headers', $this->settings['general']['CORS']['accessControlAllowHeaders']);
-            $this->response->setHeader('Access-Control-Expose-Headers', $this->settings['general']['CORS']['accessControlExposeHeaders']);
-            $this->response->setHeader('Link', '<'. $environment['TYPO3_REQUEST_HOST'] . $apiDocumentationPath . '>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+            $this->response = $this->response->withAddedHeader('Access-Control-Allow-Origin', $this->settings['general']['CORS']['accessControlAllowOrigin'])
+              ->withAddedHeader('Access-Control-Allow-Methods', $this->settings['general']['CORS']['accessControlAllowMethods'])
+              ->withAddedHeader('Access-Control-Allow-Headers', $this->settings['general']['CORS']['accessControlAllowHeaders'])
+              ->withAddedHeader('Access-Control-Expose-Headers', $this->settings['general']['CORS']['accessControlExposeHeaders'])
+              ->withAddedHeader('Link', '<'. $environment['TYPO3_REQUEST_HOST'] . $apiDocumentationPath . '>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
         }
 
         // hydra JSON-LD entry point
@@ -160,12 +190,12 @@ class ApiController extends ActionController
             $this->request->setArguments($arguments);
         }
 
-        // if page type is set define response format directly
+        // if page type is set define Fluid template format directly
         if ($pageType > 0) {
 
-            $this->request->setFormat($this->contentNegotiationService->getFormat());
+            $this->request->setFormat($format);
 
-        // if not 303 to URL including a negotiated page type
+        // if not redirect to URL including a negotiated page type
         } else {
 
             // make sure request url does not end in a slash
@@ -180,12 +210,9 @@ class ApiController extends ActionController
             }
 
             // get target page type via content negotiation
-            $targetPageType = array_search(
-                $this->contentNegotiationService->getContentType(),
-                $this->contentNegotiationService->getAvailableMimeTypes()
-            );
+            $targetPageType = array_search($contentType, $availableMimeTypes);
 
-            // generate url for redirection depending if routeEnhancers are configured
+            // generate url for redirection if routeEnhancers are configured
             if (
                 array_key_exists('routeEnhancers', $siteConfiguration) &&
                 array_key_exists('PageTypeSuffix', $siteConfiguration['routeEnhancers']) &&
@@ -217,7 +244,29 @@ class ApiController extends ActionController
                 $uri = str_replace('.html/', '/', $uri);
             }
 
-            $this->redirectToUri($uri);
+            // if dedicated representations for the resource are available go through each of them and
+            // check if accepted media type fits representation content type; if so call according resolver
+            if ($this->resource && count($this->resource->getRepresentations()) > 0) {
+                foreach ($this->contentNegotiationService->getAcceptedMimeTypes() as $mimeType) {
+                    foreach ($this->resource->getRepresentations() as $key => $representation) {
+                        $representationContentType = $this->contentNegotiationService->processContentType($representation->getContentType());
+                        if ($representationContentType['mime'] == $mimeType && $representationContentType['mime'] == $contentType) {
+                            // call representation resolver service
+                            $url = $this->resolverService->resolve($representation, $this->settings['resolver']);
+                            if (GeneralUtility::isValidUrl($url)) {
+                                $this->redirectToUri($url);
+                            }
+                        }
+                    }
+                    // if none of the representations fit redirect to a generated representation
+                    if ($mimeType == $contentType) {
+                        $this->redirectToUri($uri);
+                    }
+                }
+            // otherwise redirect to a generated about representation
+            } else {
+                $this->redirectToUri($uri);
+            }
         }
 
         // general assignments for all sub actions
@@ -232,17 +281,11 @@ class ApiController extends ActionController
         $this->view->assign('environment', $environment);
 
         // execute sub actions
+        // show action
         if ($this->request->hasArgument('iri')) {
-
-            // try to fetch the resource
-            $resource = $this->iriRepository->findByValue(
-                $this->request->getArgument('iri'),
-                'show'
-            );
-
-            // if the resource is found, redirect to show action, else send 404
-            if ($resource) {
-                $this->showAction($resource);
+            // if the resource exist, forward to show action, else send 404
+            if ($this->resource) {
+                $this->showAction($this->resource);
             } else {
                 // throw PSR-7 compliant error response
                 $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
@@ -251,15 +294,19 @@ class ApiController extends ActionController
                     ['code' => PageAccessFailureReasons::PAGE_NOT_FOUND]);
                 throw new ImmediateResponseException($response);
             }
-        // api documentation sub action
+        // api documentation action
         } elseif ($this->request->hasArgument('apiDocumentation')) {
             $this->apiDocumentationAction();
-            // list resources sub action
+        // api entrypoint action
         } else if ($this->request->hasArgument('apiEntryPoint')) {
             $this->apiEntryPointAction();
+        // list action
         } else {
             $this->listAction();
         }
+
+        // return PSR-7/PSR-17 compliant response
+        return $this->response->withBody($this->streamFactory->createStream($this->view->render()));
     }
 
     /**
@@ -352,29 +399,6 @@ class ApiController extends ActionController
     private function showAction(
         Iri $resource
     ) {
-
-        foreach ($this->contentNegotiationService->getAcceptedMimeTypes() as $mimeType) {
-            // if resource representations are available go through each representation and
-            // check if current media type is among representation content types; if yes call resolver
-            if ($resource->getRepresentations()) {
-                foreach ($resource->getRepresentations() as $key => $representation) {
-                    $representationContentType = $this->contentNegotiationService->processContentType($representation->getContentType());
-                    if ($representationContentType['mime'] == $mimeType && $representationContentType['mime'] == $this->contentNegotiationService->getContentType()) {
-                        // call representation resolver service
-                        $url = $this->resolverService->resolve($representation, $this->settings['resolver']);
-                        if (GeneralUtility::isValidUrl($url)) {
-                            $this->redirectToUri($url);
-                        }
-                    }
-                }
-            }
-
-            // if $mimeType equals $contentType deliver a "generated representation"
-            if ($mimeType == $this->contentNegotiationService->getContentType()) {
-                break;
-            }
-        }
-
         // assign current action for disambiguation in about template
         $this->view->assign('action', 'show');
 

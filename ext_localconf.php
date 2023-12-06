@@ -1,40 +1,40 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
 // PLUGINS
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Digicademy.lod',
+    'Lod',
     'Vocabulary',
     array(
-        'Vocabulary' => 'show',
+        \Digicademy\Lod\Controller\VocabularyController::class => 'show',
     ),
     array(
-        'Vocabulary' => '',
+        \Digicademy\Lod\Controller\VocabularyController::class => '',
     )
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Digicademy.lod',
+    'Lod',
     'Api',
     array(
-        'Api' => 'about',
+        \Digicademy\Lod\Controller\ApiController::class => 'about',
     ),
     array(
-        'Api' => 'about',
+        \Digicademy\Lod\Controller\ApiController::class => 'about',
     )
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-    'Digicademy.lod',
+    'Lod',
     'Serializer',
     array(
-        'Serializer' => 'iri',
+        \Digicademy\Lod\Controller\SerializerController::class => 'iri',
     ),
     array(
-        'Serializer' => '',
+        \Digicademy\Lod\Controller\SerializerController::class => '',
     )
 );
 
@@ -67,7 +67,7 @@ if (TYPO3_MODE === 'BE') {
         }
     }
 
-    // register tcemain hooks for bnode generation
+    // register tcemain hooks for table tracking, statement synchronization and identifier generation
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = 'Digicademy\Lod\Hooks\Backend\DataHandler';
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = 'Digicademy\Lod\Hooks\Backend\DataHandler';
 
@@ -91,15 +91,6 @@ if (TYPO3_MODE === 'BE') {
        'className' => Digicademy\Lod\Backend\Form\Element\EnhancedGroupElement::class
     ];
 }
-
-// register signal/slot for ItemMappingService
-$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
-$signalSlotDispatcher->connect(
-    TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper::class,
-    'afterMappingSingleRow',
-    Digicademy\Lod\Service\ItemMappingService::class,
-    'mapGenericProperty'
-);
 
 // exclude extension parameters from cHash generation
 $GLOBALS['TYPO3_CONF_VARS']['FE']['cacheHash']['excludedParameters'][] = 'tx_lod_api[iri]';

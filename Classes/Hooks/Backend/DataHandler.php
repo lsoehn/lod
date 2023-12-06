@@ -59,8 +59,8 @@ class DataHandler
             $fieldArray['sys_language_uid'] = -1;
         }
 
-        // do not create iri or statement records for any other language than default or all
-        if (($table == 'tx_lod_domain_model_iri' || $table == 'tx_lod_domain_model_statement') && $fieldArray['sys_language_uid'] > 0) {
+        // do not create iri, statement or representation records for any other language than default or all
+        if (($table == 'tx_lod_domain_model_iri' || $table == 'tx_lod_domain_model_statement' || $table == 'tx_lod_domain_model_representation') && $fieldArray['sys_language_uid'] > 0) {
             $fieldArray = [];
         }
 
@@ -275,8 +275,17 @@ class DataHandler
         // get full record - in case it is a new record swap id from substNEWwithIDs
         if ($status == 'new') $id = $pObj->substNEWwithIDs[$id];
         $record = BackendUtility::getRecord($table, (int)$id);
-        // get TSConfig for record
-        $TSConfig = BackendUtility::getPagesTSconfig($record['pid']);
+
+        // try to get TSConfig for current backend page (and NOT the page the IRI is possibly saved)
+        // this is very likely the pid of the current parent record of the IRI
+        // as fallback we take the pid the IRI is saved on (also for editing contexts without parent record)
+        if ($record['record']) {
+            $parentRecordPid = BackendUtility::getRecord($record['record_tablename'], (int)$record['record_uid'], 'pid');
+            ($parentRecordPid['pid']) ? $pid = $parentRecordPid['pid'] : $pid = $record['pid'];
+        } else {
+            $pid = $record['pid'];
+        }
+        $TSConfig = BackendUtility::getPagesTSconfig($pid);
 
         // on copy action empty the value field - copy action can be guessed because t3_origuid is set
         if ($fieldArray['t3_origuid'] > 0) $record['value'] = '';
