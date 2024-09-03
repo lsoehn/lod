@@ -36,7 +36,6 @@ class CombineStatementsViewHelper extends AbstractViewHelper
      * Initialize ViewHelper arguments
      *
      * @return void
-     * @throws
      */
     public function initializeArguments() {
         $this->registerArgument(

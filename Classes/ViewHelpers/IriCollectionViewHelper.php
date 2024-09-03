@@ -40,7 +40,6 @@ class IriCollectionViewHelper extends AbstractViewHelper
      * Initialize ViewHelper arguments
      *
      * @return void
-     * @throws
      */
     public function initializeArguments() {
         $this->registerArgument(
@@ -56,7 +55,6 @@ class IriCollectionViewHelper extends AbstractViewHelper
      * Useful for RDF serialisation (esp. JSON-LD).
      *
      * @return void
-     * @throws
      */
     public function render()
     {

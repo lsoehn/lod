@@ -35,7 +35,6 @@ class FilterIriNamespacesViewHelper extends AbstractViewHelper
      * Initialize ViewHelper arguments
      *
      * @return void
-     * @throws
      */
     public function initializeArguments() {
 

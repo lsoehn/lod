@@ -65,7 +65,6 @@ class SerializerController extends ActionController
      * could be found it is retrieved and set as request argument for the serializeAction.
      *
      * @return void
-     * @throws
      */
     public function initializeAction(): void
     {
@@ -139,7 +138,6 @@ class SerializerController extends ActionController
      * Serialize a given IRI. If no IRI is given, nothing is serialized/returned
      *
      * @return ResponseInterface
-     * @throws
      */
     public function iriAction(): ResponseInterface
     {

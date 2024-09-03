@@ -75,7 +75,6 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
-     * @throws
      */
     public function processDatamap_afterDatabaseOperations($status, $table, $id, $fieldArray, $pObj)
     {
@@ -269,7 +268,6 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
-     * @throws
      */
     private function generateIdentifier($status, $table, $id, $fieldArray, $pObj)
     {
@@ -352,7 +350,6 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
-     * @throws
      */
     private function generatePrefixValue($status, $table, $id, $fieldArray, $pObj)
     {

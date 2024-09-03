@@ -118,8 +118,6 @@ class ApiController extends ActionController
      *
      * ROOT/ENTRYPOINT/ABOUT => list of resources
      * ROOT/ENTRYPOINT/VALUE/ABOUT => single resource
-     *
-     * @throws
      */
     public function aboutAction()
     {
@@ -313,7 +311,6 @@ class ApiController extends ActionController
      * Returns list of resources in different content types / document representations
      *
      * @return void
-     * @throws
      */
     private function listAction()
     {
@@ -416,7 +413,6 @@ class ApiController extends ActionController
      * Returns a Hydra API Documentation
      *
      * @return void
-     * @throws
      */
     private function apiDocumentationAction()
     {

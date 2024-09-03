@@ -41,7 +41,6 @@ class ObjectIriRecursionViewHelper extends AbstractViewHelper
      * Initialize ViewHelper arguments
      *
      * @return void
-     * @throws
      */
     public function initializeArguments() {
         $this->registerArgument(
@@ -62,9 +61,6 @@ class ObjectIriRecursionViewHelper extends AbstractViewHelper
     /**
      * Recursively collects object IRIs in a flat list.
      * Especially needed for Turtle serialisation.
-     *
-     * @return
-     * @throws
      */
     public function render()
     {

@@ -43,7 +43,6 @@ class StatementRepository extends Repository
      * @param \Digicademy\Lod\Domain\Model\IriNamespace $graph
      *
      * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-     * @throws
      */
     public function findByPosition($position, $resource, $graph = null)
     {
