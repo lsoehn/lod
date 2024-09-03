@@ -75,11 +75,11 @@ class ObjectIriRecursionViewHelper extends AbstractViewHelper
      */
     private function recurse(Iri $iri, $maxDepth, $currentDepth = 1)
     {
-        if ($iri->getStatements() && $currentDepth <= $maxDepth) {
+        if ($iri->getStatements()->count() > 0 && $currentDepth <= $maxDepth) {
             foreach ($iri->getStatements() as $statement) {
                 if ($statement->getObject() instanceof Iri && $statement->getObjectRecursion() == 1) {
                     $this->iriCollection[] = $statement->getObject();
-                    if ($statement->getObject()->getStatements()) {
+                    if ($statement->getObject()->getStatements()->count() > 0) {
                         self::recurse($statement->getObject(), $maxDepth, $currentDepth + 1);
                     }
                 }
