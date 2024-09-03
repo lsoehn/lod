@@ -1,5 +1,4 @@
 <?php
-namespace Digicademy\Lod\View\Serializer;
 
 /***************************************************************
  *
@@ -25,6 +24,8 @@ namespace Digicademy\Lod\View\Serializer;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace Digicademy\Lod\View\Serializer;
 
 use TYPO3\CMS\Fluid\View\TemplateView;
 

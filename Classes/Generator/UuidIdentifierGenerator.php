@@ -1,5 +1,4 @@
 <?php
-namespace Digicademy\Lod\Generator;
 
 /***************************************************************
  *
@@ -25,6 +24,8 @@ namespace Digicademy\Lod\Generator;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace Digicademy\Lod\Generator;
 
 class UuidIdentifierGenerator extends AbstractIdentifierGenerator implements IdentifierGeneratorInterface
 {

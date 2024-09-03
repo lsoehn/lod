@@ -1,5 +1,4 @@
 <?php
-namespace Digicademy\Lod\Hooks\Backend;
 
 /***************************************************************
  *  Copyright notice
@@ -23,6 +22,8 @@ namespace Digicademy\Lod\Hooks\Backend;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace Digicademy\Lod\Hooks\Backend;
 
 use Digicademy\Lod\Service\IdentifierGeneratorService;
 use Digicademy\Lod\Service\TableTrackingService;

@@ -1,5 +1,4 @@
 <?php
-namespace Digicademy\Lod\Domain\Repository;
 
 /***************************************************************
  *
@@ -25,6 +24,8 @@ namespace Digicademy\Lod\Domain\Repository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace Digicademy\Lod\Domain\Repository;
 
 use Digicademy\Lod\Domain\Model\Iri;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;

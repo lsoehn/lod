@@ -1,5 +1,4 @@
 <?php
-namespace Digicademy\Lod\Utility\Backend;
 
 /***************************************************************
  *
@@ -25,6 +24,8 @@ namespace Digicademy\Lod\Utility\Backend;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace Digicademy\Lod\Utility\Backend;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

@@ -1,7 +1,5 @@
 <?php
 
-namespace Digicademy\Lod\Utility\Frontend;
-
 /***************************************************************
  *
  *  Copyright notice
@@ -26,6 +24,8 @@ namespace Digicademy\Lod\Utility\Frontend;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace Digicademy\Lod\Utility\Frontend;
 
 class SearchUtility
 {

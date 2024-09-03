@@ -1,5 +1,4 @@
 <?php
-namespace Digicademy\Lod\Resolver;
 
 /***************************************************************
  *
@@ -26,7 +25,8 @@ namespace Digicademy\Lod\Resolver;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+namespace Digicademy\Lod\Resolver;
+
 class HttpsResolver extends HttpResolver
 {
-
 }

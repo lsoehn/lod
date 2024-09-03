@@ -1,7 +1,5 @@
 <?php
 
-namespace Digicademy\Lod\Controller;
-
 /***************************************************************
  *
  *  Copyright notice
@@ -26,6 +24,8 @@ namespace Digicademy\Lod\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+namespace Digicademy\Lod\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use Digicademy\Lod\Domain\Model\Iri;
