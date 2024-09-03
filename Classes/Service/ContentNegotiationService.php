@@ -27,6 +27,7 @@
 
 namespace Digicademy\Lod\Service;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -68,16 +69,12 @@ class ContentNegotiationService
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(
+        protected readonly ServerRequestInterface $request
+    ) {
+        To do: make sure the request is passed on to this service!
 
-        if (GeneralUtility::_GP('type')) {
-            $pageType = GeneralUtility::_GP('type');
-        } else if ($GLOBALS['TSFE']->type > 0) {
-            $pageType = $GLOBALS['TSFE']->type;
-        } else {
-            $pageType = 0;
-        }
+        $pageType = $request->getQueryParams()['type'] ?? $GLOBALS['TSFE']->type;
 
         $this->setAcceptedMimeTypes();
         $this->setAvailableMimeTypes();
