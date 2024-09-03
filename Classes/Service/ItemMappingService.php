@@ -123,7 +123,7 @@ class ItemMappingService
                     ['*'], // fields
                     $tablename, // from
                     [ 'uid' => (int)$uid ] // where
-                )->fetch();
+                )->fetchAssociative();
 
             if ($row) {
                 $result = [
