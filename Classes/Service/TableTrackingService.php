@@ -27,11 +27,14 @@
 
 namespace Digicademy\Lod\Service;
 
-use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\{
+    Connection,
+    ConnectionPool
+};
+use TYPO3\CMS\Core\Database\Query\QueryHelper;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class TableTrackingService
@@ -286,10 +289,10 @@ class TableTrackingService
         $tce = GeneralUtility::makeInstance(DataHandler::class);
 
         if ($dataMap) {
-            $tce->start($dataMap, null);
+            $tce->start($dataMap, []);
             $tce->process_datamap();
         } elseif ($cmdMap) {
-            $tce->start(null, $cmdMap);
+            $tce->start([], $cmdMap);
             $tce->process_cmdmap();
         }
 
@@ -324,15 +327,15 @@ class TableTrackingService
             ->select('*')
             ->from('tx_lod_domain_model_iri')
             ->where(
-                $queryBuilder->expr()->andX(
+                $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('record', ':record'),
                     $queryBuilder->expr()->in('pid', ':pidList')
                 )
             )
-            ->setParameter('record', $this->table . '_' . $this->record['uid'], \PDO::PARAM_STR)
-            ->setParameter('pidList', $pidList, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY)
-            ->execute()
-            ->fetchAll();
+            ->setParameter('record', $this->table . '_' . $this->record['uid'], Connection::PARAM_STR)
+            ->setParameter('pidList', $pidList, Connection::PARAM_INT_ARRAY)
+            ->executeQuery()
+            ->fetchAllAssociative();
 
         return $result;
     }
@@ -348,11 +351,10 @@ class TableTrackingService
     protected function getIriPidList($pidList, $recursive)
     {
         $recursiveIriPids = '';
-        $storagePids = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $pidList);
+        $storagePids = GeneralUtility::intExplode(',', $pidList);
         $permsClause = $GLOBALS['BE_USER']->getPagePermsClause(1);
-        $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
         foreach ($storagePids as $startPid) {
-            $pids = $queryGenerator->getTreeList($startPid, $recursive, 0, $permsClause);
+            $pids = $this->getTreeList($startPid, $recursive, 0, $permsClause);
             if ((string)$pids !== '') {
                 $recursiveIriPids .= $pids . ',';
             }
@@ -361,4 +363,61 @@ class TableTrackingService
         return rtrim($recursiveIriPids, ',');
     }
 
+    /**
+     * Recursively fetch all descendants of a given page
+     *
+     * Copied from \TYPO3\CMS\Core\Database\QueryGenerator::getTreeList() from
+     * previous TYPO3 11 because removed in 12.
+     *
+     * @see https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Deprecation-92080-DeprecatedQueryGeneratorAndQueryView.html#deprecation-92080-querygenerator-and-queryview
+     *
+     *
+     * @param int $id uid of the page
+     * @param int $depth
+     * @param int $begin
+     * @param string $permClause
+     * @return string comma separated list of descendant pages
+     */
+    public function getTreeList($id, $depth, $begin = 0, $permClause = '')
+    {
+        $depth = (int)$depth;
+        $begin = (int)$begin;
+        $id = (int)$id;
+        if ($id < 0) {
+            $id = abs($id);
+        }
+        if ($begin == 0) {
+            $theList = (string)$id;
+        } else {
+            $theList = '';
+        }
+        if ($id && $depth > 0) {
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+            $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            $queryBuilder->select('uid')
+                ->from('pages')
+                ->where(
+                    $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($id, Connection::PARAM_INT)),
+                    $queryBuilder->expr()->eq('sys_language_uid', 0)
+                )
+                ->orderBy('uid');
+            if ($permClause !== '') {
+                $queryBuilder->andWhere(QueryHelper::stripLogicalOperatorPrefix($permClause));
+            }
+            $statement = $queryBuilder->executeQuery();
+            while ($row = $statement->fetchAssociative()) {
+                if ($begin <= 0) {
+                    $theList .= ',' . $row['uid'];
+                }
+                if ($depth > 1) {
+                    $theSubList = $this->getTreeList($row['uid'], $depth - 1, $begin - 1, $permClause);
+                    if (!empty($theList) && !empty($theSubList) && ($theSubList[0] !== ',')) {
+                        $theList .= ',';
+                    }
+                    $theList .= $theSubList;
+                }
+            }
+        }
+        return $theList;
+    }
 }
