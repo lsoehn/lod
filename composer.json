@@ -21,6 +21,10 @@
         "typo3/cms-core": ">=11.0.0 || <=12.4.99",
         "ext-json": "*"
     },
+	"require-dev": {
+    	"phpstan/phpstan": "^1.11",
+    	"typo3/coding-standards": "^0.8"
+  	},
     "suggest": {
         "easyrdf/easyrdf": "EasyRdf is a PHP library designed to make it easy to consume and produce RDF"
     },
@@ -35,6 +39,12 @@
     "extra": {
         "typo3/cms": {
             "extension-key": "lod"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true
         }
     }
 }

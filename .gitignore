@@ -35,4 +35,9 @@
 ehthumbs.db
 Thumbs.db
 
+# Testing/CI Tools #
+####################
+.php-cs-fixer.cache
+vendor
+
 Documentation-GENERATED-temp
