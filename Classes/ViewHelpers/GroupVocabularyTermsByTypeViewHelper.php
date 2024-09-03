@@ -100,9 +100,7 @@ class GroupVocabularyTermsByTypeViewHelper extends AbstractViewHelper
                     }
                 }
             }
-            if ($groupedTerms) {
-                $this->templateVariableContainer->add($as, $groupedTerms);
-            }
+            $this->templateVariableContainer->add($as, $groupedTerms);
         }
     }
 }
