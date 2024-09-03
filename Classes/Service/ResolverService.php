@@ -27,8 +27,8 @@
 
 namespace Digicademy\Lod\Service;
 
-use Psr\Container\ContainerInterface;
 use Digicademy\Lod\Domain\Model\Representation;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * The resolver service resolves IRIs to URLs (by representations).
@@ -48,7 +48,7 @@ class ResolverService
      *
      * @todo: implement hook for resolvers from extensions
      */
-    public function __construct(protected readonly ContainerInterface $container)
+    public function __construct()
     {
         $this->availableResolvers = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['lod']['resolver'];
     }
@@ -68,7 +68,7 @@ class ResolverService
         $scheme = $representation->getScheme();
 
         if ($this->availableResolvers[$scheme]) {
-            $resolver = $this->container->get(
+            $resolver = GeneralUtility::makeInstance(
                 $this->availableResolvers[$scheme],
                 $settings[$scheme]
             );
