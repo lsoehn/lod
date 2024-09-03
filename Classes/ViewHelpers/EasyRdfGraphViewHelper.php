@@ -26,14 +26,14 @@
 
 namespace Digicademy\Lod\ViewHelpers;
 
-use TYPO3\CMS\Extbase\Object\Container\Container;
+use Psr\Container\ContainerInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class EasyRdfGraphViewHelper extends AbstractViewHelper
 {
-    public function __construct(protected readonly Container $container)
+    public function __construct(protected readonly ContainerInterface $container)
     {}
 
     /**
@@ -132,14 +132,14 @@ class EasyRdfGraphViewHelper extends AbstractViewHelper
 
                 // optionally set namespaces
                 if (is_array($this->arguments['namespaces'])) {
-                    $namespaceRegistry = $this->container->getInstance($namespaceClass);
+                    $namespaceRegistry = $this->container->get($namespaceClass);
                     foreach ($this->arguments['namespaces'] as $prefix => $fqdn) {
                         $namespaceRegistry::set($prefix, $fqdn);
                     }
                 }
 
                 // parse data and apply property path
-                $graph = $this->container->getInstance($graphClassname);
+                $graph = $this->container->get($graphClassname);
                 $graph->parse($data, $this->arguments['format']);
 
                 // execute method by key

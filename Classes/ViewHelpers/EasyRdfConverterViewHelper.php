@@ -27,13 +27,13 @@
 namespace Digicademy\Lod\ViewHelpers;
 
 use Digicademy\Lod\Domain\Model\IriNamespace;
+use Psr\Container\ContainerInterface;
 use TYPO3\CMS\Extbase\Exception;
-use TYPO3\CMS\Extbase\Object\Container\Container;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class EasyRdfConverterViewHelper extends AbstractViewHelper
 {
-    public function __construct(protected readonly Container $container)
+    public function __construct(protected readonly ContainerInterface $container)
     {}
 
     /**
@@ -88,9 +88,9 @@ class EasyRdfConverterViewHelper extends AbstractViewHelper
 
             // take care of EasyRdf namespaces after version 0.9
             if (class_exists('EasyRdf_Graph')) {
-                $graph = $this->container->getInstance(\EasyRdf_Graph::class);
+                $graph = $this->container->get(\EasyRdf_Graph::class);
             } else {
-                $graph = $this->container->getInstance(\EasyRdf\Graph::class);
+                $graph = $this->container->get(\EasyRdf\Graph::class);
             }
 
             // parse rendered data into EasyRdf graph

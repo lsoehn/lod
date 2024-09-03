@@ -27,7 +27,7 @@
 
 namespace Digicademy\Lod\Service;
 
-use TYPO3\CMS\Extbase\Object\Container\Container;
+use Psr\Container\ContainerInterface;
 use Digicademy\Lod\Domain\Model\Representation;
 
 /**
@@ -48,7 +48,7 @@ class ResolverService
      *
      * @todo: implement hook for resolvers from extensions
      */
-    public function __construct(protected readonly Container $container)
+    public function __construct(protected readonly ContainerInterface $container)
     {
         $this->availableResolvers = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['lod']['resolver'];
     }
@@ -68,7 +68,7 @@ class ResolverService
         $scheme = $representation->getScheme();
 
         if ($this->availableResolvers[$scheme]) {
-            $resolver = $this->container->getInstance(
+            $resolver = $this->container->get(
                 $this->availableResolvers[$scheme],
                 $settings[$scheme]
             );
