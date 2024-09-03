@@ -36,7 +36,6 @@ class EscapeLiteralViewHelper extends AbstractViewHelper
      * Initialize ViewHelper arguments
      *
      * @return void
-     * @throws
      */
     public function initializeArguments() {
         $this->registerArgument(
@@ -57,7 +56,6 @@ class EscapeLiteralViewHelper extends AbstractViewHelper
      * Escapes RDF literals according to Turtle, JSON or N-Triples specification
      *
      * @return string
-     * @throws
      */
     public function render()
     {

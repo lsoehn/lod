@@ -72,7 +72,6 @@ class ObjectIriRecursionViewHelper extends AbstractViewHelper
      * @param \Digicademy\Lod\Domain\Model\Iri $iri
      * @param int $maxDepth
      * @param int $currentDepth
-     * @return
      */
     private function recurse(Iri $iri, $maxDepth, $currentDepth = 1)
     {

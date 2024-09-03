@@ -53,7 +53,7 @@ class JsonldSerializeViewHelper extends AbstractViewHelper
      * Recursive function for compiling keys and values (removing the '_tx_lod_UID' suffixes) and combining
      * type properties into an array of strings on each level.
      *
-     * @param array
+     * @param array $array
      * @return void
      */
     private function mergeKeysRecursive(&$array)
