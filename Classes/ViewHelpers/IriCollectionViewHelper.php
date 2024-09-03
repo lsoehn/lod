@@ -56,7 +56,7 @@ class IriCollectionViewHelper extends AbstractViewHelper
      *
      * @return void
      */
-    public function render()
+    public function render(): void
     {
         if (count($this->arguments['add']) > 0) {
             if ($this->templateVariableContainer->exists('iriCollection')) {
@@ -68,8 +68,5 @@ class IriCollectionViewHelper extends AbstractViewHelper
             }
             $this->templateVariableContainer->add('iriCollection', $iriCollection);
         }
-
-       return null;
     }
-
 }
