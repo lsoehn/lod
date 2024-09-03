@@ -44,6 +44,12 @@ class CombineStatementsViewHelper extends AbstractViewHelper
             'Iri for which to combine statements and inverse statements',
             true
         );
+
+        // What's going on here. Requirement for the second argument:
+        //
+        // string $type Type of the argument (AbstractViewHelper.php, 155)
+        //
+        // Wtf is a zero doing here?
         $this->registerArgument(
             'excludeRdfStarStatements',
             0,
