@@ -98,7 +98,7 @@ class DataHandler
         }
 
         // track tables during IRI generation but only for records in the default or ALL language
-        if ($sysLanguageUid <= 0) {
+        if (isset($sysLanguageUid) && $sysLanguageUid <= 0) {
             $this->trackTables($status, $table, $id, $pObj);
         }
     }
