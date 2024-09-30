@@ -41,7 +41,7 @@ class Iri extends AbstractEntity
     /**
      * type
      *
-     * @var integer
+     * @var int
      */
     protected $type;
 
@@ -126,7 +126,7 @@ class Iri extends AbstractEntity
     /**
      * Returns the type
      *
-     * @return integer type
+     * @return int type
      */
     public function getType(): ?int
     {
@@ -136,11 +136,11 @@ class Iri extends AbstractEntity
     /**
      * Sets the type
      *
-     * @param string $type
+     * @param int $type
      *
      * @return void
      */
-    public function setType(string $type): void
+    public function setType(int $type): void
     {
         $this->type = $type;
     }
