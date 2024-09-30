@@ -364,18 +364,16 @@ class Iri extends AbstractEntity
         $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
         $inverseStatements = $this->statementRepository->findByPosition('object', $this);
 
-        if ($inverseStatements) {
-            foreach ($inverseStatements as $inverseStatement) {
-                if ($inverseStatement->getSubject() !== null &&
-                    $inverseStatement->getPredicate() !== null &&
-                    $inverseStatement->getObjectInversion()
-                    ) {
-                        $subject = $inverseStatement->getSubject();
-                        $object = $inverseStatement->getObject();
-                        $inverseStatement->setSubject($object);
-                        $inverseStatement->setObject($subject);
-                        $objectStorage->attach($inverseStatement);
-                }
+        foreach ($inverseStatements as $inverseStatement) {
+            if ($inverseStatement->getSubject() !== null &&
+                $inverseStatement->getPredicate() !== null &&
+                $inverseStatement->getObjectInversion()
+                ) {
+                    $subject = $inverseStatement->getSubject();
+                    $object = $inverseStatement->getObject();
+                    $inverseStatement->setSubject($object);
+                    $inverseStatement->setObject($subject);
+                    $objectStorage->attach($inverseStatement);
             }
         }
 
