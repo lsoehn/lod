@@ -52,7 +52,7 @@ class CombineStatementsViewHelper extends AbstractViewHelper
         // Wtf is a zero doing here?
         $this->registerArgument(
             'excludeRdfStarStatements',
-            0,
+            'bool',
             'Exclude RDF* statements',
             false
         );
