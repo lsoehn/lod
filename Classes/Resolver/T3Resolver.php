@@ -50,7 +50,7 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
         $pageTsConfig = $tsfe->getPagesTSconfig();
         $linkDetails = $this->getLinkDetails($representation->getQuery());
 
-        if ($linkDetails['identifier'] && $linkDetails['uid']) {
+        if (!empty($linkDetails['identifier']) && !empty($linkDetails['uid'])) {
 
             $configurationKey = $linkDetails['identifier'] . '.';
             $configuration = $tsfe->tmpl->setup['config.']['recordLinks.'];
@@ -58,7 +58,7 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
             $typoScriptConfiguration = $configuration[$configurationKey]['typolink.'];
             $typoScriptConfiguration['forceAbsoluteUrl'] = '1';
 
-            if ($configurationKey && $configuration && $linkHandlerConfiguration && $typoScriptConfiguration) {
+            if ($configuration && $linkHandlerConfiguration && $typoScriptConfiguration) {
 
                 $record = $tsfe->sys_page->checkRecord($linkHandlerConfiguration['table'], $linkDetails['uid']);
 
