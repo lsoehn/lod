@@ -31,14 +31,12 @@ use Digicademy\Lod\Domain\Model\Representation;
 
 interface ResolverInterface
 {
-
     /**
-     * @param \Digicademy\Lod\Domain\Model\Representation
+     * @param $representation Representation
      *
      * @return string
      */
     public function resolveToUrl(
         Representation $representation
     );
-
 }
