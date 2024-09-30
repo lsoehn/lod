@@ -27,6 +27,10 @@
 namespace Digicademy\Lod\ViewHelpers;
 
 use Digicademy\Lod\Domain\Model\IriNamespace;
+use EasyRdf\{
+    Graph,
+    RdfNamespace
+};
 use Psr\Container\ContainerInterface;
 use TYPO3\CMS\Extbase\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -74,63 +78,61 @@ class EasyRdfConverterViewHelper extends AbstractViewHelper
      */
     public function render(): string
     {
-        if (class_exists('EasyRdf_Graph') || class_exists('\EasyRdf\Graph')) {
+        if (class_exists('\EasyRdf\Graph')) {
 
             // set data
-            if ($this->arguments['data']) {
-                $data = $this->arguments['data'];
-            } else {
-                $data = $this->renderChildren();
-            }
+            $data = isset($this->arguments['data'])
+                ? $this->arguments['data']
+                : $this->renderChildren();
 
             // set options
-            ($this->arguments['options']) ? $options = $this->arguments['options'] : $options = [];
+            $options = isset($this->arguments['options'])
+                ? $this->arguments['options']
+                : [];
 
-            // take care of EasyRdf namespaces after version 0.9
-            if (class_exists('EasyRdf_Graph')) {
-                $graph = $this->container->get(\EasyRdf_Graph::class);
-            } else {
-                $graph = $this->container->get(\EasyRdf\Graph::class);
-            }
+            $graph = $this->container->get(Graph::class);
 
             // parse rendered data into EasyRdf graph
             $graph->parse($data, $this->arguments['inputFormat'], '#');
 
             // set options for conversion and convert data
-            if ($options) {
+            if (count($options) > 0) {
                 if ($options['registerNamespace']) {
 
                     // purge all default namespaces
                     if ($options['purgeDefaultNamespaces']) {
-                        if (class_exists('EasyRdf_Namespace')) {
-                            foreach (EasyRdf_Namespace::namespaces() as $prefix => $namespace) {
-                                EasyRdf_Namespace::delete($prefix);
-                            }
-                        } else {
-                            foreach (\EasyRdf\RdfNamespace::namespaces() as $prefix => $namespace) {
-                                \EasyRdf\RdfNamespace::delete($prefix);
-                            }
+                        foreach (
+                            RdfNamespace::namespaces() as $prefix => $namespace
+                        ) {
+                            RdfNamespace::delete($prefix);
                         }
                     }
 
                     // register given namespaces
                     foreach ($options['registerNamespace'] as $namespace) {
                         if ($namespace instanceof IriNamespace) {
-                            if (class_exists('EasyRdf_Namespace')) {
-                                EasyRdf_Namespace::set($namespace->getPrefix(), $namespace->getIri());
-                            } else {
-                                \EasyRdf\RdfNamespace::set($namespace->getPrefix(), $namespace->getIri());
-                            }
+                            RdfNamespace::set(
+                                $namespace->getPrefix(),
+                                $namespace->getIri()
+                            );
                         }
                     }
                 }
-                $convertedData = $graph->serialise($this->arguments['outputFormat'], $this->arguments['options']);
+                $convertedData = $graph->serialise(
+                    $this->arguments['outputFormat'],
+                    $this->arguments['options']
+                );
             } else {
-                $convertedData = $graph->serialise($this->arguments['outputFormat']);
+                $convertedData = $graph->serialise(
+                    $this->arguments['outputFormat']
+                );
             }
 
         } else {
-            throw new Exception('The EasyRdf library is needed but seems not to be available', 1577942008);
+            throw new Exception(
+                'The EasyRdf library is needed but seems not to be available',
+                1577942008
+            );
         }
 
         return $convertedData;
