@@ -27,21 +27,25 @@
 
 namespace Digicademy\Lod\Controller;
 
-use Psr\Http\Message\ResponseInterface;
 use Digicademy\Lod\Domain\Model\Iri;
-use Digicademy\Lod\Domain\Repository\IriNamespaceRepository;
-use Digicademy\Lod\Domain\Repository\IriRepository;
-use Digicademy\Lod\Domain\Repository\GraphRepository;
-use Digicademy\Lod\Domain\Repository\StatementRepository;
-use Digicademy\Lod\Service\ContentNegotiationService;
-use Digicademy\Lod\Service\ResolverService;
+use Digicademy\Lod\Domain\Repository\{
+    GraphRepository,
+    IriNamespaceRepository,
+    IriRepository,
+    StatementRepository
+};
+use Digicademy\Lod\Service\{
+    ContentNegotiationService,
+    ResolverService
+};
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Frontend\Controller\ErrorController;
 use TYPO3\CMS\Frontend\Page\PageAccessFailureReasons;
-use TYPO3\CMS\Core\Http\ImmediateResponseException;
 
 class ApiController extends ActionController
 {
@@ -185,13 +189,12 @@ class ApiController extends ActionController
             $arguments = $this->request->getArguments();
             unset($arguments['iri']);
             $arguments['apiEntryPoint'] = 1;
-            $this->request->setArguments($arguments);
+            $this->request = $this->request->withArguments($arguments);
         }
 
         // if page type is set define Fluid template format directly
         if ($pageType > 0) {
-
-            $this->request->setFormat($format);
+            $this->request = $this->request->withFormat($format);
 
         // if not redirect to URL including a negotiated page type
         } else {
@@ -244,7 +247,7 @@ class ApiController extends ActionController
 
             // if dedicated representations for the resource are available go through each of them and
             // check if accepted media type fits representation content type; if so call according resolver
-            if ($this->resource && count($this->resource->getRepresentations()) > 0) {
+            if ($this->resource instanceof Iri && count($this->resource->getRepresentations()) > 0) {
                 foreach ($this->contentNegotiationService->getAcceptedMimeTypes() as $mimeType) {
                     foreach ($this->resource->getRepresentations() as $key => $representation) {
                         $representationContentType = $this->contentNegotiationService->processContentType($representation->getContentType());
@@ -282,7 +285,7 @@ class ApiController extends ActionController
         // show action
         if ($this->request->hasArgument('iri')) {
             // if the resource exist, forward to show action, else send 404
-            if ($this->resource) {
+            if ($this->resource != null && $this->resource instanceof Iri) {
                 $this->showAction($this->resource);
             } else {
                 // throw PSR-7 compliant error response
@@ -335,7 +338,7 @@ class ApiController extends ActionController
             ($arguments['page'] <= $totalPages) ? $page = (int)$arguments['page'] : $page = $totalPages;
         } else {
             $page = 1;
-            $this->request->setArgument('page', 0);
+            $this->request = $this->request->withArgument('page', 0);
         }
 
         $offset = ($page - 1) * $limit;
@@ -389,8 +392,6 @@ class ApiController extends ActionController
      * @param \Digicademy\Lod\Domain\Model\Iri $resource
      *
      * @return void
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
      * @throws \TYPO3\CMS\Extbase\Exception
      */
     private function showAction(
