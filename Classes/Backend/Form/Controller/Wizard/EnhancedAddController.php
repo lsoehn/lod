@@ -2,26 +2,33 @@
 
 namespace Digicademy\Lod\Backend\Form\Controller\Wizard;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\{
+    ResponseInterface,
+    ServerRequestInterface
+};
 use TYPO3\CMS\Backend\Form\FormDataCompiler;
 use TYPO3\CMS\Backend\Form\FormDataGroup\TcaDatabaseRecord;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Http\HtmlResponse;
-use TYPO3\CMS\Core\Http\RedirectResponse;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\CMS\Backend\Controller\Wizard\AbstractWizardController;
+use TYPO3\CMS\Core\Http\{
+    HtmlResponse,
+    RedirectResponse
+};
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Utility\{
+    ArrayUtility,
+    GeneralUtility,
+    MathUtility
+};
 
 /*
  * Copy of the core group add record wizard controller with the purpose of making it
  * possible to create new records in popup windows and close them directly with Javascript
  * search for '@metacontext' to find changes
  */
-class EnhancedAddController extends AbstractWizardController
+class EnhancedAddController
 {
     /**
      * If set, the DataHandler class is loaded and used to add the returning ID to the parent record.
@@ -88,7 +95,7 @@ class EnhancedAddController extends AbstractWizardController
      */
     public function mainAction(ServerRequestInterface $request): ResponseInterface
     {
-        $this->getLanguageService()->includeLLFile('EXT:core/Resources/Private/Language/locallang_wizards.xlf');
+        static::getLanguageService()->includeLLFile('EXT:core/Resources/Private/Language/locallang_wizards.xlf');
         $this->init($request);
 
         // @metacontext: add JavaScript close to add record wizard; cf. edit record popup
@@ -97,7 +104,7 @@ class EnhancedAddController extends AbstractWizardController
         }
 
         // Return if new record as parent (not possibly/allowed)
-        if ($this->pid === '') {
+        if (empty($this->pid)) {
             return new RedirectResponse(GeneralUtility::sanitizeLocalUrl($this->P['returnUrl']));
         }
 
@@ -131,9 +138,9 @@ class EnhancedAddController extends AbstractWizardController
                         $currentFlexFormData = $currentParentRow[$this->P['field']];
                         /** @var FlexFormTools $flexFormTools */
                         $flexFormTools = GeneralUtility::makeInstance(FlexFormTools::class);
-                        $currentFlexFormValueByPath = $flexFormTools->getArrayValueByPath(
-                            $this->P['flexFormPath'],
-                            $currentFlexFormData
+                        $currentFlexFormValueByPath = ArrayUtility::getValueByPath(
+                            $currentFlexFormData,
+                            $this->P['flexFormPath']
                         );
 
                         // Compile currentFlexFormData to functional string
@@ -163,9 +170,9 @@ class EnhancedAddController extends AbstractWizardController
                         }
                         $insertValue = implode(',', GeneralUtility::trimExplode(',', $insertValue, true));
                         $data[$this->P['table']][$this->P['uid']][$this->P['field']] = [];
-                        $flexFormTools->setArrayValueByPath(
-                            $this->P['flexFormPath'],
+                        ArrayUtility::setValueByPath(
                             $data[$this->P['table']][$this->P['uid']][$this->P['field']],
+                            $this->P['flexFormPath'],
                             $insertValue
                         );
                     } else {
@@ -263,7 +270,7 @@ class EnhancedAddController extends AbstractWizardController
             $this->pid = (int)$this->P['params']['pid'];
         }
         // Return if new record as parent (not possibly/allowed)
-        if ($this->pid === '') {
+        if (empty($this->pid)) {
             // HTTP Redirect is performed by processRequest()
             return;
         }
@@ -292,5 +299,13 @@ class EnhancedAddController extends AbstractWizardController
                 }
             }
         }
+    }
+
+    /**
+     * @return LanguageService
+     */
+    protected static function getLanguageService(): LanguageService
+    {
+        return $GLOBALS['LANG'];
     }
 }
