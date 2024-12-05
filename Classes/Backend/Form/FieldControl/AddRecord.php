@@ -80,7 +80,7 @@ class AddRecord extends AbstractNode
 
         $prefixOfFormElName = 'data[' . $this->data['tableName'] . '][' . $this->data['databaseRow']['uid'] . '][' . $this->data['fieldName'] . ']';
         $flexFormPath = '';
-        if (GeneralUtility::isFirstPartOfStr($itemName, $prefixOfFormElName)) {
+        if (str_starts_with($itemName, $prefixOfFormElName)) {
             $flexFormPath = str_replace('][', '/', substr($itemName, strlen($prefixOfFormElName) + 1, -1));
         }
 
