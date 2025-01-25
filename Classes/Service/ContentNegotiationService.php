@@ -72,7 +72,7 @@ class ContentNegotiationService
     public function __construct(
         protected readonly ServerRequestInterface $request
     ) {
-        To do: make sure the request is passed on to this service!
+        //To do: make sure the request is passed on to this service!
 
         $pageType = $request->getQueryParams()['type'] ?? $GLOBALS['TSFE']->type;
 
