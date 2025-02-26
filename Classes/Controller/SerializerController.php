@@ -111,7 +111,7 @@ class SerializerController extends ActionController
         if (isset($iri)) {
 
             // set as argument
-            $this->request->setArgument('iri', $iri);
+            $this->request->withArgument('iri', $iri);
 
             // determine serialization format
            if (is_object($iri->getRecord())) {
