@@ -122,7 +122,7 @@ class SerializerController extends ActionController
         // set serialization format (will always be set even if no iri could be found
         if ($this->settings['general']['format']) {
             $format = $this->settings['general']['format'];
-        } elseif ($this->settings['format'][$tablename]) {
+        } elseif (isset($tablename) && $this->settings['format'][$tablename]) {
             $format = $this->settings['format'][$tablename];
         } elseif ($this->settings['format']['default']) {
             $format = $this->settings['format']['default'];
