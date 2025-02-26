@@ -104,7 +104,7 @@ class SerializerController extends ActionController
             }
 
             // IRI record lookup
-            if (isset($tablenameRecord)) $iri = $this->iriRepository->findByRecord($tablenameRecord)->getFirst();
+            if (isset($tablenameRecord)) $iri = $this->iriRepository->findBy(['record' => $tablenameRecord])->getFirst();
         }
 
         // if IRI could be found
