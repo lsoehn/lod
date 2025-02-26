@@ -130,7 +130,7 @@ class SerializerController extends ActionController
             $format = 'jsonld';
         }
 
-        $this->request->setFormat($format);
+        $this->request->withFormat($format);
 
     }
 
