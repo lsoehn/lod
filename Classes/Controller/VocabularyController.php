@@ -81,7 +81,7 @@ class VocabularyController extends ActionController
         if ((int)$selectedVocabularyUid = $this->settings['general']['selectedVocabulary']) {
 
             // assign the selected vocabulary
-            $selectedVocabulary = $this->vocabularyRepository->findByUid($selectedVocabularyUid);
+            $selectedVocabulary = $this->vocabularyRepository->findBy(['uid' => $selectedVocabularyUid]);
             $this->view->assign('vocabulary', $selectedVocabulary);
 
             // potentially assign vocabulary IRI graph
