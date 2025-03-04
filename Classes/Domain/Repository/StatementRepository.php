@@ -27,69 +27,74 @@
 
 namespace Digicademy\Lod\Domain\Repository;
 
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use TYPO3\CMS\Extbase\Persistence\Repository;
+use Digicademy\Lod\Domain\Model\IriNamespace;
+use TYPO3\CMS\Extbase\Exception;
+use TYPO3\CMS\Extbase\Persistence\{
+    QueryInterface,
+    QueryResultInterface,
+    Repository
+};
 
 class StatementRepository extends Repository
 {
+    protected const ENTITY_CLASS_TABLES = [
+        'Digicademy\Lod\Domain\Model\Bnode' => 'tx_lod_domain_model_bnode_',
+        'Digicademy\Lod\Domain\Model\Iri' => 'tx_lod_domain_model_iri_'
+    ];
 
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'subject' => QueryInterface::ORDER_ASCENDING
-    );
+    ];
 
     /**
      * @param string $position
      * @param object $resource
-     * @param \Digicademy\Lod\Domain\Model\IriNamespace $graph
+     * @param IriNamespace $graph
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return QueryResultInterface
      */
-    public function findByPosition($position, $resource, $graph = null)
-    {
-        // initialize query object
+    public function findByPosition(
+        string $position,
+        object $resource,
+        IriNamespace $graph = null
+    ) {
         $query = $this->createQuery();
-
-        // initialize constraints
         $constraints = [];
 
-        // find statements with specific IRIs or Bnodes in subject, predicate or object position
-        if ($position == 'subject' || $position == 'predicate' || $position == 'object') {
-            switch (get_class($resource)) {
-                case 'Digicademy\Lod\Domain\Model\Iri':
-                    // set position
-                    $constraints[] = $query->equals($position, 'tx_lod_domain_model_iri_' . $resource->getUid());
-                    // possibly set graph name
-                    if ($graph) $constraints[] = $query->equals('name', $graph);
-                    break;
-                case 'Digicademy\Lod\Domain\Model\Bnode':
-                    // set position
-                    $constraints[] = $query->equals($position, 'tx_lod_domain_model_bnode_' . $resource->getUid());
-                    break;
-                default:
-                    throw new \TYPO3\CMS\Extbase\Exception('Unknown entity class', 1572638672);
-                    break;
-            }
-        } else {
-            throw new \TYPO3\CMS\Extbase\Exception('Position string can only be subject, predicate or object', 1572638693);
+        // Check for valid position value.
+        if (!in_array($position, ['subject', 'predicate', 'object'])) {
+            throw new Exception('Position string can only be subject, predicate or object', 1572638693);
         }
 
-        // match
-        $query->matching(
-            $query->logicalAnd($constraints)
+        // Check for valid ressource class.
+        $resourceClass = get_class($resource);
+        if (
+            !in_array(
+                $resourceClass, array_keys(self::ENTITY_CLASS_TABLES)
+            )
+        ) {
+            throw new Exception('Unknown entity class', 1572638672);
+        }
+
+        // Find statements with specific IRIs or Bnodes in subject, predicate or
+        // object position.
+        $resourceUid = $resource->getUid();
+        $constraints[] = $query>equals(
+            $position,
+            self::ENTITY_CLASS_TABLES[$resourceClass] . $resource->getUid()
         );
 
-        // execute the query
+        // Possibly set graph name.
+        if ($resourceClass == 'Digicademy\Lod\Domain\Model\Iri' && isset($graph)) {
+            $constraints[] = $query->equals('name', $graph);
+        }
+
+        $query->matching(
+            $query->logicalAnd(...$constraints)
+        );
+
         $result = $query->execute();
 
-        // return result
         return $result;
     }
-
-//    /**
-//     * @param \Digicademy\Lod\Domain\Model\IriNamespace $graph
-//     */
-//     public function findByName($graph)
-//     {
-//     }
-
 }
