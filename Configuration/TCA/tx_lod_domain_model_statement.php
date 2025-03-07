@@ -8,7 +8,6 @@ return [
         'default_sortby' => 'graph,subject',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'delete' => 'deleted',
         'languageField' => 'sys_language_uid',
@@ -18,9 +17,6 @@ return [
         ],
         'searchFields' => 'subject,predicate,object,name',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_statement.svg',
-    ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, subject, subject_type, subject_uid, predicate, predicate_type, predicate_uid, object, object_type, object_uid, object_recursion, object_inversion, graph',
     ],
     'types' => [
         '1' => ['showitem' => '--palette--;;SubjectPredicateObject, reference_statements, graph, --palette--;;flags, sys_language_uid'],
@@ -38,36 +34,22 @@ return [
     ],
     'columns' => [
         'hidden' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'sys_language_uid' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    [
-                        'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
-                        -1,
-                        'flags-multiple'
-                    ],
-                ],
-                'default' => -1,
-                'readOnly' => 1,
-            ]
+            'config' => ['type' => 'language']
         ],
         'graph' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_statement.graph',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_lod_domain_model_graph',
                 'prepend_tname' => false,
                 // prevent http://wiki.typo3.org/Exception/CMS/1353170925
@@ -111,11 +93,10 @@ return [
             ],
         ],
         'subject' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_statement.subject',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_lod_domain_model_iri,tx_lod_domain_model_bnode,tx_lod_domain_model_statement',
                 'filter' => [
                     [
@@ -193,11 +174,10 @@ return [
             ],
         ],
         'predicate' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_statement.predicate',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_lod_domain_model_iri',
                 // prevent http://wiki.typo3.org/Exception/CMS/1353170925
                 'foreign_table' => 'tx_lod_domain_model_iri',
@@ -259,11 +239,10 @@ return [
             ],
         ],
         'object' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_statement.object',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_lod_domain_model_iri,tx_lod_domain_model_literal,tx_lod_domain_model_bnode,tx_lod_domain_model_statement',
                 'filter' => [
                     [
@@ -354,7 +333,7 @@ return [
             ],
         ],
         'reference_statements' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_statement.reference_statements',
             'l10n_mode' => 'exclude',
             'config' => [
@@ -365,14 +344,14 @@ return [
                 'foreign_sortby' => 'iri_sorting',
                 'maxitems' => 9999,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
+                    'collapseAll' => true,
+                    'expandSingle' => true,
                     'levelLinksPosition' => 'bottom',
-                    'newRecordLinkAddTitle' => 1,
-                    'useSortable' => 1,
+                    'newRecordLinkAddTitle' => true,
+                    'useSortable' => true,
                 ],
                 'behaviour' => [
-                    'disableMovingChildrenWithParent' => 1,
+                    'disableMovingChildrenWithParent' => true,
                 ],
                 'overrideChildTca' => [
                     'types' => [
@@ -384,14 +363,14 @@ return [
             ],
         ],
         'object_recursion' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_statement.object_recursion',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'object_inversion' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_statement.object_inversion',
             'config' => [
                 'type' => 'check',

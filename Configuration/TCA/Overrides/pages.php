@@ -3,7 +3,7 @@ defined('TYPO3') or die();
 
 $tca = [
     'iri' => [
-        'exclude' => 1,
+        'exclude' => true,
         'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri',
 #        'l10n_mode' => 'exclude',
         'displayCond' => 'FIELD:sys_language_uid:<=:0',
@@ -14,13 +14,13 @@ $tca = [
             'foreign_table_field' => 'record_tablename',
             'maxitems' => 1,
             'appearance' => [
-                'collapseAll' => 1,
-                'expandSingle' => 1,
+                'collapseAll' => true,
+                'expandSingle' => true,
                 'levelLinksPosition' => 'bottom',
-                'newRecordLinkAddTitle' => 1,
+                'newRecordLinkAddTitle' => true,
             ],
             'behaviour' => [
-                'disableMovingChildrenWithParent' => 1,
+                'disableMovingChildrenWithParent' => true,
             ],
         ],
     ],

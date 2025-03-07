@@ -7,7 +7,6 @@ return [
         'sortby' => 'sorting',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'delete' => 'deleted',
         'origUid' => 't3_origuid',
@@ -16,9 +15,6 @@ return [
         ],
         'searchFields' => 'label,comment,value',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_bnode.svg'
-    ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, value, label, comment, statements',
     ],
     'types' => [
         '1' => ['showitem' => '
@@ -33,14 +29,14 @@ return [
     ],
     'columns' => [
         'hidden' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'label' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_bnode.label',
             'config' => [
                 'type' => 'input',
@@ -49,7 +45,7 @@ return [
             ],
         ],
         'comment' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_bnode.comment',
             'config' => [
                 'type' => 'text',
@@ -58,17 +54,18 @@ return [
             ],
         ],
         'value' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_bnode.value',
             'config' => [
                 'type' => 'input',
-                'readOnly' => 1,
+                'readOnly' => true,
                 'size' => 30,
-                'eval' => 'required,trim,unique'
+                'eval' => 'trim,unique',
+                'required' => true
             ],
         ],
         'statements' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_bnode.statements',
             'config' => [
                 'type' => 'inline',
@@ -78,14 +75,14 @@ return [
                 'foreign_sortby' => 'bnode_sorting',
                 'maxitems' => 9999,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
+                    'collapseAll' => true,
+                    'expandSingle' => true,
                     'levelLinksPosition' => 'bottom',
-                    'newRecordLinkAddTitle' => 1,
-                    'useSortable' => 1,
+                    'newRecordLinkAddTitle' => true,
+                    'useSortable' => true,
                 ],
                 'behaviour' => [
-                    'disableMovingChildrenWithParent' => 1,
+                    'disableMovingChildrenWithParent' => true,
                 ],
                 'overrideChildTca' => [
                     'types' => [

@@ -8,7 +8,6 @@ return [
         'default_sortby' => 'label',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'delete' => 'deleted',
         'enablecolumns' => [
@@ -17,26 +16,22 @@ return [
         'searchFields' => 'label,comment',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_graph.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, iri, label, comment, statements',
-    ],
     'types' => [
         '1' => ['showitem' => 'hidden, iri, label, comment, statements'],
     ],
     'columns' => [
         'hidden' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'iri' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_graph.iri',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_lod_domain_model_iri',
                 'filter' => [
                     [
@@ -50,7 +45,7 @@ return [
                 'prepend_tname' => false,
                 // prevent http://wiki.typo3.org/Exception/CMS/1353170925
                 // 'foreign_table' => 'tx_lod_domain_model_iri',
-                'size' => 1,
+                'size' => true,
                 'minitems' => 0,
                 'maxitems' => 1,
                 'default' => 0,
@@ -85,7 +80,7 @@ return [
             ],
         ],
         'label' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_graph.label',
             'config' => [
                 'type' => 'input',
@@ -94,7 +89,7 @@ return [
             ],
         ],
         'comment' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_graph.comment',
             'config' => [
                 'type' => 'text',
@@ -103,7 +98,7 @@ return [
             ],
         ],
         'statements' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_graph.statements',
             'config' => [
                 'type' => 'inline',
@@ -112,14 +107,14 @@ return [
                 'foreign_sortby' => 'graph_sorting',
                 'maxitems' => 9999,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
+                    'collapseAll' => true,
+                    'expandSingle' => true,
                     'levelLinksPosition' => 'bottom',
-                    'newRecordLinkAddTitle' => 1,
-                    'useSortable' => 1,
+                    'newRecordLinkAddTitle' => true,
+                    'useSortable' => truetrue,
                 ],
                 'behaviour' => [
-                    'disableMovingChildrenWithParent' => 1,
+                    'disableMovingChildrenWithParent' => true,
                 ],
             ],
         ],

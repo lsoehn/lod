@@ -6,7 +6,6 @@ return [
         'default_sortby' => 'label',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'delete' => 'deleted',
         'enablecolumns' => [
@@ -15,26 +14,22 @@ return [
         'searchFields' => 'label,comment',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_vocabulary.svg'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, iri, label, comment, terms',
-    ],
     'types' => [
         '1' => ['showitem' => 'hidden, iri, label, comment, terms'],
     ],
     'columns' => [
         'hidden' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'iri' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_vocabulary.iri',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_lod_domain_model_iri',
                 'prepend_tname' => false,
                 // prevent http://wiki.typo3.org/Exception/CMS/1353170925
@@ -72,7 +67,7 @@ return [
             ],
         ],
         'label' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_vocabulary.label',
             'config' => [
                 'type' => 'input',
@@ -81,7 +76,7 @@ return [
             ],
         ],
         'comment' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_vocabulary.comment',
             'config' => [
                 'type' => 'text',
@@ -90,11 +85,10 @@ return [
             ],
         ],
         'terms' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_vocabulary.terms',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_lod_domain_model_iri',
                 'prepend_tname' => false,
                 // prevent http://wiki.typo3.org/Exception/CMS/1353170925

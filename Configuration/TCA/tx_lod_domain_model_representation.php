@@ -6,7 +6,6 @@ return [
         'default_sortby' => 'ORDER BY parent',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'delete' => 'deleted',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -15,19 +14,6 @@ return [
         ],
         'searchFields' => 'content_type, content_language, parameters',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_representation.svg'
-    ],
-    'interface' => [
-        'showRecordFieldList' => '
-            hidden,
-            parent,
-            scheme,
-            authority,
-            path,
-            query,
-            fragment,
-            content_type,
-            content_language
-        ',
     ],
     'types' => [
         '1' => [
@@ -49,25 +35,12 @@ return [
     ],
     'columns' => [
         'sys_language_uid' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    [
-                        'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
-                        -1,
-                        'flags-multiple'
-                    ],
-                ],
-                'default' => -1,
-                'readOnly' => 1,
-            ]
+            'config' => ['type' => 'language']
         ],
         'hidden' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
@@ -79,7 +52,6 @@ return [
                 'type' => 'passthrough'
 */
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_lod_domain_model_iri',
                 // prevent http://wiki.typo3.org/Exception/CMS/1353170925
                 'foreign_table' => 'tx_lod_domain_model_iri',
@@ -91,25 +63,27 @@ return [
             ],
         ],
         'scheme' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_representation.scheme',
             'config' => [
                 'type' => 'input',
                 'size' => 10,
-                'eval' => 'required,trim'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'authority' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_representation.authority',
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'required,trim'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'path' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_representation.path',
             'config' => [
                 'type' => 'text',
@@ -119,7 +93,7 @@ return [
             ],
         ],
         'query' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_representation.query',
             'config' => [
                 'type' => 'text',
@@ -129,7 +103,7 @@ return [
             ],
         ],
         'fragment' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_representation.fragment',
             'config' => [
                 'type' => 'text',
@@ -139,7 +113,7 @@ return [
             ],
         ],
         'content_type' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_representation.content_type',
             'config' => [
                 'type' => 'input',
@@ -148,7 +122,7 @@ return [
             ],
         ],
         'content_language' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_representation.content_language',
             'config' => [
                 'type' => 'select',
@@ -157,7 +131,7 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'items' => [
-                    ['', '']
+                    ['label' => '', 'value' => '']
                 ],
                 'itemsProcFunc' => \TYPO3\CMS\Core\Service\IsoCodeService::class . '->renderIsoCodeSelectDropdown',
             ],

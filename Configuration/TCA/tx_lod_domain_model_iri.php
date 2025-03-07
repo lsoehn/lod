@@ -8,7 +8,6 @@ return [
         'default_sortby' => 'type ASC, label ASC, value ASC',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'dividers2tabs' => true,
         'delete' => 'deleted',
         'origUid' => 't3_origuid',
@@ -27,20 +26,6 @@ return [
         ],
         'searchFields' => 'label,comment,value',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_iri.svg'
-    ],
-    'interface' => [
-        'showRecordFieldList' => '
-            hidden, 
-            type, 
-            label, 
-            comment, 
-            namespace,
-            value, 
-            record,
-            record_uid,
-            record_tablename,
-            representations,
-            statements',
     ],
     // at the moment, types are the same (but leave option open for future)
     'types' => [
@@ -86,32 +71,19 @@ return [
     ],
     'columns' => [
         'sys_language_uid' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    [
-                        'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
-                        -1,
-                        'flags-multiple'
-                    ],
-                ],
-                'default' => -1,
-                'readOnly' => 1,
-            ]
+            'config' => ['type' => 'language']
         ],
         'hidden' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'label' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.label',
             'config' => [
                 'type' => 'input',
@@ -120,7 +92,7 @@ return [
             ],
         ],
         'label_language' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.label_language',
             'config' => [
                 'type' => 'select',
@@ -129,13 +101,13 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'items' => [
-                    ['', '']
+                    ['label' => '', 'value' => '']
                 ],
                 'itemsProcFunc' => \TYPO3\CMS\Core\Service\IsoCodeService::class . '->renderIsoCodeSelectDropdown',
             ],
         ],
         'comment' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.comment',
             'config' => [
                 'type' => 'text',
@@ -144,7 +116,7 @@ return [
             ],
         ],
         'comment_language' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.comment_language',
             'config' => [
                 'type' => 'select',
@@ -153,20 +125,20 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'items' => [
-                    ['', '']
+                    ['label' => '', 'value' => '']
                 ],
                 'itemsProcFunc' => \TYPO3\CMS\Core\Service\IsoCodeService::class . '->renderIsoCodeSelectDropdown',
             ],
         ],
         'type' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.type.I.1', 1, 'tx_lod_type_entity'],
-                    ['LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.type.I.2', 2, 'tx_lod_type_property'],
+                    ['label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.type.I.1', 'value' => 1, 'icon' => 'tx_lod_type_entity'],
+                    ['label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.type.I.2', 'value' => 2, 'icon' => 'tx_lod_type_property'],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
@@ -174,7 +146,7 @@ return [
             'onChange' => '0',
         ],
         'namespace' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.namespace',
             'config' => [
                 'type' => 'select',
@@ -182,7 +154,7 @@ return [
                 'foreign_table' => 'tx_lod_domain_model_namespace',
                 'foreign_table_where' => 'AND tx_lod_domain_model_namespace.pid IN (###PAGE_TSCONFIG_IDLIST###) ORDER BY tx_lod_domain_model_namespace.prefix',
                 'items' => [
-                    ['', 0],
+                    ['label' => '', 'value' => 0],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
@@ -207,12 +179,13 @@ return [
             ],
         ],
         'value' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.value',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'required,trim',
+                'eval' => 'trim',
+                'required' => true,
 //                'eval' => 'required,trim,unique' // for system wide mandatory and unique IRIs
 //                'readOnly' => 1, // recommended if an identifier generator is used
             ],
@@ -223,12 +196,11 @@ return [
             ],
         ],
         'record' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.record',
             'config' => [
                 'type' => 'group',
                 'allowed' => '*',
-                'internal_type' => 'db',
                 'prepend_tname' => true,
                 'size' => 1,
                 'minitems' => 0,
@@ -261,7 +233,7 @@ return [
             ],
         ],
         'representations' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.representations',
             'l10n_mode' => 'exclude',
             'config' => [
@@ -271,16 +243,16 @@ return [
                 'minitems' => 0,
                 'maxitems' => 999,
                 'appearance' => [
-                    'collapseAll' => 1,
+                    'collapseAll' => true,
                     'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 1,
-                    'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
+                    'showSynchronizationLink' => true,
+                    'showPossibleLocalizationRecords' => true,
+                    'showAllLocalizationLink' => true
                 ],
             ],
         ],
         'statements' => [
-            'exclude' => 1,
+            'exclude' => true,
             'label' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri.statements',
             'l10n_mode' => 'exclude',
             'config' => [
@@ -291,14 +263,14 @@ return [
                 'foreign_sortby' => 'iri_sorting',
                 'maxitems' => 9999,
                 'appearance' => [
-                    'collapseAll' => 1,
-                    'expandSingle' => 1,
+                    'collapseAll' => true,
+                    'expandSingle' => true,
                     'levelLinksPosition' => 'bottom',
-                    'newRecordLinkAddTitle' => 1,
-                    'useSortable' => 1,
+                    'newRecordLinkAddTitle' => true,
+                    'useSortable' => true,
                 ],
                 'behaviour' => [
-                    'disableMovingChildrenWithParent' => 1,
+                    'disableMovingChildrenWithParent' => true,
                 ],
                 'overrideChildTca' => [
                     'types' => [
