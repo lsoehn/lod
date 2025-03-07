@@ -37,6 +37,7 @@ use TYPO3\CMS\Extbase\Persistence\{
 
 class StatementRepository extends Repository
 {
+    // Map entity classes to table names.
     protected const ENTITY_CLASS_TABLES = [
         'Digicademy\Lod\Domain\Model\Bnode' => 'tx_lod_domain_model_bnode_',
         'Digicademy\Lod\Domain\Model\Iri' => 'tx_lod_domain_model_iri_'
@@ -57,7 +58,7 @@ class StatementRepository extends Repository
         string $position,
         object $resource,
         IriNamespace $graph = null
-    ) {
+    ):QueryResultInterface {
         $query = $this->createQuery();
         $constraints = [];
 
@@ -79,7 +80,7 @@ class StatementRepository extends Repository
         // Find statements with specific IRIs or Bnodes in subject, predicate or
         // object position.
         $resourceUid = $resource->getUid();
-        $constraints[] = $query>equals(
+        $constraints[] = $query->equals(
             $position,
             self::ENTITY_CLASS_TABLES[$resourceClass] . $resource->getUid()
         );
