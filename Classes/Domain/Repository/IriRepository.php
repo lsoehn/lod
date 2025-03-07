@@ -123,7 +123,7 @@ class IriRepository extends Repository
 
             // match
             $query->matching(
-                $query->logicalAnd($constraints)
+                $query->logicalAnd(...$constraints)
             );
 
             // execute
