@@ -32,7 +32,10 @@ use Digicademy\Lod\Domain\Repository\{
     IriRepository
 };
 use Psr\Http\Message\ResponseInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\{
+    ArrayUtility,
+    GeneralUtility
+};
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class SerializerController extends ActionController
@@ -40,8 +43,8 @@ class SerializerController extends ActionController
     /**
      * Initializes the controller and dependencies
      *
-     * @param \Digicademy\Lod\Domain\Repository\IriNamespaceRepository      $iriNamespaceRepository
-     * @param \Digicademy\Lod\Domain\Repository\IriRepository               $iriRepository
+     * @param IriNamespaceRepository      $iriNamespaceRepository
+     * @param IriRepository               $iriRepository
      */
     public function __construct(
         protected IriNamespaceRepository $iriNamespaceRepository,
@@ -71,13 +74,14 @@ class SerializerController extends ActionController
             foreach ($this->settings['recordToArgumentMapping'] as $tablename => $recordConfiguration) {
                 if ($tablename == 'pages') continue;
                 if ($recordConfiguration['pluginNamespace']) {
-                    $foreignPluginVars = GeneralUtility::_GPmerged($recordConfiguration['pluginNamespace']);
+                    $foreignPluginVars = $this->request->getQueryParams()[$recordConfiguration['pluginNamespace']];
++                   ArrayUtility::mergeRecursiveWithOverrule($foreignPluginVars, $this->request->getParsedBody()[$recordConfiguration['pluginNamespace']]);
                     if ($foreignPluginVars[$recordConfiguration['argumentName']] > 0) {
                         $tablenameRecord = $tablename . '_' . (int)$foreignPluginVars[$recordConfiguration['argumentName']];
                     }
                 } else {
-                    $getParameters = GeneralUtility::_GET();
-                    $postParameters = GeneralUtility::_POST();
+                    $getParameters = $this->request->getQueryParams();
+                    $postParameters = $this->request->getParsedBody();
                     if ($getParameters[$recordConfiguration['argumentName']] > 0) {
                         $tablenameRecord = $tablename . '_' . (int)$getParameters[$recordConfiguration['argumentName']];
                     } elseif ($postParameters[$recordConfiguration['argumentName']] > 0) {
@@ -88,8 +92,8 @@ class SerializerController extends ActionController
 
             // if no iri was found check if pages table was mapped (serves as a default)
             if (!isset($tablenameRecord) && $this->settings['recordToArgumentMapping']['pages']) {
-                $argumentValue = GeneralUtility::_GET($this->settings['recordToArgumentMapping']['pages']['argumentName']);
-                if ($argumentValue > 0) $tablenameRecord = 'pages_' . (int)$argumentValue;
+                $argumentValue = $this->request->getQueryParams()[$this->settings['recordToArgumentMapping']['pages']['argumentName']] ?? null;
+                if (!is_null($argumentValue)) $tablenameRecord = 'pages_' . (int)$argumentValue;
             }
 
             // IRI record lookup
