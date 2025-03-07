@@ -91,10 +91,10 @@ class ApiController extends ActionController
     public function aboutAction(): ResponseInterface
     {
         // check if pageType is set (either via param or masked through PageTypeSuffix)
-        if (GeneralUtility::_GP('type')) {
-            $pageType = GeneralUtility::_GP('type');
-        } else if ($GLOBALS['TSFE']->type > 0) {
-            $pageType = $GLOBALS['TSFE']->type;
+        if ($this->request->getParsedBody()['type'] ?? $this->request->getQueryParams()['type'] ?? null) {
+            $pageType = $this->request->getParsedBody()['type'] ?? $this->request->getQueryParams()['type'] ?? null;
+        } else if ($GLOBALS['TSFE']->getPageArguments()->getPageType() > 0) {
+            $pageType = $GLOBALS['TSFE']->getPageArguments()->getPageType();
         } else {
             $pageType = 0;
         }
@@ -220,18 +220,18 @@ class ApiController extends ActionController
                             // call representation resolver service
                             $url = $this->resolverService->resolve($representation, $this->settings['resolver']);
                             if (GeneralUtility::isValidUrl($url)) {
-                                $this->redirectToUri($url);
+                                return $this->redirectToUri($url);
                             }
                         }
                     }
                     // if none of the representations fit redirect to a generated representation
                     if ($mimeType == $contentType) {
-                        $this->redirectToUri($uri);
+                        return $this->redirectToUri($uri);
                     }
                 }
             // otherwise redirect to a generated about representation
             } else {
-                $this->redirectToUri($uri);
+                return $this->redirectToUri($uri);
             }
         }
 
@@ -258,7 +258,7 @@ class ApiController extends ActionController
                     $GLOBALS['TYPO3_REQUEST'],
                     'The requested page does not exist',
                     ['code' => PageAccessFailureReasons::PAGE_NOT_FOUND]);
-                throw new ImmediateResponseException($response);
+                throw new ImmediateResponseException($response, 2467342644);
             }
         // api documentation action
         } elseif ($this->request->hasArgument('apiDocumentation')) {
@@ -389,7 +389,7 @@ class ApiController extends ActionController
                 $GLOBALS['TYPO3_REQUEST'],
                 'The requested page does not exist',
                 ['code' => PageAccessFailureReasons::PAGE_NOT_FOUND]);
-            throw new ImmediateResponseException($response);
+            throw new ImmediateResponseException($response, 4215392081);
         }
 
         // assign current action for disambiguation in about template
