@@ -28,46 +28,33 @@
 namespace Digicademy\Lod\Controller;
 
 use Psr\Http\Message\ResponseInterface;
-use Digicademy\Lod\Domain\Repository\GraphRepository;
-use Digicademy\Lod\Domain\Repository\IriNamespaceRepository;
-use Digicademy\Lod\Domain\Repository\VocabularyRepository;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use Digicademy\Lod\Domain\Repository\{
+    GraphRepository,
+    IriNamespaceRepository,
+    VocabularyRepository
+};
+use Digicademy\Lod\Domain\Model\{
+    Graph,
+    Vocabulary
+};
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 class VocabularyController extends ActionController
 {
     /**
-     * @var \Digicademy\Lod\Domain\Repository\IriNamespaceRepository
-     */
-    protected $iriNamespaceRepository;
-
-    /**
-     * @var \Digicademy\Lod\Domain\Repository\GraphRepository
-     */
-    protected $graphRepository = null;
-
-    /**
-     * @var \Digicademy\Lod\Domain\Repository\VocabularyRepository
-     */
-    protected $vocabularyRepository = null;
-
-    /**
      * Initializes the controller and dependencies
      *
-     * @param \Digicademy\Lod\Domain\Repository\IriNamespaceRepository      $iriNamespaceRepository
-     * @param \Digicademy\Lod\Domain\Repository\GraphRepository             $graphRepository
-     * @param \Digicademy\Lod\Domain\Repository\VocabularyRepository        $vocabularyRepository
+     * @param IriNamespaceRepository $iriNamespaceRepository
+     * @param GraphRepository        $graphRepository
+     * @param VocabularyRepository   $vocabularyRepository
      */
     public function __construct(
-        IriNamespaceRepository $iriNamespaceRepository,
-        GraphRepository $graphRepository,
-        VocabularyRepository $vocabularyRepository
-    ) {
-        $this->iriNamespaceRepository = $iriNamespaceRepository;
-        $this->graphRepository = $graphRepository;
-        $this->vocabularyRepository = $vocabularyRepository;
-    }
+        protected IriNamespaceRepository $iriNamespaceRepository,
+        protected GraphRepository $graphRepository,
+        protected VocabularyRepository $vocabularyRepository
+    ) {}
 
     /**
      * show selected vocabulary
@@ -81,15 +68,33 @@ class VocabularyController extends ActionController
         if ((int)$selectedVocabularyUid = $this->settings['general']['selectedVocabulary']) {
 
             // assign the selected vocabulary
-            $selectedVocabulary = $this->vocabularyRepository->findBy(['uid' => $selectedVocabularyUid]);
+
+            /**
+             * $selectedVocabulary
+             * @var Vocabulary
+             */
+            $selectedVocabulary = $this->vocabularyRepository->findByUid($selectedVocabularyUid);
+
             $this->view->assign('vocabulary', $selectedVocabulary);
 
             // potentially assign vocabulary IRI graph
+
+            /**
+             * $graph
+             * @var Graph
+             */
             $graph = $this->graphRepository->findByIri($selectedVocabulary->getIri());
+
             $this->view->assign('graph', $graph);
 
             // assign existing namespaces
+
+            /**
+             * $apiSettings
+             * @var array
+             */
             $apiSettings = $this->configurationManager->getConfiguration('Settings', 'lod', 'api');
+
             $this->view->assign('iriNamespaces', $this->iriNamespaceRepository->findSelected('show', $apiSettings));
         }
 
@@ -106,5 +111,4 @@ class VocabularyController extends ActionController
 
         return $this->htmlResponse();
     }
-
 }
