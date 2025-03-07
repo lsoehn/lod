@@ -39,35 +39,15 @@ use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 class IriRepository extends Repository
 {
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'value' => QueryInterface::ORDER_ASCENDING,
         'label' => QueryInterface::ORDER_ASCENDING
-    );
+    ];
 
-    protected ?IriNamespaceRepository $iriNamespaceRepository = null;
-    protected ?ConfigurationManagerInterface $configurationManager = null;
-
-    /**
-     * @param  IriNamespaceRepository $iriNamespaceRepository
-     * @return void
-     */
-    public function injectIriNamespaceRepository(
-        IriNamespaceRepository $iriNamespaceRepository
-    ): void
-    {
-        $this->iriNamespaceRepository = $iriNamespaceRepository;
-    }
-
-    /**
-     * @param  ConfigurationManagerInterface $configurationManager
-     * @return void
-     */
-    public function injectConfigurationManager(
-        ConfigurationManagerInterface $configurationManager
-    ): void
-    {
-        $this->configurationManager = $configurationManager;
-    }
+    public function __construct(
+        protected IriNamespaceRepository $iriNamespaceRepository,
+        protected ConfigurationManagerInterface $configurationManager
+    ) {}
 
     /**
      * IRI lookup by string representation (like 'prefix:value').
