@@ -160,18 +160,20 @@ class IriRepository extends Repository
 
             $keywordList = SearchUtility::wordSplit($arguments['query']);
 
-            foreach ($keywordList as $keyword) {
-                $keyword = '%' . $keyword . '%';
-                $labelConstraint[] = $query->like('label', $keyword);
-                $commentConstraint[] = $query->like('comment', $keyword);
-                $valueConstraint[] = $query->like('value', $keyword);
-            }
+            if (count($keywordList) > 0) {
+                foreach ($keywordList as $keyword) {
+                    $keyword = '%' . $keyword . '%';
+                    $labelConstraint[] = $query->like('label', $keyword);
+                    $commentConstraint[] = $query->like('comment', $keyword);
+                    $valueConstraint[] = $query->like('value', $keyword);
+                }
 
-            $constraints[] = $query->logicalOr(
-                $query->logicalAnd($labelConstraint),
-                $query->logicalAnd($commentConstraint),
-                $query->logicalAnd($valueConstraint)
-            );
+                $constraints[] = $query->logicalOr(
+                    $query->logicalAnd($labelConstraint),
+                    $query->logicalAnd($commentConstraint),
+                    $query->logicalAnd($valueConstraint)
+                );
+            }
         }
 
         // optional additional pids for statement pattern look up (containing vocabularies etc.)
