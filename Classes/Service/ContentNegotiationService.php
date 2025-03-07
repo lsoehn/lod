@@ -64,6 +64,12 @@ class ContentNegotiationService
     protected $format = 'html';
 
     /**
+     * Frontend TypoScript setup array.
+     * @var array
+     */
+    protected $typoScriptSetup;
+
+    /**
      * Content negotiation: Determines the best mime type for a response by negotiating
      * between mime types accepted by the client and mime types available from TypoScript.
      *
@@ -72,9 +78,10 @@ class ContentNegotiationService
     public function __construct(
         protected readonly ServerRequest $request
     ) {
+        $this->typoScriptSetup = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.typoscript')->getSetupArray();
         //To do: make sure the request is passed on to this service!
 
-        $pageType = $request->getQueryParams()['type'] ?? $GLOBALS['TSFE']->type;
+        $pageType = $request->getQueryParams()['type'] ?? $GLOBALS['TSFE']->getPageArguments()->getPageType();
 
         $this->setAcceptedMimeTypes();
         $this->setAvailableMimeTypes();
@@ -83,7 +90,7 @@ class ContentNegotiationService
         if ($pageType > 0) {
 
             $this->setContentType($this->availableMimeTypes[$pageType]);
-            $this->setFormat($GLOBALS['TSFE']->tmpl->setup['types.'][$pageType]);
+            $this->setFormat($this->typoScriptSetup['types.'][$pageType]);
 
         // if no page type is set compare accepted mime types with available mime types and set best format
         // reminder: $this->acceptedMimeTypes is in order from best to least format
@@ -95,7 +102,7 @@ class ContentNegotiationService
                     if ($type == 0) {
                         continue;
                     } else {
-                        $this->setFormat($GLOBALS['TSFE']->tmpl->setup['types.'][$type]);
+                        $this->setFormat($this->typoScriptSetup['types.'][$type]);
                     }
                     $this->setContentType($this->availableMimeTypes[$type]);
                     break;
@@ -194,16 +201,16 @@ class ContentNegotiationService
      */
     public function setAvailableMimeTypes(): void
     {
-        foreach ($GLOBALS['TSFE']->tmpl->setup['types.'] as $key => $type) {
+        foreach ($this->typoScriptSetup['types.'] as $key => $type) {
             if ($type == 'page') {
                 continue;
             }
             $type = $type . '.';
             if (
-                $GLOBALS['TSFE']->tmpl->setup[$type]['typeNum'] == $key
-                && $GLOBALS['TSFE']->tmpl->setup[$type]['config.']['additionalHeaders.']
+                $this->typoScriptSetup[$type]['typeNum'] == $key
+                && $this->typoScriptSetup[$type]['config.']['additionalHeaders.']
             ) {
-                $additionalHeaders = $GLOBALS['TSFE']->tmpl->setup[$type]['config.']['additionalHeaders.'];
+                $additionalHeaders = $this->typoScriptSetup[$type]['config.']['additionalHeaders.'];
                 foreach ($additionalHeaders as $additionalHeader) {
                     if (preg_match('/Content-type:/', $additionalHeader['header'])) {
                         $this->availableMimeTypes[$key] = str_replace('Content-type:', '', $additionalHeader['header']);

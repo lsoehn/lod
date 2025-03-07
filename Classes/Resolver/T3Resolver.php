@@ -51,7 +51,7 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
         if (!empty($linkDetails['identifier']) && !empty($linkDetails['uid'])) {
 
             $configurationKey = $linkDetails['identifier'] . '.';
-            $configuration = $tsfe->tmpl->setup['config.']['recordLinks.'];
+            $configuration = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.typoscript')->getSetupArray()['config.']['recordLinks.'];
             $linkHandlerConfiguration = $pageTsConfig['TCEMAIN.']['linkHandler.'][$configurationKey]['configuration.'];
             $typoScriptConfiguration = $configuration[$configurationKey]['typolink.'];
             $typoScriptConfiguration['forceAbsoluteUrl'] = '1';
