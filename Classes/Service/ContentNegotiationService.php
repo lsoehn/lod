@@ -27,7 +27,7 @@
 
 namespace Digicademy\Lod\Service;
 
-use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -70,7 +70,7 @@ class ContentNegotiationService
      * @return void
      */
     public function __construct(
-        protected readonly ServerRequestInterface $request
+        protected readonly ServerRequest $request
     ) {
         //To do: make sure the request is passed on to this service!
 
