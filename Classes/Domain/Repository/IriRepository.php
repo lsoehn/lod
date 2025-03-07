@@ -169,9 +169,9 @@ class IriRepository extends Repository
                 }
 
                 $constraints[] = $query->logicalOr(
-                    $query->logicalAnd($labelConstraint),
-                    $query->logicalAnd($commentConstraint),
-                    $query->logicalAnd($valueConstraint)
+                    $query->logicalAnd(...$labelConstraint),
+                    $query->logicalAnd(...$commentConstraint),
+                    $query->logicalAnd(...$valueConstraint)
                 );
             }
         }
