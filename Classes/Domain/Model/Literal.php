@@ -27,7 +27,7 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Literal extends AbstractEntity
@@ -37,8 +37,8 @@ class Literal extends AbstractEntity
      * value
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $value;
 
     /**

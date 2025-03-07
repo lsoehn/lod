@@ -27,7 +27,7 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class IriNamespace extends AbstractEntity
@@ -37,16 +37,16 @@ class IriNamespace extends AbstractEntity
      * value
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $prefix;
 
     /**
      * iri
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $iri;
 
     /**

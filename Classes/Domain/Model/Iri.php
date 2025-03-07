@@ -34,7 +34,7 @@ use Digicademy\Lod\Domain\Model\{
 };
 use Digicademy\Lod\Domain\Repository\StatementRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -88,8 +88,8 @@ class Iri extends AbstractEntity
      * value
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $value;
 
     /**
