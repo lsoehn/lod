@@ -58,7 +58,7 @@ class IriNamespaceRepository extends Repository
             $query->getQuerySettings()->setRespectStoragePage(false);
             $constraints[] = $query->in('uid', $namespaceList);
             $query->matching(
-                $query->logicalAnd($constraints)
+                $query->logicalAnd(...$constraints)
             );
         }
 
@@ -106,7 +106,7 @@ class IriNamespaceRepository extends Repository
         $constraints[] = $query->like('prefix', $prefix);
 
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...$constraints)
         );
 
         return $query->execute();
