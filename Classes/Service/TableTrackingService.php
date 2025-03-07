@@ -27,6 +27,7 @@
 
 namespace Digicademy\Lod\Service;
 
+use Doctrine\DBAL\ArrayParameterType;
 use TYPO3\CMS\Core\Database\{
     Connection,
     ConnectionPool
@@ -314,7 +315,7 @@ class TableTrackingService
                 )
             )
             ->setParameter('record', $this->table . '_' . $this->record['uid'], Connection::PARAM_STR)
-            ->setParameter('pidList', $pidList, Connection::PARAM_INT_ARRAY)
+            ->setParameter('pidList', $pidList, ArrayParameterType::INTEGER)
             ->executeQuery()
             ->fetchAllAssociative();
 
