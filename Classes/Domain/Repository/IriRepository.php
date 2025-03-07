@@ -30,9 +30,11 @@ namespace Digicademy\Lod\Domain\Repository;
 use Digicademy\Lod\Utility\Frontend\SearchUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Persistence\QueryInterface;
-use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\{
+    QueryInterface,
+    QueryResultInterface,
+    Repository
+};
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 class IriRepository extends Repository
