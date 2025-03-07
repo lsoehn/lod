@@ -55,7 +55,7 @@ class GraphRepository extends Repository
 
         // match
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...$constraints)
         );
 
         // return result
