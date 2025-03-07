@@ -28,6 +28,7 @@
 namespace Digicademy\Lod\Domain\Repository;
 
 use Digicademy\Lod\Domain\Model\Iri;
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\{
     QueryInterface,
     Repository
@@ -40,9 +41,9 @@ class GraphRepository extends Repository
     );
 
     /**
-     * @param \Digicademy\Lod\Domain\Model\Iri $iri
+     * @param Iri $iri
      *
-     * @return \Digicademy\Lod\Domain\Model\Graph
+     * @return DomainObjectInterface|null
      */
     public function findByIri(Iri $iri)
     {
