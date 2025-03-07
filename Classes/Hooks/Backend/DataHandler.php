@@ -25,13 +25,17 @@
 
 namespace Digicademy\Lod\Hooks\Backend;
 
-use Digicademy\Lod\Service\IdentifierGeneratorService;
-use Digicademy\Lod\Service\TableTrackingService;
+use Digicademy\Lod\Service\{
+    IdentifierGeneratorService,
+    TableTrackingService
+};
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\{
+    GeneralUtility,
+    VersionNumberUtility
+};
 
 class DataHandler
 {

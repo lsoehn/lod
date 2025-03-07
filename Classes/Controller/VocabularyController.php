@@ -27,16 +27,16 @@
 
 namespace Digicademy\Lod\Controller;
 
-use Psr\Http\Message\ResponseInterface;
+use Digicademy\Lod\Domain\Model\{
+    Graph,
+    Vocabulary
+};
 use Digicademy\Lod\Domain\Repository\{
     GraphRepository,
     IriNamespaceRepository,
     VocabularyRepository
 };
-use Digicademy\Lod\Domain\Model\{
-    Graph,
-    Vocabulary
-};
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;

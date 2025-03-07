@@ -27,11 +27,13 @@
 
 namespace Digicademy\Lod\Controller;
 
+use Digicademy\Lod\Domain\Repository\{
+    IriNamespaceRepository,
+    IriRepository
+};
 use Psr\Http\Message\ResponseInterface;
-use Digicademy\Lod\Domain\Repository\IriNamespaceRepository;
-use Digicademy\Lod\Domain\Repository\IriRepository;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class SerializerController extends ActionController
 {

@@ -27,8 +27,8 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Graph extends AbstractEntity
 {

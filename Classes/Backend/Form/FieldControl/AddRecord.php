@@ -16,8 +16,10 @@ namespace Digicademy\Lod\Backend\Form\FieldControl;
  */
 
 use TYPO3\CMS\Backend\Form\AbstractNode;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\{
+    GeneralUtility,
+    StringUtility
+};
 
 /**
  * Renders the icon with link parameters to add a new record,

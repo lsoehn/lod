@@ -26,8 +26,10 @@
 
 namespace Digicademy\Lod\ViewHelpers;
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
+use TYPO3Fluid\Fluid\Core\ViewHelper\{
+    AbstractViewHelper,
+    Exception
+};
 
 class GroupVocabularyTermsByTypeViewHelper extends AbstractViewHelper
 {

@@ -27,9 +27,9 @@
 
 namespace Digicademy\Lod\Resolver;
 
+use Digicademy\Lod\Domain\Model\Representation;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use Digicademy\Lod\Domain\Model\Representation;
 
 class T3Resolver extends AbstractResolver implements ResolverInterface
 {

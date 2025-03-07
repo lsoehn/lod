@@ -3,9 +3,11 @@
 namespace Digicademy\Lod\Backend\Form\Element;
 
 use TYPO3\CMS\Core\Imaging\Icon;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\CMS\Core\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\{
+    GeneralUtility,
+    MathUtility,
+    StringUtility
+};
 use TYPO3\CMS\Backend\Form\Element\GroupElement;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 

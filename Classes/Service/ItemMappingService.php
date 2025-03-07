@@ -28,14 +28,16 @@
 namespace Digicademy\Lod\Service;
 
 use Digicademy\Lod\Domain\Model\Record;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Form\FormDataProvider\TcaRecordTitle;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\{
+    ConfigurationManager,
+    ConfigurationManagerInterface
+};
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 /**
  * Service to load and map records from generic TCA group fields

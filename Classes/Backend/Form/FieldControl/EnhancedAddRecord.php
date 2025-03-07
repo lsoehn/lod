@@ -3,8 +3,10 @@ declare(strict_types = 1);
 namespace Digicademy\Lod\Backend\Form\FieldControl;
 
 use TYPO3\CMS\Backend\Form\AbstractNode;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\{
+    GeneralUtility,
+    StringUtility
+};
 
 /*
  * Copy of the core add record script with the difference of making it possible to create records
