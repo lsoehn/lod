@@ -109,7 +109,7 @@ class ContentNegotiationService
      *
      * @return string
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return $this->contentType;
     }
@@ -121,7 +121,7 @@ class ContentNegotiationService
      *
      * @return void
      */
-    public function setContentType($contentType)
+    public function setContentType(string $contentType): void
     {
         $this->contentType = $contentType;
     }
@@ -131,7 +131,7 @@ class ContentNegotiationService
      *
      * @return string
      */
-    public function getFormat()
+    public function getFormat(): string
     {
         return $this->format;
     }
@@ -142,7 +142,7 @@ class ContentNegotiationService
      *
      * @return void
      */
-    public function setFormat($format)
+    public function setFormat(string $format): void
     {
         $this->format = $format;
     }
@@ -152,7 +152,7 @@ class ContentNegotiationService
      *
      * @return array
      */
-    public function getAcceptedMimeTypes()
+    public function getAcceptedMimeTypes(): array
     {
         return $this->acceptedMimeTypes;
     }
@@ -163,7 +163,7 @@ class ContentNegotiationService
      *
      * @return void
      */
-    public function setAcceptedMimeTypes()
+    public function setAcceptedMimeTypes(): void
     {
         // if accept header is set get a weighted list of accepted formats
 // @TODO: use $GLOBALS['TYPO3_REQUEST']
@@ -180,7 +180,7 @@ class ContentNegotiationService
      *
      * @return array
      */
-    public function getAvailableMimeTypes()
+    public function getAvailableMimeTypes(): array
     {
         return $this->availableMimeTypes;
     }
@@ -192,7 +192,7 @@ class ContentNegotiationService
      *
      * @return void
      */
-    public function setAvailableMimeTypes()
+    public function setAvailableMimeTypes(): void
     {
         foreach ($GLOBALS['TSFE']->tmpl->setup['types.'] as $key => $type) {
             if ($type == 'page') {
@@ -217,7 +217,7 @@ class ContentNegotiationService
      * @param string $httpAcceptHeader
      * @return array
      */
-     private function processAcceptHeader($httpAcceptHeader)
+     private function processAcceptHeader(string $httpAcceptHeader): array
      {
         $acceptedMediaTypes = GeneralUtility::trimExplode(',', $httpAcceptHeader);
         $weightedMediaTypes = [];
@@ -244,7 +244,7 @@ class ContentNegotiationService
      * @param string $httpContentType
      * @return array
      */
-     public function processContentType($httpContentType)
+     public function processContentType(string $httpContentType): array
      {
         $splitHttpContentType = GeneralUtility::trimExplode(';', $httpContentType);
         if (count($splitHttpContentType) == 2 ) {
@@ -256,5 +256,4 @@ class ContentNegotiationService
 
         return $contentType;
      }
-
 }

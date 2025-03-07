@@ -30,13 +30,13 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class RdfaPrefixViewHelper extends AbstractViewHelper
 {
-
     /**
      * Initialize ViewHelper arguments
      *
      * @return void
      */
-    public function initializeArguments() {
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'namespaces',
             '\TYPO3\CMS\Extbase\Persistence\QueryResultInterface',
@@ -50,7 +50,7 @@ class RdfaPrefixViewHelper extends AbstractViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $namespaces = $this->arguments['namespaces'];
         $rdfaPrefix = '';
@@ -62,5 +62,4 @@ class RdfaPrefixViewHelper extends AbstractViewHelper
 
         return trim($rdfaPrefix);
     }
-
 }

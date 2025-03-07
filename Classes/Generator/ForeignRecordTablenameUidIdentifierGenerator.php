@@ -31,14 +31,13 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 class ForeignRecordTablenameUidIdentifierGenerator extends AbstractIdentifierGenerator implements IdentifierGeneratorInterface
 {
-
     /**
      * Takes the uid of the record associated with the IRI as basis for the identifier generation.
      * Will only set an identifier if the record field in the IRI is set
      *
      * @return string
      */
-    public function generate()
+    public function generate(): string
     {
         $identifier = '';
 
@@ -51,5 +50,4 @@ class ForeignRecordTablenameUidIdentifierGenerator extends AbstractIdentifierGen
 
         return $this->setIdentifierPrefix($identifier);
     }
-
 }

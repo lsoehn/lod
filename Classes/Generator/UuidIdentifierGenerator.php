@@ -35,7 +35,7 @@ class UuidIdentifierGenerator extends AbstractIdentifierGenerator implements Ide
      *
      * @return string
      */
-    public function generate()
+    public function generate(): string
     {
         if ($this->configuration['xmlConformance'] == '1') {
             do {
@@ -54,7 +54,7 @@ class UuidIdentifierGenerator extends AbstractIdentifierGenerator implements Ide
      *
      * @return string The universally unique id
      */
-    private function createUUID()
+    private function createUUID(): string
     {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             mt_rand(0, 0xffff),

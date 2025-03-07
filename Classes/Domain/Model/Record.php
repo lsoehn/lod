@@ -72,7 +72,7 @@ class Record extends AbstractEntity
      *
      * @return string $label
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
@@ -84,7 +84,7 @@ class Record extends AbstractEntity
      *
      * @return void
      */
-    public function setLabel($label)
+    public function setLabel(string $label): void
     {
         $this->label = $label;
     }
@@ -94,7 +94,7 @@ class Record extends AbstractEntity
      *
      * @return string $comment
      */
-    public function getComment()
+    public function getComment(): string
     {
         return $this->comment;
     }
@@ -106,7 +106,7 @@ class Record extends AbstractEntity
      *
      * @return void
      */
-    public function setComment($comment)
+    public function setComment(string $comment): void
     {
         $this->comment = $comment;
     }
@@ -116,7 +116,7 @@ class Record extends AbstractEntity
      *
      * @return string $tablename
      */
-    public function getTablename()
+    public function getTablename(): string
     {
         return $this->tablename;
     }
@@ -128,7 +128,7 @@ class Record extends AbstractEntity
      *
      * @return void
      */
-    public function setTablename($tablename)
+    public function setTablename(string $tablename): void
     {
         $this->tablename = $tablename;
     }
@@ -138,7 +138,7 @@ class Record extends AbstractEntity
      *
      * @return array $row
      */
-    public function getRow()
+    public function getRow(): array
     {
         return $this->row;
     }
@@ -150,7 +150,7 @@ class Record extends AbstractEntity
      *
      * @return void
      */
-    public function setRow($row)
+    public function setRow(array $row): void
     {
         $this->row = $row;
     }
@@ -160,7 +160,7 @@ class Record extends AbstractEntity
      *
      * @return object $domainObject
      */
-    public function getDomainObject()
+    public function getDomainObject(): object
     {
         return $this->domainObject;
     }
@@ -172,7 +172,7 @@ class Record extends AbstractEntity
      *
      * @return void
      */
-    public function setDomainObject($domainObject)
+    public function setDomainObject(object $domainObject)
     {
         $this->domainObject = $domainObject;
     }

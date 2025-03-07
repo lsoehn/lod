@@ -34,12 +34,13 @@ class SearchUtility
      * Splits a string into words by whitespace and other characters (,;+-<>()~); preserves quotes if flag is set
      *
      * @param string  $string
-     * @param boolean $preserveQuotes
-     *
+     * @param bool    $preserveQuotes
      * @return array
      */
-    public static function wordSplit($string, $preserveQuotes = false)
-    {
+    public static function wordSplit(
+        string $string,
+        bool $preserveQuotes = false
+    ): array {
         // break the string into words
         $wordSplit = array_unique(preg_split('/[\s\,\;\<\>\(\)]+/', $string, -1, PREG_SPLIT_NO_EMPTY));
         // if quotes should be preserved, do a second processing
@@ -50,5 +51,4 @@ class SearchUtility
 
         return $wordSplit;
     }
-
 }

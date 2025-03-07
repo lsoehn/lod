@@ -30,14 +30,13 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class FilterIriNamespacesViewHelper extends AbstractViewHelper
 {
-
     /**
      * Initialize ViewHelper arguments
      *
      * @return void
      */
-    public function initializeArguments() {
-
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'iriNamespaces',
             'object',
@@ -75,7 +74,7 @@ class FilterIriNamespacesViewHelper extends AbstractViewHelper
      *
      * @return array
      */
-    public function render()
+    public function render(): array
     {
 
 #        $settings = $this->templateVariableContainer->get('settings');
@@ -97,5 +96,4 @@ class FilterIriNamespacesViewHelper extends AbstractViewHelper
 
         return $filteredIriNamespaces;
     }
-
 }

@@ -27,9 +27,11 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
+use Digicademy\Lod\Domain\Model\Statement;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Bnode extends AbstractEntity
 {
@@ -59,7 +61,7 @@ class Bnode extends AbstractEntity
     /**
      * Statements with this blank node as subject
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $statement
+     * @var ObjectStorage<Statement> $statement
      * @Lazy
      */
     protected $statements;
@@ -69,7 +71,7 @@ class Bnode extends AbstractEntity
      *
      * @return string $label
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
@@ -81,7 +83,7 @@ class Bnode extends AbstractEntity
      *
      * @return void
      */
-    public function setLabel($label)
+    public function setLabel($label): void
     {
         $this->label = $label;
     }
@@ -91,7 +93,7 @@ class Bnode extends AbstractEntity
      *
      * @return string $comment
      */
-    public function getComment()
+    public function getComment(): string
     {
         return $this->comment;
     }
@@ -103,7 +105,7 @@ class Bnode extends AbstractEntity
      *
      * @return void
      */
-    public function setComment($comment)
+    public function setComment($comment): void
     {
         $this->comment = $comment;
     }
@@ -113,7 +115,7 @@ class Bnode extends AbstractEntity
      *
      * @return string $value
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -125,7 +127,7 @@ class Bnode extends AbstractEntity
      *
      * @return void
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }
@@ -133,9 +135,9 @@ class Bnode extends AbstractEntity
     /**
      * Returns the statements
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $statements
+     * @return ObjectStorage<Statement> $statements
      */
-    public function getStatements()
+    public function getStatements(): ObjectStorage
     {
         return $this->statements;
     }
@@ -143,11 +145,11 @@ class Bnode extends AbstractEntity
     /**
      * Sets the statements
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $statements
+     * @param ObjectStorage<Statement> $statements
      *
      * @return void
      */
-    public function setStatements($statements)
+    public function setStatements(ObjectStorage $statements): void
     {
         $this->statements = $statements;
     }

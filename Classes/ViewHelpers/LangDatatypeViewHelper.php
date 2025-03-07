@@ -30,13 +30,13 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class LangDatatypeViewHelper extends AbstractViewHelper
 {
-
     /**
      * Initialize ViewHelper arguments
      *
      * @return void
      */
-    public function initializeArguments() {
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'literal',
             'Digicademy\Lod\Domain\Model\Literal',
@@ -56,7 +56,7 @@ class LangDatatypeViewHelper extends AbstractViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $language = $this->arguments['literal']->getLanguage();
         $datatype = $this->arguments['literal']->getDatatype();
@@ -96,5 +96,4 @@ class LangDatatypeViewHelper extends AbstractViewHelper
 
         return $result;
     }
-
 }

@@ -31,13 +31,13 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class EscapeLiteralViewHelper extends AbstractViewHelper
 {
-
     /**
      * Initialize ViewHelper arguments
      *
      * @return void
      */
-    public function initializeArguments() {
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'literal',
             'string',
@@ -57,7 +57,7 @@ class EscapeLiteralViewHelper extends AbstractViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $content = '';
         $literal = $this->arguments['literal'];
@@ -79,5 +79,4 @@ class EscapeLiteralViewHelper extends AbstractViewHelper
 
         return trim($content);
     }
-
 }

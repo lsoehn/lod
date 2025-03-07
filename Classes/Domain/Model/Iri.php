@@ -27,7 +27,11 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use Digicademy\Lod\Domain\Model\IriNamespace;
+use Digicademy\Lod\Domain\Model\{
+    IriNamespace,
+    Representation,
+    Statement
+};
 use Digicademy\Lod\Domain\Repository\StatementRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
@@ -98,7 +102,7 @@ class Iri extends AbstractEntity
     /**
      * Document representations for the subject
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Representation> $representations
+     * @var ObjectStorage<Representation> $representations
      * @Lazy
      */
     protected $representations;
@@ -106,7 +110,7 @@ class Iri extends AbstractEntity
     /**
      * Statements with this IRI as subject
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $statement
+     * @var ObjectStorage<Statement> $statement
      * @Lazy
      */
     protected $statements;
@@ -114,7 +118,7 @@ class Iri extends AbstractEntity
     /**
      * Inverse statements with this IRI as object
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $statement
+     * @var ObjectStorage<Statement> $statement
      * @Lazy
      */
     protected $inverseStatements;
@@ -302,9 +306,9 @@ class Iri extends AbstractEntity
     /**
      * Returns the representations
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Representation> $representations
+     * @return ObjectStorage<Representation> $representations
      */
-    public function getRepresentations()
+    public function getRepresentations(): ObjectStorage
     {
         return $this->representations;
     }
@@ -312,11 +316,11 @@ class Iri extends AbstractEntity
     /**
      * Sets the representations
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Representation> $representations
+     * @param ObjectStorage<Representation> $representations
      *
      * @return void
      */
-    public function setRepresentations($representations): void
+    public function setRepresentations(ObjectStorage $representations): void
     {
         $this->representations = $representations;
     }
@@ -324,9 +328,9 @@ class Iri extends AbstractEntity
     /**
      * Returns valid statements where neither part is null (due to hidden IRIs etc.)
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $statements
+     * @return ObjectStorage<Statement> $statements
      */
-    public function getStatements()
+    public function getStatements(): ObjectStorage
     {
         $statementObjectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
 
@@ -345,11 +349,11 @@ class Iri extends AbstractEntity
     /**
      * Sets the statements
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $statements
+     * @param ObjectStorage<Statement> $statements
      *
      * @return void
      */
-    public function setStatements($statements): void
+    public function setStatements(ObjectStorage $statements): void
     {
         $this->statements = $statements;
     }
@@ -357,9 +361,9 @@ class Iri extends AbstractEntity
     /**
      * Returns valid inverse statements where neither part is null (due to hidden IRIs etc.)
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $inverseStatements
+     * @return ObjectStorage<Statement> $inverseStatements
      */
-    public function getInverseStatements()
+    public function getInverseStatements(): ObjectStorage
     {
         $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
         $inverseStatements = $this->statementRepository->findByPosition('object', $this);

@@ -33,10 +33,9 @@ class LabelUtility
 
     /**
      * @param array $parameters
-     *
      * @return array
      */
-    public function iriLabel(array &$parameters)
+    public function iriLabel(array &$parameters): array
     {
         // get PageTSConfig for current record (the page where the record is stored, not necessary the current page)
         $TSConfig = BackendUtility::getPagesTSconfig($parameters['row']['pid']);
@@ -91,5 +90,4 @@ class LabelUtility
 
         return $parameters;
     }
-
 }

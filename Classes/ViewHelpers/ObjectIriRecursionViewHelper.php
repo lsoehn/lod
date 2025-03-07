@@ -42,7 +42,8 @@ class ObjectIriRecursionViewHelper extends AbstractViewHelper
      *
      * @return void
      */
-    public function initializeArguments() {
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'iri',
             '\Digicademy\Lod\Domain\Model\Iri',
@@ -61,20 +62,26 @@ class ObjectIriRecursionViewHelper extends AbstractViewHelper
     /**
      * Recursively collects object IRIs in a flat list.
      * Especially needed for Turtle serialisation.
+     *
+     * @return array
      */
-    public function render()
+    public function render(): array
     {
         $this->recurse($this->arguments['iri'], $this->arguments['maxDepth']);
         return $this->iriCollection;
     }
 
     /**
-     * @param \Digicademy\Lod\Domain\Model\Iri $iri
+     * @param Iri $iri
      * @param int $maxDepth
      * @param int $currentDepth
+     * @return void
      */
-    private function recurse(Iri $iri, $maxDepth, $currentDepth = 1)
-    {
+    private function recurse(
+        Iri $iri,
+        int $maxDepth,
+        int $currentDepth = 1
+    ): void {
         if ($iri->getStatements()->count() > 0 && $currentDepth <= $maxDepth) {
             foreach ($iri->getStatements() as $statement) {
                 if ($statement->getObject() instanceof Iri && $statement->getObjectRecursion() == 1) {
@@ -85,7 +92,5 @@ class ObjectIriRecursionViewHelper extends AbstractViewHelper
                 }
             }
         }
-        return;
     }
-
 }

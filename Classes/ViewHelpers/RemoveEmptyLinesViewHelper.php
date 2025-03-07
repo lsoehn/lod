@@ -36,7 +36,7 @@ class RemoveEmptyLinesViewHelper extends AbstractViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $content = $this->renderChildren();
         $content = preg_replace('/^\s*$/m', '', $content);
@@ -45,5 +45,4 @@ class RemoveEmptyLinesViewHelper extends AbstractViewHelper
 
         return $content;
     }
-
 }

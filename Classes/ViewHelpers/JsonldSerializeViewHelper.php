@@ -30,7 +30,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class JsonldSerializeViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var array
      */
@@ -42,7 +41,7 @@ class JsonldSerializeViewHelper extends AbstractViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         $this->jsonLD = json_decode($this->renderChildren(),true);
         $this->mergeKeysRecursive($this->jsonLD['@graph']);
@@ -56,7 +55,7 @@ class JsonldSerializeViewHelper extends AbstractViewHelper
      * @param array $array
      * @return void
      */
-    private function mergeKeysRecursive(&$array)
+    private function mergeKeysRecursive(array &$array): void
     {
         foreach ($array as $elementKey => &$element) {
             if (is_array($element) && is_numeric($elementKey)) {
@@ -78,5 +77,4 @@ class JsonldSerializeViewHelper extends AbstractViewHelper
             }
         }
     }
-
 }

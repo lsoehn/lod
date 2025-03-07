@@ -30,14 +30,14 @@ use TYPO3\CMS\Extbase\Event\Persistence\AfterObjectThawedEvent;
 
 class AfterMappingSingleRow
 {
-    protected ItemMappingService $itemMappingService;
+    protected const MAPPABLE_CLASSES = [
+        'Digicademy\Lod\Domain\Model\Iri',
+        'Digicademy\Lod\Domain\Model\Statement'
+    ];
 
     public function __construct(
-        ItemMappingService $itemMappingService
-    )
-    {
-        $this->itemMappingService = $itemMappingService;
-    }
+        protected ItemMappingService $itemMappingService
+    ) {}
 
     /**
      * @param  AfterObjectThawedEvent $event The event class.
@@ -47,7 +47,7 @@ class AfterMappingSingleRow
     {
         $object = $event->getObject();
         $class = get_class($object);
-        if ($class == 'Digicademy\Lod\Domain\Model\Iri' || $class == 'Digicademy\Lod\Domain\Model\Statement') {
+        if (in_array($class, self::MAPPABLE_CLASSES)) {
             $this->itemMappingService->mapGenericProperty($object);
         }
     }

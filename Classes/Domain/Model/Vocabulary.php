@@ -27,6 +27,7 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
+use Digicademy\Lod\Domain\Model\Iri;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -36,7 +37,7 @@ class Vocabulary extends AbstractEntity
     /**
      * IRI
      *
-     * @var \Digicademy\Lod\Domain\Model\Iri
+     * @var Iri
      */
     protected $iri;
 
@@ -57,7 +58,7 @@ class Vocabulary extends AbstractEntity
     /**
      * terms
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Iri>
+     * @var ObjectStorage<Iri>
      */
     protected $terms = null;
 
@@ -131,9 +132,9 @@ class Vocabulary extends AbstractEntity
     /**
      * Returns the terms
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Iri> $terms
+     * @return ObjectStorage<Iri> $terms
      */
-    public function getTerms()
+    public function getTerms(): ObjectStorage
     {
         return $this->terms;
     }
@@ -141,11 +142,11 @@ class Vocabulary extends AbstractEntity
     /**
      * Sets the terms
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Iri> $terms
+     * @param ObjectStorage<Iri> $terms
      *
      * @return void
      */
-    public function setTerms(ObjectStorage $terms)
+    public function setTerms(ObjectStorage $terms): void
     {
         $this->terms = $terms;
     }

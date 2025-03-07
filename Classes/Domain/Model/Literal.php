@@ -60,7 +60,7 @@ class Literal extends AbstractEntity
      *
      * @return string $value
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
@@ -72,7 +72,7 @@ class Literal extends AbstractEntity
      *
      * @return void
      */
-    public function setValue($value)
+    public function setValue($value): void
     {
         $this->value = $value;
     }
@@ -82,7 +82,7 @@ class Literal extends AbstractEntity
      *
      * @return string $lang
      */
-    public function getLanguage()
+    public function getLanguage(): string
     {
         return $this->language;
     }
@@ -94,7 +94,7 @@ class Literal extends AbstractEntity
      *
      * @return void
      */
-    public function setLanguage($language)
+    public function setLanguage($language): void
     {
         $this->language = $language;
     }
@@ -104,7 +104,7 @@ class Literal extends AbstractEntity
      *
      * @return string $datatype
      */
-    public function getDatatype()
+    public function getDatatype(): string
     {
         return $this->datatype;
     }
@@ -116,7 +116,7 @@ class Literal extends AbstractEntity
      *
      * @return void
      */
-    public function setDatatype($datatype)
+    public function setDatatype($datatype): void
     {
         $this->datatype = $datatype;
     }

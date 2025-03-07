@@ -32,25 +32,14 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 abstract class AbstractResolver
 {
     /**
-     * @var ContentObjectRenderer
-     */
-    protected $contentObjectRenderer;
-
-    /**
-    * @var array
-    */
-    protected $settings;
-
-    /**
      * AbstractResolver constructor
      *
      * @param array $settings
      * @param $contentObjectRenderer ContentObjectRenderer
      */
-    public function __construct($settings, ContentObjectRenderer $contentObjectRenderer)
-    {
-        $this->settings = $settings;
-        $this->contentObjectRenderer = $contentObjectRenderer;
-    }
+    public function __construct(
+        protected array $settings,
+        protected ContentObjectRenderer $contentObjectRenderer
+    ) {}
 
 }

@@ -27,8 +27,10 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
+use Digicademy\Lod\Domain\Model\Statement;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Graph extends AbstractEntity
 {
@@ -36,7 +38,7 @@ class Graph extends AbstractEntity
     /**
      * IRI
      *
-     * @var \Digicademy\Lod\Domain\Model\Iri
+     * @var Iri
      */
     protected $iri;
 
@@ -57,7 +59,7 @@ class Graph extends AbstractEntity
     /**
      * statements
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement>
+     * @var ObjectStorage<Statement>
      * @Lazy
      */
     protected $statements;
@@ -65,9 +67,9 @@ class Graph extends AbstractEntity
     /**
      * Returns the graph iri
      *
-     * @return \Digicademy\Lod\Domain\Model\Iri $iri
+     * @return Iri $iri
      */
-    public function getIri()
+    public function getIri(): Iri
     {
         return $this->iri;
     }
@@ -75,11 +77,11 @@ class Graph extends AbstractEntity
     /**
      * Sets the graph iri
      *
-     * @param \Digicademy\Lod\Domain\Model\Iri $iri
+     * @param Iri $iri
      *
      * @return void
      */
-    public function setIri(\Digicademy\Lod\Domain\Model\Iri $iri)
+    public function setIri(Iri $iri): void
     {
         $this->iri = $iri;
     }
@@ -89,7 +91,7 @@ class Graph extends AbstractEntity
      *
      * @return string $label
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
@@ -101,7 +103,7 @@ class Graph extends AbstractEntity
      *
      * @return void
      */
-    public function setLabel($label)
+    public function setLabel(string $label): void
     {
         $this->label = $label;
     }
@@ -111,7 +113,7 @@ class Graph extends AbstractEntity
      *
      * @return string $comment
      */
-    public function getComment()
+    public function getComment(): string
     {
         return $this->comment;
     }
@@ -123,7 +125,7 @@ class Graph extends AbstractEntity
      *
      * @return void
      */
-    public function setComment($comment)
+    public function setComment(string $comment): void
     {
         $this->comment = $comment;
     }
@@ -131,9 +133,9 @@ class Graph extends AbstractEntity
     /**
      * Returns the statements
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $statements
+     * @return ObjectStorage<Statement> $statements
      */
-    public function getStatements()
+    public function getStatements(): ObjectStorage
     {
         return $this->statements;
     }
@@ -141,11 +143,11 @@ class Graph extends AbstractEntity
     /**
      * Sets the statements
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $statements
+     * @param ObjectStorage<Statement> $statements
      *
      * @return void
      */
-    public function setStatements(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $statements)
+    public function setStatements(ObjectStorage $statements): void
     {
         $this->statements = $statements;
     }

@@ -236,6 +236,7 @@ class EnhancedAddController
     /**
      * Initialization of the class.
      * @param ServerRequestInterface $request
+     * @return void
      */
     protected function init(ServerRequestInterface $request): void
     {

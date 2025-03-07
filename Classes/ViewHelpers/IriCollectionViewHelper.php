@@ -30,7 +30,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class IriCollectionViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var array
      */
@@ -41,7 +40,8 @@ class IriCollectionViewHelper extends AbstractViewHelper
      *
      * @return void
      */
-    public function initializeArguments() {
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'add',
             'array',

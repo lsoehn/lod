@@ -26,7 +26,7 @@ class EnhancedGroupElement extends GroupElement
      * @return array As defined in initializeResultArray() of AbstractNode
      * @throws \RuntimeException
      */
-    public function render()
+    public function render(): array
     {
         $languageService = $this->getLanguageService();
         $backendUser = $this->getBackendUserAuthentication();

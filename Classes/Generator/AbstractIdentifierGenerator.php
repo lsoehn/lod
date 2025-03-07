@@ -29,37 +29,23 @@ namespace Digicademy\Lod\Generator;
 
 abstract class AbstractIdentifierGenerator
 {
-
-    /**
-    * @var array $configuration
-    */
-    protected $configuration;
-
-    /**
-     * @var array $record
-     */
-    protected $record;
-
     /**
      * AbstractResolver constructor
      *
      * @param array $configuration
      * @param array $record
      */
-    public function __construct($configuration, $record)
-    {
-        $this->configuration = $configuration;
-        $this->record = $record;
-    }
+    public function __construct(protected $configuration, protected $record)
+    {}
 
     /**
      * Prefixes an identifier with a string set in TSConfig (depending on type entitiy, property or bnode)
      *
      * @param string $identifier
-     *
      * @return string
      */
-    protected function setIdentifierPrefix($identifier) {
+    protected function setIdentifierPrefix(string $identifier): string
+    {
 
         switch ($this->record['type']) {
             case '1':
@@ -81,5 +67,4 @@ abstract class AbstractIdentifierGenerator
 
         return $prefixedIdentifier;
     }
-
 }

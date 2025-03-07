@@ -31,13 +31,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class GetUrlViewHelper extends AbstractViewHelper
 {
-
     /**
      * Initialize ViewHelper arguments
      *
      * @return void
      */
-    public function initializeArguments() {
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'url',
             'string',
@@ -49,7 +49,7 @@ class GetUrlViewHelper extends AbstractViewHelper
     /**
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         return GeneralUtility::getUrl($this->arguments['url']);
     }

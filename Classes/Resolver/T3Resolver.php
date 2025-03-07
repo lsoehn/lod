@@ -35,17 +35,15 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
 {
 
     /**
-     * @param \Digicademy\Lod\Domain\Model\Representation $representation
-     *
+     * @param Representation $representation
      * @return string
      */
-    public function resolveToUrl(Representation $representation)
+    public function resolveToUrl(Representation $representation): string
     {
 
 // @TODO: call different typolink handlers according to $representation->getAuthority();
 
         $url = '';
-
         $tsfe = $this->getTypoScriptFrontendController();
         $pageTsConfig = $tsfe->getPagesTSconfig();
         $linkDetails = $this->getLinkDetails($representation->getQuery());
@@ -84,7 +82,7 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
      * @param string $query
      * @return array
      */
-    protected function getLinkDetails($query)
+    protected function getLinkDetails(string $query): array
     {
         $queryParameters = GeneralUtility::trimExplode('&', $query, true);
         $linkDetails = [];
@@ -99,9 +97,8 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
     /**
      * @return TypoScriptFrontendController
      */
-    protected function getTypoScriptFrontendController()
+    protected function getTypoScriptFrontendController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
     }
-
 }

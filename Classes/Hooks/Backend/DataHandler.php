@@ -48,8 +48,9 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
+     * @return void
      */
-    public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, &$pObj)
+    public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, &$pObj): void
     {
 
         if ($table == 'tx_lod_domain_model_statement' && $fieldArray['sys_language_uid'] <= 0) {
@@ -79,8 +80,9 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
+     * @return void
      */
-    public function processDatamap_afterDatabaseOperations($status, $table, $id, $fieldArray, $pObj)
+    public function processDatamap_afterDatabaseOperations($status, $table, $id, $fieldArray, $pObj): void
     {
         // identifier generation for IRIs and bnodes
         if ($table == 'tx_lod_domain_model_iri' || $table == 'tx_lod_domain_model_bnode') {
@@ -116,8 +118,9 @@ class DataHandler
      * @param $value
      * @param $pObj
      * @param $pasteUpdate
+     * @return void
      */
-    public function processCmdmap_preProcess($command, $table, $id, $value, $pObj, $pasteUpdate)
+    public function processCmdmap_preProcess($command, $table, $id, $value, $pObj, $pasteUpdate): void
     {
         if ($command == 'delete' || $command == 'undelete' ) {
             $this->trackTables($command, $table, $id);
@@ -131,10 +134,9 @@ class DataHandler
      * @param string $id
      * @param array $fieldArray
      * @param object $pObj
-     *
      * @return array
      */
-    private function synchronizeStatement($status, $id, $fieldArray, $pObj)
+    private function synchronizeStatement($status, $id, $fieldArray, $pObj): array
     {
 
         switch ($status) {
@@ -216,10 +218,9 @@ class DataHandler
      * @param string $id
      * @param array $fieldArray
      * @param object $pObj
-     *
      * @return array
      */
-    private function synchronizeIri($status, $id, $fieldArray, $pObj)
+    private function synchronizeIri($status, $id, $fieldArray, $pObj): array
     {
 
         switch ($status) {
@@ -272,8 +273,9 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
+     * @return void
      */
-    private function generateIdentifier($status, $table, $id, $fieldArray, $pObj)
+    private function generateIdentifier($status, $table, $id, $fieldArray, $pObj): void
     {
         // get full record - in case it is a new record swap id from substNEWwithIDs
         if ($status == 'new') $id = $pObj->substNEWwithIDs[$id];
@@ -354,8 +356,9 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
+     * @return void
      */
-    private function generatePrefixValue($status, $table, $id, $fieldArray, $pObj)
+    private function generatePrefixValue($status, $table, $id, $fieldArray, $pObj): void
     {
         if ($status == 'new') $id = $pObj->substNEWwithIDs[$id];
         $iri = BackendUtility::getRecord('tx_lod_domain_model_iri', (int)$id);
@@ -382,8 +385,9 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
+     * @return void
      */
-    private function trackTables($action, $table, $id, $pObj = null)
+    private function trackTables($action, $table, $id, $pObj = null): void
     {
         // get extension configuration
         $backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('lod');
@@ -415,5 +419,4 @@ class DataHandler
             }
         }
     }
-
 }

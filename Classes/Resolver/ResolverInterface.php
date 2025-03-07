@@ -33,10 +33,7 @@ interface ResolverInterface
 {
     /**
      * @param $representation Representation
-     *
      * @return string
      */
-    public function resolveToUrl(
-        Representation $representation
-    );
+    public function resolveToUrl(Representation $representation): string;
 }

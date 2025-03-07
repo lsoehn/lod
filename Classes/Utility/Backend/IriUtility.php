@@ -39,10 +39,9 @@ class IriUtility
      *
      * @param array $parameters
      * @param object $parentObject
-     *
      * @return array
      */
-    public function filterByType(array $parameters, $parentObject)
+    public function filterByType(array $parameters, object $parentObject): array
     {
         // basic setting: record is allowed
         $filterResult = $parameters['values'];
@@ -89,5 +88,4 @@ class IriUtility
 
         return $filterResult;
     }
-
 }

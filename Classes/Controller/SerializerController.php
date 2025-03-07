@@ -38,28 +38,15 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class SerializerController extends ActionController
 {
     /**
-     * @var \Digicademy\Lod\Domain\Repository\IriNamespaceRepository
-     */
-    protected $iriNamespaceRepository;
-
-    /**
-     * @var \Digicademy\Lod\Domain\Repository\IriRepository
-     */
-    protected $iriRepository = null;
-
-    /**
      * Initializes the controller and dependencies
      *
      * @param \Digicademy\Lod\Domain\Repository\IriNamespaceRepository      $iriNamespaceRepository
      * @param \Digicademy\Lod\Domain\Repository\IriRepository               $iriRepository
      */
     public function __construct(
-        IriNamespaceRepository $iriNamespaceRepository,
-        IriRepository $iriRepository
-    ) {
-        $this->iriNamespaceRepository = $iriNamespaceRepository;
-        $this->iriRepository = $iriRepository;
-    }
+        protected IriNamespaceRepository $iriNamespaceRepository,
+        protected IriRepository $iriRepository
+    ) {}
 
     /**
      * The initialize action executes an IRI lookup for the current request either by a uid directly set from a
@@ -133,7 +120,6 @@ class SerializerController extends ActionController
         }
 
         $this->request->withFormat($format);
-
     }
 
     /**
@@ -173,5 +159,4 @@ class SerializerController extends ActionController
     }
 
     // could potentially also include graphAction() in the future
-
 }

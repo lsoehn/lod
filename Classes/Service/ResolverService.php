@@ -56,14 +56,12 @@ class ResolverService
     /**
      * @param Representation $representation
      * @param array $settings
-     *
      * @return string
      */
      public function resolve(
         Representation $representation,
         array $settings
-    ): string
-    {
+    ): string {
         $url = '';
         $scheme = $representation->getScheme();
 

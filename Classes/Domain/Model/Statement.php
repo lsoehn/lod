@@ -27,6 +27,7 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
+use Digicademy\Lod\Domain\Model\Graph;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
@@ -67,7 +68,7 @@ class Statement extends AbstractEntity
     /**
      * reference statements
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $referenceStatements
+     * @var ObjectStorage<Statement> $referenceStatements
      * @Lazy
      */
     protected $referenceStatements;
@@ -89,9 +90,9 @@ class Statement extends AbstractEntity
     /**
      * Returns the named graph
      *
-     * @return \Digicademy\Lod\Domain\Model\Graph $graph
+     * @return Graph $graph
      */
-    public function getGraph()
+    public function getGraph(): Graph
     {
         return $this->graph;
     }
@@ -99,11 +100,10 @@ class Statement extends AbstractEntity
     /**
      * Sets the graph
      *
-     * @param \Digicademy\Lod\Domain\Model\Graph $graph
-     *
+     * @param Graph $graph
      * @return void
      */
-    public function setGraph(\Digicademy\Lod\Domain\Model\Graph $graph)
+    public function setGraph(Graph $graph): void
     {
         $this->graph = $graph;
     }
@@ -122,17 +122,15 @@ class Statement extends AbstractEntity
      * Sets the subject
      *
      * @param $subject
-     *
      * @return void
      */
-    public function setSubject($subject)
+    public function setSubject($subject): void
     {
         $this->subject = $subject;
     }
 
     /**
      * Returns the predicate
-     *
      * @return mixed
      */
     public function getPredicate()
@@ -144,10 +142,9 @@ class Statement extends AbstractEntity
      * Sets the predicate
      *
      * @param $predicate
-     *
      * @return void
      */
-    public function setPredicate($predicate)
+    public function setPredicate($predicate): void
     {
         $this->predicate = $predicate;
     }
@@ -166,10 +163,9 @@ class Statement extends AbstractEntity
      * Sets the object
      *
      * @param $object
-     *
      * @return void
      */
-    public function setObject($object)
+    public function setObject($object): void
     {
         $this->object = $object;
     }
@@ -179,7 +175,7 @@ class Statement extends AbstractEntity
      *
      * @return int
      */
-    public function getObjectRecursion()
+    public function getObjectRecursion(): int
     {
         return $this->objectRecursion;
     }
@@ -188,10 +184,9 @@ class Statement extends AbstractEntity
      * Sets the objectRecursion
      *
      * @param int $objectRecursion
-     *
      * @return void
      */
-    public function setObjectRecursion($objectRecursion)
+    public function setObjectRecursion(int $objectRecursion): void
     {
         $this->objectRecursion = $objectRecursion;
     }
@@ -201,7 +196,7 @@ class Statement extends AbstractEntity
      *
      * @return int
      */
-    public function getObjectInversion()
+    public function getObjectInversion(): int
     {
         return $this->objectInversion;
     }
@@ -210,10 +205,9 @@ class Statement extends AbstractEntity
      * Sets the objectInversion
      *
      * @param int $objectInversion
-     *
      * @return void
      */
-    public function setObjectInversion($objectInversion)
+    public function setObjectInversion(int $objectInversion): void
     {
         $this->objectInversion = $objectInversion;
     }
@@ -221,9 +215,9 @@ class Statement extends AbstractEntity
     /**
      * Returns valid reference statements (RDF*)
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $referenceStatements
+     * @return ObjectStorage<Statement> $referenceStatements
      */
-    public function getReferenceStatements()
+    public function getReferenceStatements(): ObjectStorage
     {
         $statementObjectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
 
@@ -242,11 +236,10 @@ class Statement extends AbstractEntity
     /**
      * Sets the referenceStatements
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Digicademy\Lod\Domain\Model\Statement> $referenceStatements
-     *
+     * @param ObjectStorage<Statement> $referenceStatements
      * @return void
      */
-    public function setReferenceStatements($referenceStatements)
+    public function setReferenceStatements(ObjectStorage $referenceStatements): void
     {
         $this->referenceStatements = $referenceStatements;
     }

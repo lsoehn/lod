@@ -100,7 +100,7 @@ class Representation extends AbstractValueObject
      *
      * @return string $parent
      */
-    public function getParent()
+    public function getParent(): string
     {
         return $this->parent;
     }
@@ -112,7 +112,7 @@ class Representation extends AbstractValueObject
      *
      * @return void
      */
-    public function setParent($parent)
+    public function setParent(string $parent): void
     {
         $this->parent = $parent;
     }
@@ -122,7 +122,7 @@ class Representation extends AbstractValueObject
      *
      * @return string $tablename
      */
-    public function getTablename()
+    public function getTablename(): string
     {
         return $this->tablename;
     }
@@ -134,7 +134,7 @@ class Representation extends AbstractValueObject
      *
      * @return void
      */
-    public function setTablename($tablename)
+    public function setTablename(string $tablename): void
     {
         $this->tablename = $tablename;
     }
@@ -144,7 +144,7 @@ class Representation extends AbstractValueObject
      *
      * @return string $scheme
      */
-    public function getScheme()
+    public function getScheme(): string
     {
         return $this->scheme;
     }
@@ -156,7 +156,7 @@ class Representation extends AbstractValueObject
      *
      * @return void
      */
-    public function setScheme($scheme)
+    public function setScheme(string $scheme): void
     {
         $this->scheme = $scheme;
     }
@@ -166,7 +166,7 @@ class Representation extends AbstractValueObject
      *
      * @return string $authority
      */
-    public function getAuthority()
+    public function getAuthority(): string
     {
         return $this->authority;
     }
@@ -178,7 +178,7 @@ class Representation extends AbstractValueObject
      *
      * @return void
      */
-    public function setAuthority($authority)
+    public function setAuthority(string $authority): void
     {
         $this->authority = $authority;
     }
@@ -188,7 +188,7 @@ class Representation extends AbstractValueObject
      *
      * @return string $path
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
@@ -200,7 +200,7 @@ class Representation extends AbstractValueObject
      *
      * @return void
      */
-    public function setPath($path)
+    public function setPath(string $path): void
     {
         $this->path = $path;
     }
@@ -210,7 +210,7 @@ class Representation extends AbstractValueObject
      *
      * @return string $query
      */
-    public function getQuery()
+    public function getQuery(): string
     {
         return $this->query;
     }
@@ -222,7 +222,7 @@ class Representation extends AbstractValueObject
      *
      * @return void
      */
-    public function setQuery($query)
+    public function setQuery(string $query): void
     {
         $this->query = $query;
     }
@@ -232,7 +232,7 @@ class Representation extends AbstractValueObject
      *
      * @return string $fragment
      */
-    public function getFragment()
+    public function getFragment(): string
     {
         return $this->fragment;
     }
@@ -244,7 +244,7 @@ class Representation extends AbstractValueObject
      *
      * @return void
      */
-    public function setFragment($fragment)
+    public function setFragment(string $fragment): void
     {
         $this->fragment = $fragment;
     }
@@ -254,7 +254,7 @@ class Representation extends AbstractValueObject
      *
      * @return string $contentType
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return $this->contentType;
     }
@@ -266,7 +266,7 @@ class Representation extends AbstractValueObject
      *
      * @return void
      */
-    public function setContentType($contentType)
+    public function setContentType(string $contentType): void
     {
         $this->contentType = $contentType;
     }
@@ -276,7 +276,7 @@ class Representation extends AbstractValueObject
      *
      * @return string $contentLanguage
      */
-    public function getContentLanguage()
+    public function getContentLanguage(): string
     {
         return $this->contentLanguage;
     }
@@ -288,7 +288,7 @@ class Representation extends AbstractValueObject
      *
      * @return void
      */
-    public function setContentLanguage($contentLanguage)
+    public function setContentLanguage(string $contentLanguage): void
     {
         $this->contentLanguage = $contentLanguage;
     }

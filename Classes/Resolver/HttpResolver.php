@@ -27,19 +27,18 @@
 
 namespace Digicademy\Lod\Resolver;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Digicademy\Lod\Domain\Model\Representation;
+use TYPO3\CMS\Core\Error\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class HttpResolver extends AbstractResolver implements ResolverInterface
 {
-
     /**
-     * @param \Digicademy\Lod\Domain\Model\Representation $representation
-     *
+     * @param Representation $representation
      * @return string
-     * @throws \TYPO3\CMS\Core\Error\Exception
+     * @throws Exception
      */
-    public function resolveToUrl(Representation $representation)
+    public function resolveToUrl(Representation $representation): string
     {
         $recordUrl =
             $representation->getScheme() . '://' .
@@ -51,12 +50,11 @@ class HttpResolver extends AbstractResolver implements ResolverInterface
         if (GeneralUtility::isValidUrl($recordUrl)) {
             $url = $recordUrl;
         } else {
-            throw new \TYPO3\CMS\Core\Error\Exception(
+            throw new Exception(
                 'URL of representation with uid ' . $representation->getUid() . ' is invalid', 1555043405
             );
         }
 
         return $url;
     }
-
 }

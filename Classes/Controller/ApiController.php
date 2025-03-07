@@ -50,36 +50,6 @@ use TYPO3\CMS\Frontend\Page\PageAccessFailureReasons;
 class ApiController extends ActionController
 {
     /**
-     * @var IriNamespaceRepository
-     */
-    protected $iriNamespaceRepository = null;
-
-    /**
-     * @var IriRepository
-     */
-    protected $iriRepository = null;
-
-    /**
-     * @var GraphRepository
-     */
-    protected $graphRepository = null;
-
-    /**
-     * @var StatementRepository
-     */
-    protected $statementRepository = null;
-
-    /**
-     * @var ContentNegotiationService
-     */
-    protected $contentNegotiationService;
-
-    /**
-     * @var ResolverService
-     */
-    protected $resolverService;
-
-    /**
      * @var Iri
      */
     protected $resource = null;
@@ -100,20 +70,13 @@ class ApiController extends ActionController
      * @param ResolverService             $resolverService
      */
     public function __construct(
-        IriNamespaceRepository $iriNamespaceRepository,
-        IriRepository $iriRepository,
-        GraphRepository $graphRepository,
-        StatementRepository $statementRepository,
-        ContentNegotiationService $contentNegotiationService,
-        ResolverService $resolverService
-    ) {
-        $this->iriNamespaceRepository = $iriNamespaceRepository;
-        $this->iriRepository = $iriRepository;
-        $this->graphRepository = $graphRepository;
-        $this->statementRepository = $statementRepository;
-        $this->contentNegotiationService = $contentNegotiationService;
-        $this->resolverService = $resolverService;
-    }
+        protected IriNamespaceRepository $iriNamespaceRepository,
+        protected IriRepository $iriRepository,
+        protected GraphRepository $graphRepository,
+        protected StatementRepository $statementRepository,
+        protected ContentNegotiationService $contentNegotiationService,
+        protected ResolverService $resolverService
+    ) {}
 
     /**
      * Main action and entry point of this controller. Returns metadata either about a single resource
@@ -122,8 +85,10 @@ class ApiController extends ActionController
      *
      * ROOT/ENTRYPOINT/ABOUT => list of resources
      * ROOT/ENTRYPOINT/VALUE/ABOUT => single resource
+     *
+     * @return ResponseInterface
      */
-    public function aboutAction()
+    public function aboutAction(): ResponseInterface
     {
         // check if pageType is set (either via param or masked through PageTypeSuffix)
         if (GeneralUtility::_GP('type')) {
@@ -315,7 +280,7 @@ class ApiController extends ActionController
      *
      * @return void
      */
-    private function listAction()
+    private function listAction(): void
     {
         $arguments = $this->request->getArguments();
 
@@ -390,13 +355,12 @@ class ApiController extends ActionController
      * Returns a single resource in different content types / document representations
      *
      * @param \Digicademy\Lod\Domain\Model\Iri $resource
-     *
      * @return void
      * @throws \TYPO3\CMS\Extbase\Exception
      */
     private function showAction(
         Iri $resource
-    ) {
+    ): void {
         // assign current action for disambiguation in about template
         $this->view->assign('action', 'show');
 
@@ -415,7 +379,7 @@ class ApiController extends ActionController
      *
      * @return void
      */
-    private function apiDocumentationAction()
+    private function apiDocumentationAction(): void
     {
         // if no valid API documentation key is given or format is not JSON-LD return 404
         $apiDocumentationKey = $this->request->getArgument('apiDocumentation');
@@ -437,7 +401,7 @@ class ApiController extends ActionController
      *
      * @return void
      */
-    private function apiEntryPointAction()
+    private function apiEntryPointAction(): void
     {
         // assign current action for disambiguation in about template
         $this->view->assign('action', 'apiEntryPoint');

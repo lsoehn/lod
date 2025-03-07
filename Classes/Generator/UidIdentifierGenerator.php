@@ -36,7 +36,7 @@ class UidIdentifierGenerator extends AbstractIdentifierGenerator implements Iden
      *
      * @return string
      */
-    public function generate()
+    public function generate(): string
     {
         return $this->setIdentifierPrefix($this->record['uid']);
     }

@@ -50,7 +50,6 @@ class ItemMappingService
 
     /**
      * @param string $record
-     *
      * @return object
      */
     public function mapItem(string $record): ?object
@@ -68,7 +67,6 @@ class ItemMappingService
 
     /**
      * @param string $record
-     *
      * @return Record
      */
     public function mapGenericItem(string $record): ?Record
@@ -104,7 +102,6 @@ class ItemMappingService
      * Loads a record (syntax: tablename_uid)
      *
      * @param string $record
-     *
      * @return array
      */
     protected function load(string $record): ?array
@@ -144,7 +141,6 @@ class ItemMappingService
      *
      * @param array $row
      * @param string $tablename
-     *
      * @return object
      */
     protected function map(array $row, string $tablename): ?object
@@ -191,7 +187,6 @@ class ItemMappingService
      * Signal/Slot method that maps tablename_uid strings from TCA group fields to objects
      *
      * @param object $domainObject
-     *
      * @return void
      */
     public function mapGenericProperty(object $domainObject): void

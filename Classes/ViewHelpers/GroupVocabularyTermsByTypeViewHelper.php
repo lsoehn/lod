@@ -33,7 +33,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\{
 
 class GroupVocabularyTermsByTypeViewHelper extends AbstractViewHelper
 {
-
     /**
      * Initialize arguments
      *
@@ -41,7 +40,7 @@ class GroupVocabularyTermsByTypeViewHelper extends AbstractViewHelper
      *
      * @throws Exception
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument(
             'terms',
@@ -62,7 +61,7 @@ class GroupVocabularyTermsByTypeViewHelper extends AbstractViewHelper
     /**
      * @return void
      */
-    public function render()
+    public function render(): void
     {
         $terms = $this->arguments['terms'];
         $groupedTerms = [

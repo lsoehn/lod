@@ -36,16 +36,16 @@ class Category extends ExtbaseCategory
     /**
      * Iri of the category
      *
-     * @var \Digicademy\Lod\Domain\Model\Iri
+     * @var Iri
      */
     protected $iri;
 
     /**
      * Returns the category iri
      *
-     * @return \Digicademy\Lod\Domain\Model\Iri $iri
+     * @return Iri $iri
      */
-    public function getIri()
+    public function getIri(): Iri
     {
         return $this->iri;
     }
@@ -53,11 +53,11 @@ class Category extends ExtbaseCategory
     /**
      * Sets the category iri
      *
-     * @param \Digicademy\Lod\Domain\Model\Iri $iri
+     * @param Iri $iri
      *
      * @return void
      */
-    public function setIri(Iri $iri)
+    public function setIri(Iri $iri): void
     {
         $this->iri = $iri;
     }

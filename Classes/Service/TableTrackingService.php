@@ -39,42 +39,22 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 class TableTrackingService
 {
-
-    /**
-     * @var array
-     */
-    protected $configuration;
-
-    /**
-     * @var array
-     */
-    protected $record;
-
-    /**
-     * @var string
-     */
-    protected $table;
-
-    /**
-     * @var string
-     */
-    protected $action;
-
     /**
      * Service constructor
      */
-     public function __construct($action, $table, $record, $configuration)
-     {
-        $this->action = $action;
-        $this->table = $table;
-        $this->record = $record;
-        $this->configuration = $configuration;
-     }
+     public function __construct(
+        protected string $action,
+        protected string $table,
+        protected array $record,
+        protected array $configuration
+    ) {}
 
     /**
      * Creates IRI records for records in tracked tables
+     *
+     * @return void
      */
-     public function track()
+     public function track(): void
      {
         $existingIRIs = $this->iriExists();
         $tableAndUid = $this->table . '_' . $this->record['uid'];
@@ -300,9 +280,10 @@ class TableTrackingService
 
     /**
      * Checks if an IRI exists for the tracked record (by looking at the record field and the uid)
+     *
      * @return array A result array with iri records if existing
      */
-    private function iriExists()
+    private function iriExists(): array
     {
         if ($this->configuration['iriPidList']) {
             (is_array($this->configuration['iriPidList.']) && array_key_exists('recursive', $this->configuration['iriPidList.'])) ?
@@ -345,10 +326,9 @@ class TableTrackingService
      *
      * @param string $pidList
      * @param int $recursive
-     *
      * @return string
      */
-    protected function getIriPidList($pidList, $recursive)
+    protected function getIriPidList(string $pidList, int $recursive): string
     {
         $recursiveIriPids = '';
         $storagePids = GeneralUtility::intExplode(',', $pidList);
@@ -371,18 +351,21 @@ class TableTrackingService
      *
      * @see https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Deprecation-92080-DeprecatedQueryGeneratorAndQueryView.html#deprecation-92080-querygenerator-and-queryview
      *
-     *
      * @param int $id uid of the page
      * @param int $depth
      * @param int $begin
      * @param string $permClause
      * @return string comma separated list of descendant pages
      */
-    public function getTreeList($id, $depth, $begin = 0, $permClause = '')
-    {
-        $depth = (int)$depth;
-        $begin = (int)$begin;
-        $id = (int)$id;
+    public function getTreeList(
+        int $id,
+        int $depth,
+        int $begin = 0,
+        string $permClause = ''
+    ): string {
+        $depth = $depth;
+        $begin = $begin;
+        $id = $id;
         if ($id < 0) {
             $id = abs($id);
         }

@@ -27,17 +27,19 @@
 namespace Digicademy\Lod\ViewHelpers;
 
 use Digicademy\Lod\Domain\Repository\StatementRepository;
+use TYPO3\CMS\Extbase\Exception;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class FetchBnodeViewHelper extends AbstractViewHelper
 {
-
     /**
      * Initialize ViewHelper arguments
      *
      * @return void
      */
-    public function initializeArguments() {
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'bnode',
             '\Digicademy\Lod\Domain\Model\Bnode',
@@ -47,12 +49,12 @@ class FetchBnodeViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @var \Digicademy\Lod\Domain\Repository\StatementRepository
+     * @var StatementRepository
      */
     protected $statementRepository = null;
 
     /**
-     * @param \Digicademy\Lod\Domain\Repository\StatementRepository $statementRepository
+     * @param StatementRepository $statementRepository
      */
     public function injectStatementRepository(StatementRepository $statementRepository)
         {
@@ -62,12 +64,11 @@ class FetchBnodeViewHelper extends AbstractViewHelper
     /**
      * Fetches statements for a given blank node
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-     * @throws \TYPO3\CMS\Extbase\Exception
+     * @return QueryResultInterface
+     * @throws Exception
      */
-    public function render()
+    public function render(): QueryResultInterface
     {
         return $this->statementRepository->findByPosition('subject', $this->arguments['bnode']);
     }
-
 }

@@ -38,7 +38,7 @@ class ForeignRecordFieldIdentifierGenerator extends AbstractIdentifierGenerator 
      *
      * @return string
      */
-    public function generate()
+    public function generate(): string
     {
         $identifier = '';
 
@@ -60,5 +60,4 @@ class ForeignRecordFieldIdentifierGenerator extends AbstractIdentifierGenerator 
 
         return $this->setIdentifierPrefix($identifier);
     }
-
 }

@@ -36,7 +36,8 @@ class DetermineEntityViewHelper extends AbstractViewHelper
      *
      * @return void
      */
-    public function initializeArguments() {
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'entity',
             'object',
@@ -50,9 +51,8 @@ class DetermineEntityViewHelper extends AbstractViewHelper
      *
      * @return string
      */
-    public function render()
+    public function render(): string
     {
         return get_class($this->arguments['entity']);
     }
-
 }

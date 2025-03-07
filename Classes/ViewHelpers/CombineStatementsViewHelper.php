@@ -27,6 +27,7 @@
 namespace Digicademy\Lod\ViewHelpers;
 
 use Digicademy\Lod\Domain\Model\Iri;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class CombineStatementsViewHelper extends AbstractViewHelper
@@ -37,7 +38,8 @@ class CombineStatementsViewHelper extends AbstractViewHelper
      *
      * @return void
      */
-    public function initializeArguments() {
+    public function initializeArguments(): void
+    {
         $this->registerArgument(
             'iri',
             '\Digicademy\Lod\Domain\Model\Iri',
@@ -61,9 +63,9 @@ class CombineStatementsViewHelper extends AbstractViewHelper
     /**
      * Combines statements and inverse statements in one object storage
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return ObjectStorage
      */
-    public function render()
+    public function render(): ObjectStorage
     {
         $iri = $this->arguments['iri'];
         $inverseStatements = $iri->getInverseStatements();
