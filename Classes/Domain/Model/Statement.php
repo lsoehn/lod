@@ -69,8 +69,8 @@ class Statement extends AbstractEntity
      * reference statements
      *
      * @var ObjectStorage<Statement> $referenceStatements
-     * @Lazy
      */
+    #[Lazy]
     protected $referenceStatements;
 
     /**

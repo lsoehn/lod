@@ -60,8 +60,8 @@ class Graph extends AbstractEntity
      * statements
      *
      * @var ObjectStorage<Statement>
-     * @Lazy
      */
+    #[Lazy]
     protected $statements;
 
     /**

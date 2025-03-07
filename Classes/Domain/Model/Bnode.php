@@ -28,7 +28,7 @@
 namespace Digicademy\Lod\Domain\Model;
 
 use Digicademy\Lod\Domain\Model\Statement;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -54,16 +54,16 @@ class Bnode extends AbstractEntity
      * value
      *
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $value;
 
     /**
      * Statements with this blank node as subject
      *
      * @var ObjectStorage<Statement> $statement
-     * @Lazy
      */
+    #[Lazy]
     protected $statements;
 
     /**
