@@ -208,7 +208,7 @@ class IriRepository extends Repository
         }
 
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...$constraints)
         );
 
         return $query->execute();
