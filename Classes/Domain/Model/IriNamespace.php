@@ -54,7 +54,7 @@ class IriNamespace extends AbstractEntity
      *
      * @return string $prefix
      */
-    public function getPrefix()
+    public function getPrefix(): string
     {
         return $this->prefix;
     }
@@ -66,7 +66,7 @@ class IriNamespace extends AbstractEntity
      *
      * @return void
      */
-    public function setPrefix($prefix)
+    public function setPrefix($prefix): void
     {
         $this->prefix = $prefix;
     }
@@ -76,7 +76,7 @@ class IriNamespace extends AbstractEntity
      *
      * @return string $iri
      */
-    public function getIri()
+    public function getIri(): string
     {
         return $this->iri;
     }
@@ -88,7 +88,7 @@ class IriNamespace extends AbstractEntity
      *
      * @return void
      */
-    public function setIri($iri)
+    public function setIri($iri): void
     {
         $this->iri = $iri;
     }

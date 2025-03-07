@@ -65,9 +65,9 @@ class Vocabulary extends AbstractEntity
     /**
      * Returns the graph iri
      *
-     * @return \Digicademy\Lod\Domain\Model\Iri $iri
+     * @return Iri $iri
      */
-    public function getIri()
+    public function getIri(): Iri
     {
         return $this->iri;
     }
@@ -75,11 +75,11 @@ class Vocabulary extends AbstractEntity
     /**
      * Sets the graph iri
      *
-     * @param \Digicademy\Lod\Domain\Model\Iri $iri
+     * @param Iri $iri
      *
      * @return void
      */
-    public function setIri(\Digicademy\Lod\Domain\Model\Iri $iri)
+    public function setIri(Iri $iri): void
     {
         $this->iri = $iri;
     }
@@ -90,7 +90,7 @@ class Vocabulary extends AbstractEntity
      *
      * @return string $label
      */
-    public function getLabel()
+    public function getLabel(): string
     {
         return $this->label;
     }
@@ -102,7 +102,7 @@ class Vocabulary extends AbstractEntity
      *
      * @return void
      */
-    public function setLabel($label)
+    public function setLabel(string $label): void
     {
         $this->label = $label;
     }
@@ -112,7 +112,7 @@ class Vocabulary extends AbstractEntity
      *
      * @return string $comment
      */
-    public function getComment()
+    public function getComment(): string
     {
         return $this->comment;
     }
@@ -124,7 +124,7 @@ class Vocabulary extends AbstractEntity
      *
      * @return void
      */
-    public function setComment($comment)
+    public function setComment(string $comment): void
     {
         $this->comment = $comment;
     }

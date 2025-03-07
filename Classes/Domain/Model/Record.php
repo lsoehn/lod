@@ -172,7 +172,7 @@ class Record extends AbstractEntity
      *
      * @return void
      */
-    public function setDomainObject(object $domainObject)
+    public function setDomainObject(object $domainObject): void
     {
         $this->domainObject = $domainObject;
     }
