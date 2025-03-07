@@ -33,6 +33,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class FetchBnodeViewHelper extends AbstractViewHelper
 {
+    public function __construct(
+        protected StatementRepository $statementRepository
+    ) {}
+
     /**
      * Initialize ViewHelper arguments
      *
@@ -46,19 +50,6 @@ class FetchBnodeViewHelper extends AbstractViewHelper
             'Blank node for which statements should be fetched',
             true
         );
-    }
-
-    /**
-     * @var StatementRepository
-     */
-    protected $statementRepository = null;
-
-    /**
-     * @param StatementRepository $statementRepository
-     */
-    public function injectStatementRepository(StatementRepository $statementRepository)
-        {
-        $this->statementRepository = $statementRepository;
     }
 
     /**
