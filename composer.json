@@ -1,57 +1,61 @@
 {
-    "name": "digicademy/lod",
-    "type": "typo3-cms-extension",
-    "description": "Linked Open Data for TYPO3 provides a semantic layer with API, terminology service, RDF serializer and IRI resolver",
-    "homepage": "http://www.digitale-akademie.de",
-    "authors": [
-        {
-          "name": "Torsten Schrade",
-          "email": "Torsten.Schrade@adwmainz.de",
-          "role": "Developer",
-          "homepage": "http://www.adwmainz.de"
-        }
-    ],
-    "license": ["GPL-2.0+"],
-    "keywords": ["TYPO3", "Linked Open Data", "LOD", "RDF", "Knowledge Graph", "Semantic Web"],
-    "support": {
-        "issues": "https://github.com/digicademy/lod/issues"
-    },
-    "version": "1.0.0",
-    "require": {
-        "typo3/cms-core": ">=11.0.0 || <=12.4.99",
-        "ext-json": "*"
-    },
+	"name": "digicademy/lod",
+	"type": "typo3-cms-extension",
+	"description": "Linked Open Data for TYPO3 provides a semantic layer with API, terminology service, RDF serializer and IRI resolver",
+	"homepage": "http://www.digitale-akademie.de",
+	"authors": [
+		{
+		  "name": "Torsten Schrade",
+		  "email": "Torsten.Schrade@adwmainz.de",
+		  "role": "Developer",
+		  "homepage": "http://www.adwmainz.de"
+		}
+	],
+	"license": ["GPL-2.0+"],
+	"keywords": ["TYPO3", "Linked Open Data", "LOD", "RDF", "Knowledge Graph", "Semantic Web"],
+	"support": {
+		"issues": "https://github.com/digicademy/lod/issues"
+	},
+	"version": "1.0.0",
+	"require": {
+		"typo3/cms-core": ">=12.0.0 || <=12.4.99",
+		"ext-json": "*"
+	},
 	"require-dev": {
-    	"phpstan/phpstan": "^1.11",
-    	"typo3/coding-standards": "^0.8"
-  	},
-    "suggest": {
-        "easyrdf/easyrdf": "EasyRdf is a PHP library designed to make it easy to consume and produce RDF"
-    },
-    "replace": {
-        "typo3-ter/lod": "self.version"
-    },
-    "autoload": {
-        "psr-4": {
-          "Digicademy\\Lod\\": "Classes/"
-        }
-    },
-    "extra": {
-        "typo3/cms": {
-            "extension-key": "lod"
-        }
-    },
-  	"scripts": {
-    	"phpstan": "phpstan analyse -c phpstan.neon --memory-limit 2G",
-    	"phpstan-debug": "phpstan analyse -c phpstan.neon --memory-limit 2G --debug"
-  	},
-  	"scripts-aliases": {
-    	"phpstan": ["analyse", "analyze", "stan"]
-  	},
-    "config": {
-        "allow-plugins": {
-            "typo3/class-alias-loader": true,
-            "typo3/cms-composer-installers": true
-        }
-    }
+		"codeception/codeception": "^5.2",
+		"phpstan/phpstan": "^1.12",
+		"ssch/typo3-rector": "^2.13",
+		"typo3/coding-standards": "^0.7.1",
+		"codeception/module-phpbrowser": "*",
+		"codeception/module-asserts": "*"
+	},
+	"suggest": {
+		"easyrdf/easyrdf": "EasyRdf is a PHP library designed to make it easy to consume and produce RDF"
+	},
+	"replace": {
+		"typo3-ter/lod": "self.version"
+	},
+	"autoload": {
+		"psr-4": {
+		  "Digicademy\\Lod\\": "Classes/"
+		}
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "lod"
+		}
+	},
+	"scripts": {
+		"phpstan": "phpstan analyse -c phpstan.neon --memory-limit 2G",
+		"phpstan-debug": "phpstan analyse -c phpstan.neon --memory-limit 2G --debug"
+	},
+	"scripts-aliases": {
+		"phpstan": ["analyse", "analyze", "stan"]
+	},
+	"config": {
+		"allow-plugins": {
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		}
+	}
 }
