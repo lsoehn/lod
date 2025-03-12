@@ -14,7 +14,10 @@ return [
             'disabled' => 'hidden',
         ],
         'searchFields' => 'prefix,iri,comment',
-        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_namespace.svg'
+        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_namespace.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => ['showitem' => 'hidden, prefix, iri'],

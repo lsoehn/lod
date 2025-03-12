@@ -14,7 +14,10 @@ return [
             'disabled' => 'hidden',
         ],
         'searchFields' => 'label,comment,value',
-        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_bnode.svg'
+        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_bnode.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => ['showitem' => '

@@ -17,6 +17,9 @@ return [
         ],
         'searchFields' => 'subject,predicate,object,name',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_statement.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => ['showitem' => '--palette--;;SubjectPredicateObject, reference_statements, graph, --palette--;;flags, sys_language_uid'],

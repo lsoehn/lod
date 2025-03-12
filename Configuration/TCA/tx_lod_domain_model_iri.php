@@ -25,7 +25,10 @@ return [
             '2' => 'tx_lod_type_property',
         ],
         'searchFields' => 'label,comment,value',
-        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_iri.svg'
+        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_iri.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     // at the moment, types are the same (but leave option open for future)
     'types' => [

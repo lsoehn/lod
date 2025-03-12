@@ -13,7 +13,10 @@ return [
             'disabled' => 'hidden',
         ],
         'searchFields' => 'content_type, content_language, parameters',
-        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_representation.svg'
+        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_representation.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => [

@@ -12,7 +12,10 @@ return [
             'disabled' => 'hidden',
         ],
         'searchFields' => 'type,value,lang,datatype,',
-        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_literal.svg'
+        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_literal.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => ['showitem' => 'hidden, --palette--;;value'],

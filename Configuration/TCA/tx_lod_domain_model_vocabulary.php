@@ -12,7 +12,10 @@ return [
             'disabled' => 'hidden',
         ],
         'searchFields' => 'label,comment',
-        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_vocabulary.svg'
+        'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_vocabulary.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ]
     ],
     'types' => [
         '1' => ['showitem' => 'hidden, iri, label, comment, terms'],
