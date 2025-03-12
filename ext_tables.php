@@ -1,39 +1,15 @@
 <?php
-if (!defined('TYPO3')) {
-    die('Access denied.');
-}
 
-// TYPOSCRIPT
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
-    'lod', 'Configuration/TypoScript', 'Linked Open Data for TYPO3'
-);
+defined('TYPO3') or die();
 
-// TSCONFIG
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('
+ExtensionManagementUtility::addPageTSConfig('
     <INCLUDE_TYPOSCRIPT: source="FILE:EXT:lod/Configuration/TSConfig/setup.txt">
 ');
 
 // PLUGINS
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'Lod',
-    'Vocabulary',
-    'LOD: Vocabulary'
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'Lod',
-    'Api',
-    'LOD: Api'
-);
-
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'Lod',
-    'Serializer',
-    'LOD: Serializer'
-);
 
 // FLEXFORMS
 
