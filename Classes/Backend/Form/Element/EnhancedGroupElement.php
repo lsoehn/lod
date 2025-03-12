@@ -5,11 +5,13 @@ namespace Digicademy\Lod\Backend\Form\Element;
 use TYPO3\CMS\Backend\Form\Element\GroupElement;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Core\Utility\{
     GeneralUtility,
     MathUtility,
     StringUtility
 };
+
 
 /*
  * Copy of the core group element with the sole purpose of changing hardcoded HTML
@@ -311,11 +313,9 @@ class EnhancedGroupElement extends GroupElement
         $html[] =   '<input type="hidden" name="' . htmlspecialchars($elementName) . '" value="' . htmlspecialchars(implode(',', $listOfSelectedValues)) . '" />';
         $html[] = '</div>';
 
-        $resultArray['requireJsModules'][] = ['TYPO3/CMS/Backend/FormEngine/Element/GroupElement' => '
-            function(GroupElement) {
-                new GroupElement(' . GeneralUtility::quoteJSvalue($fieldId) . ');
-            }',
-        ];
+        $resultArray['requireJsModules'][] = JavaScriptModuleInstruction::forRequireJS(
+            'TYPO3/CMS/Backend/FormEngine/Element/GroupElement'
+        )->instance($fieldId);
 
         $resultArray['html'] = implode(LF, $html);
         return $resultArray;

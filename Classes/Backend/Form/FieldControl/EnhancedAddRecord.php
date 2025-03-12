@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Digicademy\Lod\Backend\Form\FieldControl;
 
 use TYPO3\CMS\Backend\Form\AbstractNode;
+use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Core\Utility\{
     GeneralUtility,
     StringUtility
@@ -122,7 +123,9 @@ class EnhancedAddRecord extends AbstractNode
                 'data-window-parameters' => $windowOpenParameters,
             ],
             'requireJsModules' => [
-                ['../typo3conf/ext/lod/Resources/Public/JavaScript/EnhancedAddRecord' => 'function(FieldControl) {new FieldControl(' . GeneralUtility::quoteJSvalue('#' . $id) . ');}'],
+                ['../typo3conf/ext/lod/Resources/Public/JavaScript/EnhancedAddRecord' => JavaScriptModuleInstruction::forRequireJS(
+                    'TYPO3/CMS/Backend/FormEngine/Element/GroupElement'
+                )->instance('#' . $id)
             ],
         ];
     }

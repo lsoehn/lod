@@ -18,6 +18,7 @@ namespace Digicademy\Lod\Backend\Form\FieldControl;
  */
 
 use TYPO3\CMS\Backend\Form\AbstractNode;
+use TYPO3\CMS\Core\Page\JavaScriptModuleInstruction;
 use TYPO3\CMS\Core\Utility\{
     GeneralUtility,
     StringUtility
@@ -144,7 +145,9 @@ class AddRecord extends AbstractNode
                 'href' => (string)$uriBuilder->buildUriFromRoute('wizard_add', $urlParameters),
             ],
             'requireJsModules' => [
-                ['TYPO3/CMS/Backend/FormEngine/FieldControl/AddRecord' => 'function(FieldControl) {new FieldControl(' . GeneralUtility::quoteJSvalue('#' . $id) . ');}'],
+                ['TYPO3/CMS/Backend/FormEngine/FieldControl/AddRecord' => JavaScriptModuleInstruction::forRequireJS(
+                    'TYPO3/CMS/Backend/FormEngine/Element/GroupElement'
+                )->instance('#' . $id)
             ],
         ];
     }
