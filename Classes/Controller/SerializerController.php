@@ -75,7 +75,10 @@ class SerializerController extends ActionController
                 if ($tablename == 'pages') continue;
                 if ($recordConfiguration['pluginNamespace']) {
                     $foreignPluginVars = $this->request->getQueryParams()[$recordConfiguration['pluginNamespace']];
-+                   ArrayUtility::mergeRecursiveWithOverrule($foreignPluginVars, $this->request->getParsedBody()[$recordConfiguration['pluginNamespace']]);
+                    ArrayUtility::mergeRecursiveWithOverrule(
+                        $foreignPluginVars,
+                        $this->request->getParsedBody()[$recordConfiguration['pluginNamespace']]
+                    );
                     if ($foreignPluginVars[$recordConfiguration['argumentName']] > 0) {
                         $tablenameRecord = $tablename . '_' . (int)$foreignPluginVars[$recordConfiguration['argumentName']];
                     }
