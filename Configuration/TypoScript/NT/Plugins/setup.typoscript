@@ -1,0 +1,15 @@
+[getTSFE().type == 2013]
+
+plugin.tx_lod {
+  format = nt
+  view {
+    layoutRootPaths.10 = EXT:lod/Resources/Private/NT/Layouts/
+    partialRootPaths.10 = EXT:lod/Resources/Private/NT/Partials/
+    templateRootPaths.10 = EXT:lod/Resources/Private/NT/Templates/
+  }
+}
+
+tt_content.stdWrap >
+lib.stdheader >
+
+[global]

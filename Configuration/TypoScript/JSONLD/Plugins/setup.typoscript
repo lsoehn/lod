@@ -1,0 +1,15 @@
+[getTSFE().type == 2014]
+
+plugin.tx_lod {
+  format = jsonld
+  view {
+    layoutRootPaths.10 = EXT:lod/Resources/Private/JSONLD/Layouts/
+    partialRootPaths.10 = EXT:lod/Resources/Private/JSONLD/Partials/
+    templateRootPaths.10 = EXT:lod/Resources/Private/JSONLD/Templates/
+  }
+}
+
+tt_content.stdWrap >
+lib.stdheader >
+
+[global]

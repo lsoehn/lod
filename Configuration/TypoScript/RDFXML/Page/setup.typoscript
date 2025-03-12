@@ -1,0 +1,20 @@
+rdfxml = PAGE
+rdfxml {
+
+  typeNum = 2004
+
+  config {
+    disableAllHeaderCode = 1
+    additionalHeaders {
+      10.header = Content-type:application/rdf+xml
+    }
+    admPanel = 0
+    xhtml_cleaning = 0
+    disablePrefixComment = 1
+    debug = 0
+  }
+}
+
+[getTSFE().type == 2004]
+rdfxml.10 < lib.tx_lod.plugin
+[global]

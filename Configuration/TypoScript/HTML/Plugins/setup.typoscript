@@ -1,0 +1,11 @@
+plugin.tx_lod {
+  format = html
+  view {
+    layoutRootPaths.10 = EXT:lod/Resources/Private/HTML/Layouts/
+    partialRootPaths.10 = EXT:lod/Resources/Private/HTML/Partials/
+    templateRootPaths.10 = EXT:lod/Resources/Private/HTML/Templates/
+  }
+}
+
+# [getTSFE().type == 1991]
+# [global]

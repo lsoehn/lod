@@ -1,0 +1,2 @@
+@import 'EXT:lod/Configuration/TypoScript/JSONLD/Page/setup'
+@import 'EXT:lod/Configuration/TypoScript/JSONLD/Plugins/setup'

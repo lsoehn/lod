@@ -1,0 +1,2 @@
+@import 'EXT:lod/Configuration/TypoScript/TTLS/Page/setup'
+@import 'EXT:lod/Configuration/TypoScript/TTLS/Plugins/setup'

@@ -1,0 +1,158 @@
+# libraries
+
+lib.tx_lod.plugin = CONTENT
+lib.tx_lod.plugin {
+  table = tt_content
+  select {
+    pidInList = this
+    max = 1
+    orderBy = sorting
+    where = list_type LIKE ###list_type###
+    markers {
+      list_type.value = lod_%
+    }
+  }
+  renderObj = CASE
+  renderObj {
+    key.field = list_type
+    lod_api = USER
+    lod_api {
+      userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+      extensionName = Lod
+      pluginName = Api
+      vendorName = Digicademy
+    }
+    lod_vocabulary = USER
+    lod_vocabulary {
+      userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+      extensionName = Lod
+      pluginName = Vocabulary
+      vendorName = Digicademy
+    }
+  }
+}
+
+# general extension configuration
+
+plugin.tx_lod {
+  features.requireCHashArgumentForActionArguments = 0
+  persistence {
+    # @see: https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87623-ReplaceConfigpersistenceclassesTyposcriptConfiguration.html
+    classes {
+      Digicademy\Lod\Domain\Model\IriNamespace {
+        mapping {
+          tableName = tx_lod_domain_model_namespace
+        }
+      }
+      # classes configuration for use in ItemMappingService
+      # this also needs to stay in place even in TYPO3 v10
+      Digicademy\Lod\Domain\Model\Iri {
+        mapping {
+          tableName = tx_lod_domain_model_iri
+        }
+      }
+      Digicademy\Lod\Domain\Model\Bnode {
+        mapping {
+          tableName = tx_lod_domain_model_bnode
+        }
+      }
+      Digicademy\Lod\Domain\Model\Literal {
+        mapping {
+          tableName = tx_lod_domain_model_literal
+        }
+      }
+      Digicademy\Lod\Domain\Model\Statement {
+        mapping {
+          tableName = tx_lod_domain_model_statement
+        }
+      }
+      Digicademy\Lod\Domain\Model\Page {
+        mapping {
+          tableName = pages
+        }
+      }
+      Digicademy\Lod\Domain\Model\Category {
+        mapping {
+          tableName = sys_category
+        }
+      }
+    }
+  }
+}
+
+plugin.tx_lod_api {
+  settings {
+    general {
+      CORS {
+        accessControlAllowOrigin = *
+        accessControlAllowMethods = GET
+        accessControlAllowHeaders = Accept, Origin, Content-type, X-Requested-With, Authorization
+        accessControlExposeHeaders = Link, Content-Location, Location
+      }
+    }
+    list {
+#      additionalPidList =
+#      namespaceList =
+    }
+    show {
+#      namespaceList =
+    }
+    apiDocumentation {
+      keys {
+        0 = api
+#        PID = KEYWORD
+      }
+    }
+    resolver {
+      t3 {
+      }
+      http {
+      }
+      https < .http
+    }
+  }
+}
+
+# serialization specific configuration
+@import 'EXT:lod/Configuration/TypoScript/HTML/setup'
+@import 'EXT:lod/Configuration/TypoScript/NT/setup'
+@import 'EXT:lod/Configuration/TypoScript/JSONLD/setup'
+@import 'EXT:lod/Configuration/TypoScript/RDFXML/setup'
+@import 'EXT:lod/Configuration/TypoScript/TTL/setup'
+@import 'EXT:lod/Configuration/TypoScript/TTLS/setup'
+
+# configure serializer templates without pagetype condition in descending order (JSON-LD is default)
+plugin.tx_lod_serializer {
+  settings {
+    # apiPage =
+    recordToArgumentMapping {
+      pages {
+        argumentName = id
+      }
+    }
+    format {
+      default = jsonld
+    }
+    mode = embedded
+  }
+  view {
+    layoutRootPaths {
+      10 = EXT:lod/Resources/Private/NT/Layouts/
+      20 = EXT:lod/Resources/Private/TTL/Layouts/
+      30 = EXT:lod/Resources/Private/RDFXML/Layouts/
+      40 = EXT:lod/Resources/Private/JSONLD/Layouts/
+    }
+    partialRootPaths {
+      10 = EXT:lod/Resources/Private/NT/Partials/
+      20 = EXT:lod/Resources/Private/TTL/Partials/
+      30 = EXT:lod/Resources/Private/RDFXML/Partials/
+      40 = EXT:lod/Resources/Private/JSONLD/Partials/
+    }
+    templateRootPaths {
+      10 = EXT:lod/Resources/Private/NT/Templates/
+      20 = EXT:lod/Resources/Private/TTL/Templates/
+      30 = EXT:lod/Resources/Private/RDFXML/Templates/
+      40 = EXT:lod/Resources/Private/JSONLD/Templates/
+    }
+  }
+}
