@@ -115,7 +115,7 @@ return [
                     'expandSingle' => true,
                     'levelLinksPosition' => 'bottom',
                     'newRecordLinkAddTitle' => true,
-                    'useSortable' => truetrue,
+                    'useSortable' => true,
                 ],
                 'behaviour' => [
                     'disableMovingChildrenWithParent' => true,
