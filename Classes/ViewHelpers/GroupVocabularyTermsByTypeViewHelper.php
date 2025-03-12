@@ -36,7 +36,6 @@ class GroupVocabularyTermsByTypeViewHelper extends AbstractViewHelper
     /**
      * Initialize arguments
      *
-     * @return void
      *
      * @throws Exception
      */
@@ -58,9 +57,6 @@ class GroupVocabularyTermsByTypeViewHelper extends AbstractViewHelper
         );
     }
 
-    /**
-     * @return void
-     */
     public function render(): void
     {
         $terms = $this->arguments['terms'];

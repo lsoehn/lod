@@ -33,13 +33,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class EasyRdfGraphViewHelper extends AbstractViewHelper
 {
-    public function __construct(protected readonly ContainerInterface $container)
-    {}
+    public function __construct(protected readonly ContainerInterface $container) {}
 
     /**
      * Initialize ViewHelper arguments
-     *
-     * @return void
      */
     public function initializeArguments(): void
     {
@@ -115,12 +112,10 @@ class EasyRdfGraphViewHelper extends AbstractViewHelper
         $result = [];
 
         if (class_exists('EasyRdf_Graph') || class_exists('\EasyRdf\Graph')) {
-
             // fetch resource RDF from URI
             $data = GeneralUtility::getUrl($this->arguments['url']);
 
             if ($data) {
-
                 // take care of EasyRdf namespaces after version 0.9
                 if (class_exists('EasyRdf_Graph')) {
                     $graphClassname = 'EasyRdf_Graph';
@@ -144,7 +139,6 @@ class EasyRdfGraphViewHelper extends AbstractViewHelper
 
                 // execute method by key
                 switch ($this->arguments['method']) {
-
                     case 'resources':
                         $result = $graph->resources();
                         break;

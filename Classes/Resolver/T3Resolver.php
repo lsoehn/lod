@@ -33,15 +33,13 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class T3Resolver extends AbstractResolver implements ResolverInterface
 {
-
     /**
      * @param Representation $representation
      * @return string
      */
     public function resolveToUrl(Representation $representation): string
     {
-
-// @TODO: call different typolink handlers according to $representation->getAuthority();
+        // @TODO: call different typolink handlers according to $representation->getAuthority();
 
         $url = '';
         $tsfe = $this->getTypoScriptFrontendController();
@@ -49,7 +47,6 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
         $linkDetails = $this->getLinkDetails($representation->getQuery());
 
         if (!empty($linkDetails['identifier']) && !empty($linkDetails['uid'])) {
-
             $configurationKey = $linkDetails['identifier'] . '.';
             $configuration = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.typoscript')->getSetupArray()['config.']['recordLinks.'];
             $linkHandlerConfiguration = $pageTsConfig['TCEMAIN.']['linkHandler.'][$configurationKey]['configuration.'];
@@ -57,7 +54,6 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
             $typoScriptConfiguration['forceAbsoluteUrl'] = '1';
 
             if ($configuration && $linkHandlerConfiguration && $typoScriptConfiguration) {
-
                 $record = $tsfe->sys_page->checkRecord($linkHandlerConfiguration['table'], $linkDetails['uid']);
 
                 if ($record) {
@@ -88,8 +84,12 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
         $linkDetails = [];
 
         foreach ($queryParameters as $parameter) {
-            if (preg_match('/identifier=/', $parameter)) $linkDetails['identifier'] = substr($parameter, 11);
-            if (preg_match('/uid=/', $parameter)) $linkDetails['uid'] = (int)substr($parameter, 4);
+            if (preg_match('/identifier=/', $parameter)) {
+                $linkDetails['identifier'] = substr($parameter, 11);
+            }
+            if (preg_match('/uid=/', $parameter)) {
+                $linkDetails['uid'] = (int)substr($parameter, 4);
+            }
         }
         return $linkDetails;
     }

@@ -27,21 +27,15 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use Digicademy\Lod\Domain\Model\{
-    IriNamespace,
-    Representation,
-    Statement
-};
 use Digicademy\Lod\Domain\Repository\StatementRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Iri extends AbstractEntity
 {
-
     /**
      * type
      *
@@ -141,7 +135,6 @@ class Iri extends AbstractEntity
      * Sets the type
      *
      * @param int $type
-     * @return void
      */
     public function setType(int $type): void
     {
@@ -162,7 +155,6 @@ class Iri extends AbstractEntity
      * Sets the label
      *
      * @param string $label
-     * @return void
      */
     public function setLabel(string $label): void
     {
@@ -183,7 +175,6 @@ class Iri extends AbstractEntity
      * Sets the labelLanguage
      *
      * @param string $labelLanguage
-     * @return void
      */
     public function setLabelLanguage(string $labelLanguage): void
     {
@@ -204,7 +195,6 @@ class Iri extends AbstractEntity
      * Sets the comment
      *
      * @param string $comment
-     * @return void
      */
     public function setComment(string $comment): void
     {
@@ -225,7 +215,6 @@ class Iri extends AbstractEntity
      * Sets the commentLanguage
      *
      * @param string $commentLanguage
-     * @return void
      */
     public function setCommentLanguage(string $commentLanguage): void
     {
@@ -246,7 +235,6 @@ class Iri extends AbstractEntity
      * Sets the namespace
      *
      * @param IriNamespace $namespace
-     * @return void
      */
     public function setNamespace(IriNamespace $namespace): void
     {
@@ -267,7 +255,6 @@ class Iri extends AbstractEntity
      * Sets the value
      *
      * @param string $value
-     * @return void
      */
     public function setValue(string $value): void
     {
@@ -288,7 +275,6 @@ class Iri extends AbstractEntity
      * Sets the record
      *
      * @param string $record
-     * @return void
      */
     public function setRecord(string $record): void
     {
@@ -309,7 +295,6 @@ class Iri extends AbstractEntity
      * Sets the representations
      *
      * @param ObjectStorage<Representation> $representations
-     * @return void
      */
     public function setRepresentations(ObjectStorage $representations): void
     {
@@ -328,7 +313,7 @@ class Iri extends AbstractEntity
         foreach ($this->statements as $statement) {
             if ($statement->getPredicate() !== null &&
                 $statement->getObject() !== null) {
-                    $statementObjectStorage->attach($statement);
+                $statementObjectStorage->attach($statement);
             }
         }
 
@@ -341,7 +326,6 @@ class Iri extends AbstractEntity
      * Sets the statements
      *
      * @param ObjectStorage<Statement> $statements
-     * @return void
      */
     public function setStatements(ObjectStorage $statements): void
     {
@@ -362,12 +346,12 @@ class Iri extends AbstractEntity
             if ($inverseStatement->getSubject() !== null &&
                 $inverseStatement->getPredicate() !== null &&
                 $inverseStatement->getObjectInversion()
-                ) {
-                    $subject = $inverseStatement->getSubject();
-                    $object = $inverseStatement->getObject();
-                    $inverseStatement->setSubject($object);
-                    $inverseStatement->setObject($subject);
-                    $objectStorage->attach($inverseStatement);
+            ) {
+                $subject = $inverseStatement->getSubject();
+                $object = $inverseStatement->getObject();
+                $inverseStatement->setSubject($object);
+                $inverseStatement->setObject($subject);
+                $objectStorage->attach($inverseStatement);
             }
         }
 

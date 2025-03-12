@@ -27,6 +27,4 @@
 
 namespace Digicademy\Lod\Resolver;
 
-class HttpsResolver extends HttpResolver
-{
-}
+class HttpsResolver extends HttpResolver {}

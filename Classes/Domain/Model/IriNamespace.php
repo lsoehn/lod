@@ -32,7 +32,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class IriNamespace extends AbstractEntity
 {
-
     /**
      * value
      *
@@ -63,8 +62,6 @@ class IriNamespace extends AbstractEntity
      * Sets the prefix
      *
      * @param string $prefix
-     *
-     * @return void
      */
     public function setPrefix($prefix): void
     {
@@ -85,12 +82,9 @@ class IriNamespace extends AbstractEntity
      * Sets the iri
      *
      * @param string $iri
-     *
-     * @return void
      */
     public function setIri($iri): void
     {
         $this->iri = $iri;
     }
-
 }

@@ -32,7 +32,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Literal extends AbstractEntity
 {
-
     /**
      * value
      *
@@ -69,8 +68,6 @@ class Literal extends AbstractEntity
      * Sets the value
      *
      * @param string $value
-     *
-     * @return void
      */
     public function setValue($value): void
     {
@@ -91,8 +88,6 @@ class Literal extends AbstractEntity
      * Sets the language
      *
      * @param string $language
-     *
-     * @return void
      */
     public function setLanguage($language): void
     {
@@ -113,12 +108,9 @@ class Literal extends AbstractEntity
      * Sets the datatype
      *
      * @param string $datatype
-     *
-     * @return void
      */
     public function setDatatype($datatype): void
     {
         $this->datatype = $datatype;
     }
-
 }

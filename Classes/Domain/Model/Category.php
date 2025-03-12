@@ -27,12 +27,10 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use Digicademy\Lod\Domain\Model\Iri;
 use TYPO3\CMS\Extbase\Domain\Model\Category as ExtbaseCategory;
 
 class Category extends ExtbaseCategory
 {
-
     /**
      * Iri of the category
      *
@@ -54,12 +52,9 @@ class Category extends ExtbaseCategory
      * Sets the category iri
      *
      * @param Iri $iri
-     *
-     * @return void
      */
     public function setIri(Iri $iri): void
     {
         $this->iri = $iri;
     }
-
 }

@@ -236,7 +236,6 @@ class EnhancedAddController
     /**
      * Initialization of the class.
      * @param ServerRequestInterface $request
-     * @return void
      */
     protected function init(ServerRequestInterface $request): void
     {
@@ -260,9 +259,9 @@ class EnhancedAddController
             is_array($record) ? $record : ['pid' => $this->P['pid']]
         );
         // Set [params][pid]
-        if (strpos($this->P['params']['pid'], '###') === 0 && substr($this->P['params']['pid'], -3) === '###') {
+        if (str_starts_with($this->P['params']['pid'], '###')   && substr($this->P['params']['pid'], -3) === '###') {
             $keyword = substr($this->P['params']['pid'], 3, -3);
-            if (strpos($keyword, 'PAGE_TSCONFIG_') === 0) {
+            if (str_starts_with($keyword, 'PAGE_TSCONFIG_')) {
                 $this->pid = (int)$TSconfig[$this->P['field']][$keyword];
             } else {
                 $this->pid = (int)$TSconfig['_' . $keyword];

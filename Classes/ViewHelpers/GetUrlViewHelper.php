@@ -26,15 +26,13 @@
 
 namespace Digicademy\Lod\ViewHelpers;
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class GetUrlViewHelper extends AbstractViewHelper
 {
     /**
      * Initialize ViewHelper arguments
-     *
-     * @return void
      */
     public function initializeArguments(): void
     {
@@ -53,5 +51,4 @@ class GetUrlViewHelper extends AbstractViewHelper
     {
         return GeneralUtility::getUrl($this->arguments['url']);
     }
-
 }

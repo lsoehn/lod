@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_representation',
@@ -15,8 +16,8 @@ return [
         'searchFields' => 'content_type, content_language, parameters',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_representation.svg',
         'security' => [
-            'ignorePageTypeRestriction' => true
-        ]
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => [
@@ -30,7 +31,7 @@ return [
                 fragment,
                 content_type,
                 content_language,
-            '
+            ',
         ],
     ],
     'palettes' => [
@@ -40,7 +41,7 @@ return [
         'sys_language_uid' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => ['type' => 'language']
+            'config' => ['type' => 'language'],
         ],
         'hidden' => [
             'exclude' => true,
@@ -51,7 +52,7 @@ return [
         ],
         'parent' => [
             'config' => [
-/*
+                /*
                 'type' => 'passthrough'
 */
                 'type' => 'group',
@@ -72,7 +73,7 @@ return [
                 'type' => 'input',
                 'size' => 10,
                 'eval' => 'trim',
-                'required' => true
+                'required' => true,
             ],
         ],
         'authority' => [
@@ -82,7 +83,7 @@ return [
                 'type' => 'input',
                 'size' => 50,
                 'eval' => 'trim',
-                'required' => true
+                'required' => true,
             ],
         ],
         'path' => [
@@ -92,7 +93,7 @@ return [
                 'type' => 'text',
                 'cols' => '50',
                 'rows' => '5',
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'query' => [
@@ -102,7 +103,7 @@ return [
                 'type' => 'text',
                 'cols' => '50',
                 'rows' => '5',
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'fragment' => [
@@ -112,7 +113,7 @@ return [
                 'type' => 'text',
                 'cols' => '50',
                 'rows' => '5',
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'content_type' => [
@@ -121,7 +122,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'content_language' => [
@@ -134,7 +135,7 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'items' => [
-                    ['label' => '', 'value' => '']
+                    ['label' => '', 'value' => ''],
                 ],
                 'itemsProcFunc' => \TYPO3\CMS\Core\Service\IsoCodeService::class . '->renderIsoCodeSelectDropdown',
             ],

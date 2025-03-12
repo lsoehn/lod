@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_iri',
@@ -17,7 +18,7 @@ return [
             'disabled' => 'hidden',
         ],
         // disable type field: no reload is needed since displayed fields are the same (though type if IRI is of course different)
-//        'type' => 'type',
+        //        'type' => 'type',
         'typeicon_column' => 'type',
         'typeicon_classes' => [
             'default' => 'tx_lod_domain_model_iri',
@@ -27,8 +28,8 @@ return [
         'searchFields' => 'label,comment,value',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_iri.svg',
         'security' => [
-            'ignorePageTypeRestriction' => true
-        ]
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     // at the moment, types are the same (but leave option open for future)
     'types' => [
@@ -63,20 +64,20 @@ return [
     ],
     'palettes' => [
         'label' => [
-            'showitem' => 'label, label_language'
+            'showitem' => 'label, label_language',
         ],
         'comment' => [
-            'showitem' => 'comment, comment_language'
+            'showitem' => 'comment, comment_language',
         ],
         'identifier' => [
-            'showitem' => 'namespace, value, type'
+            'showitem' => 'namespace, value, type',
         ],
     ],
     'columns' => [
         'sys_language_uid' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => ['type' => 'language']
+            'config' => ['type' => 'language'],
         ],
         'hidden' => [
             'exclude' => true,
@@ -91,7 +92,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'label_language' => [
@@ -104,7 +105,7 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'items' => [
-                    ['label' => '', 'value' => '']
+                    ['label' => '', 'value' => ''],
                 ],
                 'itemsProcFunc' => \TYPO3\CMS\Core\Service\IsoCodeService::class . '->renderIsoCodeSelectDropdown',
             ],
@@ -128,7 +129,7 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'items' => [
-                    ['label' => '', 'value' => '']
+                    ['label' => '', 'value' => ''],
                 ],
                 'itemsProcFunc' => \TYPO3\CMS\Core\Service\IsoCodeService::class . '->renderIsoCodeSelectDropdown',
             ],
@@ -162,21 +163,21 @@ return [
                 'size' => 1,
                 'maxitems' => 1,
                 'default' => 0,
-// @TODO: TYPO3 bug in FormEngine - https://forge.typo3.org/issues/89032
+                // @TODO: TYPO3 bug in FormEngine - https://forge.typo3.org/issues/89032
                 'fieldControl' => [
                     'addRecord' => [
                         'disabled' => false,
                         'options' => [
                             'table' => 'tx_lod_domain_model_namespace',
                             'pid' => '###PAGE_TSCONFIG_ID###',
-                            'setValue' => 'set'
+                            'setValue' => 'set',
                         ],
                     ],
                     'editPopup' => [
                         'disabled' => false,
-//                        'options' => [
-//                            'windowOpenParameters' => 'height=650,width=900,status=0,menubar=0,scrollbars=1',
-//                        ],
+                        //                        'options' => [
+                        //                            'windowOpenParameters' => 'height=650,width=900,status=0,menubar=0,scrollbars=1',
+                        //                        ],
                     ],
                 ],
             ],
@@ -189,8 +190,8 @@ return [
                 'size' => 30,
                 'eval' => 'trim',
                 'required' => true,
-//                'eval' => 'required,trim,unique' // for system wide mandatory and unique IRIs
-//                'readOnly' => 1, // recommended if an identifier generator is used
+                //                'eval' => 'required,trim,unique' // for system wide mandatory and unique IRIs
+                //                'readOnly' => 1, // recommended if an identifier generator is used
             ],
         ],
         'prefix_value' => [
@@ -212,12 +213,12 @@ return [
                 'fieldControl' => [
                     'editPopup' => [
                         'disabled' => false,
-//                        'options' => [
-//                            'windowOpenParameters' => 'height=650,width=900,status=0,menubar=0,scrollbars=1',
-//                        )
+                        //                        'options' => [
+                        //                            'windowOpenParameters' => 'height=650,width=900,status=0,menubar=0,scrollbars=1',
+                        //                        )
                     ],
                 ],
-// @TODO: Bug in TYPO3 Core - internal type '*' leads to broken icon in tableList fieldWizard - see TYPO3\CMS\Backend\Form\FieldWizard\TableList
+                // @TODO: Bug in TYPO3 Core - internal type '*' leads to broken icon in tableList fieldWizard - see TYPO3\CMS\Backend\Form\FieldWizard\TableList
                 'fieldWizard' => [
                     'tableList' => [
                         'disabled' => true,
@@ -250,7 +251,7 @@ return [
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => true,
                     'showPossibleLocalizationRecords' => true,
-                    'showAllLocalizationLink' => true
+                    'showAllLocalizationLink' => true,
                 ],
             ],
         ],
@@ -278,7 +279,7 @@ return [
                 'overrideChildTca' => [
                     'types' => [
                         '1' => [
-                            'showitem' => '--palette--;;PredicateObject, reference_statements, graph, --palette--;;flags'
+                            'showitem' => '--palette--;;PredicateObject, reference_statements, graph, --palette--;;flags',
                         ],
                     ],
                 ],

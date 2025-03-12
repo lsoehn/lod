@@ -31,7 +31,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class Record extends AbstractEntity
 {
-
     /**
      * label
      *
@@ -65,7 +64,7 @@ class Record extends AbstractEntity
      *
      * @var object
      */
-    protected $domainObject = null;
+    protected $domainObject;
 
     /**
      * Returns the label
@@ -81,8 +80,6 @@ class Record extends AbstractEntity
      * Sets the label
      *
      * @param string $label
-     *
-     * @return void
      */
     public function setLabel(string $label): void
     {
@@ -103,8 +100,6 @@ class Record extends AbstractEntity
      * Sets the comment
      *
      * @param string $comment
-     *
-     * @return void
      */
     public function setComment(string $comment): void
     {
@@ -125,8 +120,6 @@ class Record extends AbstractEntity
      * Sets the tablename
      *
      * @param string $tablename
-     *
-     * @return void
      */
     public function setTablename(string $tablename): void
     {
@@ -147,8 +140,6 @@ class Record extends AbstractEntity
      * Sets the row
      *
      * @param array $row
-     *
-     * @return void
      */
     public function setRow(array $row): void
     {
@@ -169,12 +160,9 @@ class Record extends AbstractEntity
      * Sets the domainObject
      *
      * @param object $domainObject
-     *
-     * @return void
      */
     public function setDomainObject(object $domainObject): void
     {
         $this->domainObject = $domainObject;
     }
-
 }

@@ -29,7 +29,6 @@ namespace Digicademy\Lod\Utility\Frontend;
 
 class SearchUtility
 {
-
     /**
      * Splits a string into words by whitespace and other characters (,;+-<>()~); preserves quotes if flag is set
      *
@@ -45,8 +44,12 @@ class SearchUtility
         $wordSplit = array_unique(preg_split('/[\s\,\;\<\>\(\)]+/', $string, -1, PREG_SPLIT_NO_EMPTY));
         // if quotes should be preserved, do a second processing
         if ($preserveQuotes === true) {
-            $wordSplit = preg_split('/\G(?:"[^"]*"|\'[^\']*\'|[^"\'\s]+)*\K\s+/', implode(' ', $wordSplit), -1,
-                PREG_SPLIT_NO_EMPTY);
+            $wordSplit = preg_split(
+                '/\G(?:"[^"]*"|\'[^\']*\'|[^"\'\s]+)*\K\s+/',
+                implode(' ', $wordSplit),
+                -1,
+                PREG_SPLIT_NO_EMPTY
+            );
         }
 
         return $wordSplit;

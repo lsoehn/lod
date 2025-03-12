@@ -28,18 +28,18 @@
 namespace Digicademy\Lod\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\{
     QueryInterface,
     QueryResultInterface,
     Repository
 };
-use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 class IriNamespaceRepository extends Repository
 {
-    protected $defaultOrderings = array(
-        'prefix' => QueryInterface::ORDER_ASCENDING
-    );
+    protected $defaultOrderings = [
+        'prefix' => QueryInterface::ORDER_ASCENDING,
+    ];
 
     /**
      * @param string $action
@@ -126,14 +126,14 @@ class IriNamespaceRepository extends Repository
 
         switch ($action) {
             case 'show':
-                    if ($settings['show']['namespaceList']) {
-                        $namespaceList = GeneralUtility::intExplode(',', $settings['show']['namespaceList']);
-                    }
+                if ($settings['show']['namespaceList']) {
+                    $namespaceList = GeneralUtility::intExplode(',', $settings['show']['namespaceList']);
+                }
                 break;
             case 'list':
-                    if ($settings['list']['namespaceList']) {
-                        $namespaceList = GeneralUtility::intExplode(',', $settings['list']['namespaceList']);
-                    }
+                if ($settings['list']['namespaceList']) {
+                    $namespaceList = GeneralUtility::intExplode(',', $settings['list']['namespaceList']);
+                }
                 break;
         }
 

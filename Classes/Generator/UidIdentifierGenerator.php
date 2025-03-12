@@ -29,7 +29,6 @@ namespace Digicademy\Lod\Generator;
 
 class UidIdentifierGenerator extends AbstractIdentifierGenerator implements IdentifierGeneratorInterface
 {
-
     /**
      * The uid generator takes the uid of the IRI/bnode record as identifier (with an optional string prefix for
      * entities, properties and bnodes)
@@ -40,5 +39,4 @@ class UidIdentifierGenerator extends AbstractIdentifierGenerator implements Iden
     {
         return $this->setIdentifierPrefix($this->record['uid']);
     }
-
 }

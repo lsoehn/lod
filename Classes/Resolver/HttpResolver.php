@@ -51,7 +51,8 @@ class HttpResolver extends AbstractResolver implements ResolverInterface
             $url = $recordUrl;
         } else {
             throw new Exception(
-                'URL of representation with uid ' . $representation->getUid() . ' is invalid', 1555043405
+                'URL of representation with uid ' . $representation->getUid() . ' is invalid',
+                1555043405
             );
         }
 

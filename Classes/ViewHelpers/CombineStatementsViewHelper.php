@@ -26,17 +26,13 @@
 
 namespace Digicademy\Lod\ViewHelpers;
 
-use Digicademy\Lod\Domain\Model\Iri;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class CombineStatementsViewHelper extends AbstractViewHelper
 {
-
     /**
      * Initialize ViewHelper arguments
-     *
-     * @return void
      */
     public function initializeArguments(): void
     {
@@ -71,7 +67,6 @@ class CombineStatementsViewHelper extends AbstractViewHelper
         $inverseStatements = $iri->getInverseStatements();
 
         if ($inverseStatements) {
-
             $combinedStatements = $iri->getStatements();
 
             foreach ($inverseStatements as $inverseStatement) {
@@ -93,7 +88,9 @@ class CombineStatementsViewHelper extends AbstractViewHelper
         if ($this->arguments['excludeRdfStarStatements']) {
             $statementsToDetach = [];
             foreach ($combinedStatements as $key => $statement) {
-                if (get_class($statement->getObject()) == 'Digicademy\Lod\Domain\Model\Statement') $statementsToDetach[] = $statement;
+                if (get_class($statement->getObject()) == 'Digicademy\Lod\Domain\Model\Statement') {
+                    $statementsToDetach[] = $statement;
+                }
             }
             if ($statementsToDetach) {
                 foreach ($statementsToDetach as $statement) {

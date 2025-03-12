@@ -32,7 +32,7 @@ class AfterMappingSingleRow
 {
     protected const MAPPABLE_CLASSES = [
         'Digicademy\Lod\Domain\Model\Iri',
-        'Digicademy\Lod\Domain\Model\Statement'
+        'Digicademy\Lod\Domain\Model\Statement',
     ];
 
     public function __construct(
@@ -41,7 +41,6 @@ class AfterMappingSingleRow
 
     /**
      * @param  AfterObjectThawedEvent $event The event class.
-     * @return void
      */
     public function __invoke(AfterObjectThawedEvent $event): void
     {

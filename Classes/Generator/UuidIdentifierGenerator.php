@@ -29,7 +29,6 @@ namespace Digicademy\Lod\Generator;
 
 class UuidIdentifierGenerator extends AbstractIdentifierGenerator implements IdentifierGeneratorInterface
 {
-
     /**
      * Generates an (optionally xml conforming) uuid with a possible prefix for entities, properties or bnodes
      *
@@ -56,7 +55,8 @@ class UuidIdentifierGenerator extends AbstractIdentifierGenerator implements Ide
      */
     private function createUUID(): string
     {
-        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        return sprintf(
+            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             mt_rand(0, 0xffff),
             mt_rand(0, 0xffff),
             mt_rand(0, 0xffff),
@@ -64,7 +64,7 @@ class UuidIdentifierGenerator extends AbstractIdentifierGenerator implements Ide
             mt_rand(0, 0x3fff) | 0x8000,
             mt_rand(0, 0xffff),
             mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff));
+            mt_rand(0, 0xffff)
+        );
     }
-
 }

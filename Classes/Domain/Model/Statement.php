@@ -27,16 +27,13 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use Digicademy\Lod\Domain\Model\Graph;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Statement extends AbstractEntity
 {
-
     /**
      * graph
      *
@@ -101,7 +98,6 @@ class Statement extends AbstractEntity
      * Sets the graph
      *
      * @param Graph $graph
-     * @return void
      */
     public function setGraph(Graph $graph): void
     {
@@ -122,7 +118,6 @@ class Statement extends AbstractEntity
      * Sets the subject
      *
      * @param $subject
-     * @return void
      */
     public function setSubject($subject): void
     {
@@ -142,7 +137,6 @@ class Statement extends AbstractEntity
      * Sets the predicate
      *
      * @param $predicate
-     * @return void
      */
     public function setPredicate($predicate): void
     {
@@ -163,7 +157,6 @@ class Statement extends AbstractEntity
      * Sets the object
      *
      * @param $object
-     * @return void
      */
     public function setObject($object): void
     {
@@ -184,7 +177,6 @@ class Statement extends AbstractEntity
      * Sets the objectRecursion
      *
      * @param int $objectRecursion
-     * @return void
      */
     public function setObjectRecursion(int $objectRecursion): void
     {
@@ -205,7 +197,6 @@ class Statement extends AbstractEntity
      * Sets the objectInversion
      *
      * @param int $objectInversion
-     * @return void
      */
     public function setObjectInversion(int $objectInversion): void
     {
@@ -224,7 +215,7 @@ class Statement extends AbstractEntity
         foreach ($this->referenceStatements as $statement) {
             if ($statement->getPredicate() !== null &&
                 $statement->getObject() !== null) {
-                    $statementObjectStorage->attach($statement);
+                $statementObjectStorage->attach($statement);
             }
         }
 
@@ -237,11 +228,9 @@ class Statement extends AbstractEntity
      * Sets the referenceStatements
      *
      * @param ObjectStorage<Statement> $referenceStatements
-     * @return void
      */
     public function setReferenceStatements(ObjectStorage $referenceStatements): void
     {
         $this->referenceStatements = $referenceStatements;
     }
-
 }

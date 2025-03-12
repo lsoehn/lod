@@ -36,9 +36,9 @@ use TYPO3\CMS\Extbase\Persistence\{
 
 class GraphRepository extends Repository
 {
-    protected $defaultOrderings = array(
-        'label' => QueryInterface::ORDER_ASCENDING
-    );
+    protected $defaultOrderings = [
+        'label' => QueryInterface::ORDER_ASCENDING,
+    ];
 
     /**
      * @param Iri $iri
@@ -64,5 +64,4 @@ class GraphRepository extends Repository
         // return result
         return $query->execute()->getFirst();
     }
-
 }

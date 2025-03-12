@@ -72,8 +72,6 @@ class ContentNegotiationService
     /**
      * Content negotiation: Determines the best mime type for a response by negotiating
      * between mime types accepted by the client and mime types available from TypoScript.
-     *
-     * @return void
      */
     public function __construct(
         protected readonly ServerRequest $request
@@ -88,22 +86,20 @@ class ContentNegotiationService
 
         // if a page type is already set, format and content type can be set directly
         if ($pageType > 0) {
-
             $this->setContentType($this->availableMimeTypes[$pageType]);
             $this->setFormat($this->typoScriptSetup['types.'][$pageType]);
 
-        // if no page type is set compare accepted mime types with available mime types and set best format
-        // reminder: $this->acceptedMimeTypes is in order from best to least format
+            // if no page type is set compare accepted mime types with available mime types and set best format
+            // reminder: $this->acceptedMimeTypes is in order from best to least format
         } else {
-
             foreach ($this->acceptedMimeTypes as $mimeType) {
                 if (in_array($mimeType, $this->availableMimeTypes)) {
                     $type = array_search($mimeType, $this->availableMimeTypes);
                     if ($type == 0) {
                         continue;
-                    } else {
-                        $this->setFormat($this->typoScriptSetup['types.'][$type]);
                     }
+                    $this->setFormat($this->typoScriptSetup['types.'][$type]);
+
                     $this->setContentType($this->availableMimeTypes[$type]);
                     break;
                 }
@@ -125,8 +121,6 @@ class ContentNegotiationService
      * Setter for content type
      *
      * @param string $contentType
-     *
-     * @return void
      */
     public function setContentType(string $contentType): void
     {
@@ -146,8 +140,6 @@ class ContentNegotiationService
     /**
      * Setter for format
      * @param string $format
-     *
-     * @return void
      */
     public function setFormat(string $format): void
     {
@@ -167,13 +159,11 @@ class ContentNegotiationService
     /**
      * Setter for accepted mime types:
      * Compiles an array of accepted mime types from client
-     *
-     * @return void
      */
     public function setAcceptedMimeTypes(): void
     {
         // if accept header is set get a weighted list of accepted formats
-// @TODO: use $GLOBALS['TYPO3_REQUEST']
+        // @TODO: use $GLOBALS['TYPO3_REQUEST']
         $httpAcceptHeader = getenv('HTTP_ACCEPT');
         if ($httpAcceptHeader) {
             $this->acceptedMimeTypes = $this->processAcceptHeader($httpAcceptHeader);
@@ -196,8 +186,6 @@ class ContentNegotiationService
      * Setter for available mime types:
      * Compiles available mime types by page type from TypoScript configuration
      * (header: Content-type:XY must be set in TypoScript)
-     *
-     * @return void
      */
     public function setAvailableMimeTypes(): void
     {
@@ -224,8 +212,8 @@ class ContentNegotiationService
      * @param string $httpAcceptHeader
      * @return array
      */
-     private function processAcceptHeader(string $httpAcceptHeader): array
-     {
+    private function processAcceptHeader(string $httpAcceptHeader): array
+    {
         $acceptedMediaTypes = GeneralUtility::trimExplode(',', $httpAcceptHeader);
         $weightedMediaTypes = [];
         foreach ($acceptedMediaTypes as $key => $mediaType) {
@@ -241,20 +229,20 @@ class ContentNegotiationService
 
         // call_user_func_array will interpret the top-level array keys as
         // parameter names to be passed into the array_merge. To avoid errors,
-        // we make a keyless array from the values.         
+        // we make a keyless array from the values.
         $sortedHttpAcceptHeaders = call_user_func_array('array_merge', array_values($weightedMediaTypes));
 
         return $sortedHttpAcceptHeaders;
-     }
+    }
 
     /**
      * @param string $httpContentType
      * @return array
      */
-     public function processContentType(string $httpContentType): array
-     {
+    public function processContentType(string $httpContentType): array
+    {
         $splitHttpContentType = GeneralUtility::trimExplode(';', $httpContentType);
-        if (count($splitHttpContentType) == 2 ) {
+        if (count($splitHttpContentType) == 2) {
             $contentType['mime'] = $splitHttpContentType[0];
             $contentType['charset'] = trim(str_replace('charset=', '', $splitHttpContentType[1]));
         } else {
@@ -262,5 +250,5 @@ class ContentNegotiationService
         }
 
         return $contentType;
-     }
+    }
 }

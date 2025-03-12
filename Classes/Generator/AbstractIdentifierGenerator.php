@@ -35,8 +35,7 @@ abstract class AbstractIdentifierGenerator
      * @param array $configuration
      * @param array $record
      */
-    public function __construct(protected $configuration, protected $record)
-    {}
+    public function __construct(protected $configuration, protected $record) {}
 
     /**
      * Prefixes an identifier with a string set in TSConfig (depending on type entitiy, property or bnode)
@@ -46,7 +45,6 @@ abstract class AbstractIdentifierGenerator
      */
     protected function setIdentifierPrefix(string $identifier): string
     {
-
         switch ($this->record['type']) {
             case '1':
                 ($this->configuration['entityPrefix']) ?

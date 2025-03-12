@@ -37,7 +37,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ResolverService
 {
-
     /**
      * @var array
      */
@@ -58,7 +57,7 @@ class ResolverService
      * @param array $settings
      * @return string
      */
-     public function resolve(
+    public function resolve(
         Representation $representation,
         array $settings
     ): string {
@@ -74,5 +73,5 @@ class ResolverService
         }
 
         return $url;
-     }
+    }
 }

@@ -33,13 +33,11 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\{
-    GeneralUtility,
-    VersionNumberUtility
+    GeneralUtility
 };
 
 class DataHandler
 {
-
     /**
      * Ensures that all fields in statement table are in sync depending on the editing context (IRRE or other)
      *
@@ -48,11 +46,9 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
-     * @return void
      */
     public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, &$pObj): void
     {
-
         if ($table == 'tx_lod_domain_model_statement' && $fieldArray['sys_language_uid'] <= 0) {
             $fieldArray = $this->synchronizeStatement($status, $id, $fieldArray, $pObj);
             // force language of statements to ALL
@@ -69,7 +65,6 @@ class DataHandler
         if (($table == 'tx_lod_domain_model_iri' || $table == 'tx_lod_domain_model_statement' || $table == 'tx_lod_domain_model_representation') && $fieldArray['sys_language_uid'] > 0) {
             $fieldArray = [];
         }
-
     }
 
     /**
@@ -80,7 +75,6 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
-     * @return void
      */
     public function processDatamap_afterDatabaseOperations($status, $table, $id, $fieldArray, $pObj): void
     {
@@ -118,11 +112,10 @@ class DataHandler
      * @param $value
      * @param $pObj
      * @param $pasteUpdate
-     * @return void
      */
     public function processCmdmap_preProcess($command, $table, $id, $value, $pObj, $pasteUpdate): void
     {
-        if ($command == 'delete' || $command == 'undelete' ) {
+        if ($command == 'delete' || $command == 'undelete') {
             $this->trackTables($command, $table, $id);
         }
     }
@@ -138,7 +131,6 @@ class DataHandler
      */
     private function synchronizeStatement($status, $id, $fieldArray, $pObj): array
     {
-
         switch ($status) {
             case 'update':
             case 'new':
@@ -151,7 +143,7 @@ class DataHandler
                     ) {
                         $tableNameAndUid = BackendUtility::splitTable_Uid($fieldArray[$value]);
                         $fieldArray[$value . '_type'] = $tableNameAndUid[0];
-                        $fieldArray[$value .'_uid'] = $tableNameAndUid[1];
+                        $fieldArray[$value . '_uid'] = $tableNameAndUid[1];
                     }
                 }
 
@@ -163,7 +155,7 @@ class DataHandler
                     $newStatements = array_filter(
                         $pObj->datamap['tx_lod_domain_model_statement'],
                         function ($key) {
-                            return(strpos($key,'NEW') !== false);
+                            return str_contains($key, 'NEW');
                         },
                         ARRAY_FILTER_USE_KEY
                     );
@@ -172,10 +164,12 @@ class DataHandler
                         foreach ($pObj->datamap['tx_lod_domain_model_statement'] as $key => $value) {
                             if (
                                 array_key_exists('reference_statements', $value) &&
-                                strpos($value['reference_statements'], strval($id)) !== false
+                                str_contains($value['reference_statements'], (string)$id)
                             ) {
                                 $parentStatement = $key;
-                                if ($id !== $parentStatement) $reference = 1;
+                                if ($id !== $parentStatement) {
+                                    $reference = 1;
+                                }
                             }
                         }
                     }
@@ -192,13 +186,17 @@ class DataHandler
 
                 if ($parentTable && substr($id, 0, 3) == 'NEW') {
                     if ($newStatements && $parentStatement && $reference == 1) {
-                        if (substr($parentStatement, 0, 3) == 'NEW') $parentStatement = $pObj->substNEWwithIDs[$parentStatement];
+                        if (substr($parentStatement, 0, 3) == 'NEW') {
+                            $parentStatement = $pObj->substNEWwithIDs[$parentStatement];
+                        }
                         $fieldArray['subject'] = 'tx_lod_domain_model_statement_' . $parentStatement;
                         $fieldArray['subject_uid'] = $parentStatement;
                         $fieldArray['subject_type'] = 'tx_lod_domain_model_statement';
                     } else {
                         $parentUid = key($pObj->datamap[$parentTable]);
-                        if (substr($parentUid, 0, 3) == 'NEW') $parentUid = $pObj->substNEWwithIDs[$parentUid];
+                        if (substr($parentUid, 0, 3) == 'NEW') {
+                            $parentUid = $pObj->substNEWwithIDs[$parentUid];
+                        }
                         $fieldArray['subject'] = $parentTable . '_' . $parentUid;
                         $fieldArray['subject_uid'] = $parentUid;
                         $fieldArray['subject_type'] = $parentTable;
@@ -222,7 +220,6 @@ class DataHandler
      */
     private function synchronizeIri($status, $id, $fieldArray, $pObj): array
     {
-
         switch ($status) {
             case 'update':
             case 'new':
@@ -243,12 +240,16 @@ class DataHandler
                     $parentTable = '';
                     $parentUid = 0;
                     foreach ($pObj->datamap as $tableName => $records) {
-                        if ($tableName == 'tx_lod_domain_model_iri') continue;
+                        if ($tableName == 'tx_lod_domain_model_iri') {
+                            continue;
+                        }
                         foreach ($records as $uid => $fields) {
                             if (array_key_exists('iri', $fields) && preg_match('/' . $id . '/', $fields['iri'])) {
                                 $parentTable = $tableName;
                                 $parentUid = $uid;
-                                if (substr($parentUid, 0, 3) == 'NEW') $parentUid = $pObj->substNEWwithIDs[$parentUid];
+                                if (substr($parentUid, 0, 3) == 'NEW') {
+                                    $parentUid = $pObj->substNEWwithIDs[$parentUid];
+                                }
                             }
                         }
                     }
@@ -273,12 +274,13 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
-     * @return void
      */
     private function generateIdentifier($status, $table, $id, $fieldArray, $pObj): void
     {
         // get full record - in case it is a new record swap id from substNEWwithIDs
-        if ($status == 'new') $id = $pObj->substNEWwithIDs[$id];
+        if ($status == 'new') {
+            $id = $pObj->substNEWwithIDs[$id];
+        }
         $record = BackendUtility::getRecord($table, (int)$id);
 
         // try to get TSConfig for current backend page (and NOT the page the IRI is possibly saved)
@@ -293,7 +295,9 @@ class DataHandler
         $TSConfig = BackendUtility::getPagesTSconfig($pid);
 
         // on copy action empty the value field - copy action can be guessed because t3_origuid is set
-        if ($fieldArray['t3_origuid'] > 0) $record['value'] = '';
+        if ($fieldArray['t3_origuid'] > 0) {
+            $record['value'] = '';
+        }
 
         // flag to only execute generation if it is configured in TSConfig
         $tableConfiguredForIdentifierGeneration = false;
@@ -307,7 +311,7 @@ class DataHandler
             if (empty($TSConfig['tx_lod.']['settings.']['identifierGenerator.']['tx_lod_domain_model_bnode.'])) {
                 $TSConfig['tx_lod.']['settings.']['identifierGenerator.']['tx_lod_domain_model_bnode.'] = [
                     'type' => 'Digicademy\Lod\Generator\UidIdentifierGenerator',
-                    'Digicademy\Lod\Generator\UidIdentifierGenerator.' => ['bnodePrefix' => 'b']
+                    'Digicademy\Lod\Generator\UidIdentifierGenerator.' => ['bnodePrefix' => 'b'],
                 ];
             }
             $tableConfiguredForIdentifierGeneration = true;
@@ -315,13 +319,11 @@ class DataHandler
 
         // start generation if configured and no identifier exists
         if ($tableConfiguredForIdentifierGeneration == true && $record['value'] == '') {
-
             // get generator service
             $generatorService = GeneralUtility::makeInstance(IdentifierGeneratorService::class);
             $generatorName = $TSConfig['tx_lod.']['settings.']['identifierGenerator.'][$table . '.']['type'];
 
             if (class_exists($generatorName)) {
-
                 // get configuration
                 if ($TSConfig['tx_lod.']['settings.']['identifierGenerator.'][$table . '.'][$generatorName . '.']) {
                     $generatorConfiguration = $TSConfig['tx_lod.']['settings.']['identifierGenerator.'][$table . '.'][$generatorName . '.'];
@@ -340,10 +342,11 @@ class DataHandler
                         ['value' => $generatedIdentifier],
                         ['uid' => (int)$id]
                     );
-
             } else {
-                throw new \TYPO3\CMS\Backend\Exception('Given identifier generator is not loaded and/or does not exist',
-                    1577284728);
+                throw new \TYPO3\CMS\Backend\Exception(
+                    'Given identifier generator is not loaded and/or does not exist',
+                    1577284728
+                );
             }
         }
     }
@@ -356,17 +359,18 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
-     * @return void
      */
     private function generatePrefixValue($status, $table, $id, $fieldArray, $pObj): void
     {
-        if ($status == 'new') $id = $pObj->substNEWwithIDs[$id];
+        if ($status == 'new') {
+            $id = $pObj->substNEWwithIDs[$id];
+        }
         $iri = BackendUtility::getRecord('tx_lod_domain_model_iri', (int)$id);
         $namespace = [];
         if ($iri['namespace'] > 0) {
             $namespace = BackendUtility::getRecord('tx_lod_domain_model_namespace', (int)$iri['namespace']);
         }
-        array_key_exists('prefix', $namespace) ? $prefixValue = $namespace['prefix'] .':'. $iri['value'] : $prefixValue = $iri['value'];
+        array_key_exists('prefix', $namespace) ? $prefixValue = $namespace['prefix'] . ':' . $iri['value'] : $prefixValue = $iri['value'];
         // update record
         GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_lod_domain_model_iri')
@@ -385,7 +389,6 @@ class DataHandler
      * @param $id
      * @param $fieldArray
      * @param $pObj
-     * @return void
      */
     private function trackTables($action, $table, $id, $pObj = null): void
     {
@@ -397,9 +400,10 @@ class DataHandler
 
         // further steps only executed if current table is in tracked table list
         if (in_array($table, $tablesToTrack)) {
-
             // get the tracked record and according TSConfig
-            if ($action == 'new' && is_object($pObj)) $id = $pObj->substNEWwithIDs[$id];
+            if ($action == 'new' && is_object($pObj)) {
+                $id = $pObj->substNEWwithIDs[$id];
+            }
             // get record
             $trackedRecord = BackendUtility::getRecord($table, (int)$id);
 

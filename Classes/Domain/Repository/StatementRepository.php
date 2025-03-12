@@ -40,11 +40,11 @@ class StatementRepository extends Repository
     // Map entity classes to table names.
     protected const ENTITY_CLASS_TABLES = [
         'Digicademy\Lod\Domain\Model\Bnode' => 'tx_lod_domain_model_bnode_',
-        'Digicademy\Lod\Domain\Model\Iri' => 'tx_lod_domain_model_iri_'
+        'Digicademy\Lod\Domain\Model\Iri' => 'tx_lod_domain_model_iri_',
     ];
 
     protected $defaultOrderings = [
-        'subject' => QueryInterface::ORDER_ASCENDING
+        'subject' => QueryInterface::ORDER_ASCENDING,
     ];
 
     /**
@@ -58,7 +58,7 @@ class StatementRepository extends Repository
         string $position,
         object $resource,
         IriNamespace $graph = null
-    ):QueryResultInterface {
+    ): QueryResultInterface {
         $query = $this->createQuery();
         $constraints = [];
 
@@ -71,7 +71,8 @@ class StatementRepository extends Repository
         $resourceClass = get_class($resource);
         if (
             !in_array(
-                $resourceClass, array_keys(self::ENTITY_CLASS_TABLES)
+                $resourceClass,
+                array_keys(self::ENTITY_CLASS_TABLES)
             )
         ) {
             throw new Exception('Unknown entity class', 1572638672);

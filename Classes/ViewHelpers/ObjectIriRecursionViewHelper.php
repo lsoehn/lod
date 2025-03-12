@@ -31,7 +31,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class ObjectIriRecursionViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var array
      */
@@ -39,8 +38,6 @@ class ObjectIriRecursionViewHelper extends AbstractViewHelper
 
     /**
      * Initialize ViewHelper arguments
-     *
-     * @return void
      */
     public function initializeArguments(): void
     {
@@ -75,7 +72,6 @@ class ObjectIriRecursionViewHelper extends AbstractViewHelper
      * @param Iri $iri
      * @param int $maxDepth
      * @param int $currentDepth
-     * @return void
      */
     private function recurse(
         Iri $iri,

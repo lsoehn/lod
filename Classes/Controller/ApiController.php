@@ -52,12 +52,12 @@ class ApiController extends ActionController
     /**
      * @var Iri
      */
-    protected $resource = null;
+    protected $resource;
 
     /**
      * @var ResponseInterface
      */
-    protected $response = null;
+    protected $response;
 
     /**
      * Initializes the controller and dependencies
@@ -93,7 +93,7 @@ class ApiController extends ActionController
         // check if pageType is set (either via param or masked through PageTypeSuffix)
         if ($this->request->getParsedBody()['type'] ?? $this->request->getQueryParams()['type'] ?? null) {
             $pageType = $this->request->getParsedBody()['type'] ?? $this->request->getQueryParams()['type'] ?? null;
-        } else if ($GLOBALS['TSFE']->getPageArguments()->getPageType() > 0) {
+        } elseif ($GLOBALS['TSFE']->getPageArguments()->getPageType() > 0) {
             $pageType = $GLOBALS['TSFE']->getPageArguments()->getPageType();
         } else {
             $pageType = 0;
@@ -116,7 +116,7 @@ class ApiController extends ActionController
         $environment = [
             'TYPO3_REQUEST_HOST' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'),
             'TYPO3_REQUEST_URL' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'),
-            'TSFE' => ['pageArguments' => $GLOBALS['TSFE']->pageArguments, 'page' => $GLOBALS['TSFE']->page]
+            'TSFE' => ['pageArguments' => $GLOBALS['TSFE']->pageArguments, 'page' => $GLOBALS['TSFE']->page],
         ];
 
         // prepare response
@@ -127,7 +127,6 @@ class ApiController extends ActionController
 
         // hydra link headers (@see: https://www.hydra-cg.com/spec/latest/core/#example-16-discovering-hydra-api-documentation-documents)
         if (is_array($this->settings['apiDocumentation']['keys'])) {
-
             if (array_key_exists($GLOBALS['TSFE']->id, $this->settings['apiDocumentation']['keys'])) {
                 $apiDocumentationKey = $this->settings['apiDocumentation']['keys'][$GLOBALS['TSFE']->id];
             } else {
@@ -146,7 +145,7 @@ class ApiController extends ActionController
               ->withAddedHeader('Access-Control-Allow-Methods', $this->settings['general']['CORS']['accessControlAllowMethods'])
               ->withAddedHeader('Access-Control-Allow-Headers', $this->settings['general']['CORS']['accessControlAllowHeaders'])
               ->withAddedHeader('Access-Control-Expose-Headers', $this->settings['general']['CORS']['accessControlExposeHeaders'])
-              ->withAddedHeader('Link', '<'. $environment['TYPO3_REQUEST_HOST'] . $apiDocumentationPath . '>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+              ->withAddedHeader('Link', '<' . $environment['TYPO3_REQUEST_HOST'] . $apiDocumentationPath . '>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
         }
 
         // hydra JSON-LD entry point
@@ -161,9 +160,8 @@ class ApiController extends ActionController
         if ($pageType > 0) {
             $this->request = $this->request->withFormat($format);
 
-        // if not redirect to URL including a negotiated page type
+            // if not redirect to URL including a negotiated page type
         } else {
-
             // make sure request url does not end in a slash
             $requestUrl = $GLOBALS['TYPO3_REQUEST']->getAttributes()['normalizedParams']->getRequestUri();
             $cleanRequestUrl = rtrim($requestUrl, '/');
@@ -195,7 +193,7 @@ class ApiController extends ActionController
                     $uri = $cleanRequestUrl . $targetPageTypeSuffix;
                 }
 
-            // parameterized URI (no configured routeEnhancers)
+                // parameterized URI (no configured routeEnhancers)
             } else {
                 if (preg_match('/\?/', $cleanRequestUrl)) {
                     $typeParameterKeyword = '&type=';
@@ -229,7 +227,7 @@ class ApiController extends ActionController
                         return $this->redirectToUri($uri);
                     }
                 }
-            // otherwise redirect to a generated about representation
+                // otherwise redirect to a generated about representation
             } else {
                 return $this->redirectToUri($uri);
             }
@@ -257,16 +255,17 @@ class ApiController extends ActionController
                 $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
                     $GLOBALS['TYPO3_REQUEST'],
                     'The requested page does not exist',
-                    ['code' => PageAccessFailureReasons::PAGE_NOT_FOUND]);
+                    ['code' => PageAccessFailureReasons::PAGE_NOT_FOUND]
+                );
                 throw new ImmediateResponseException($response, 2467342644);
             }
-        // api documentation action
+            // api documentation action
         } elseif ($this->request->hasArgument('apiDocumentation')) {
             $this->apiDocumentationAction();
-        // api entrypoint action
-        } else if ($this->request->hasArgument('apiEntryPoint')) {
+            // api entrypoint action
+        } elseif ($this->request->hasArgument('apiEntryPoint')) {
             $this->apiEntryPointAction();
-        // list action
+            // list action
         } else {
             $this->listAction();
         }
@@ -277,8 +276,6 @@ class ApiController extends ActionController
 
     /**
      * Returns list of resources in different content types / document representations
-     *
-     * @return void
      */
     private function listAction(): void
     {
@@ -286,7 +283,9 @@ class ApiController extends ActionController
 
         // calculate pagination
         ($arguments['limit']) ? $limit = (int)$arguments['limit'] : $limit = 50;
-        if ($limit > 500) $limit = 500;
+        if ($limit > 500) {
+            $limit = 500;
+        }
 
         if ($arguments['query'] || $arguments['subject'] || $arguments['predicate'] || $arguments['object']) {
             $totalItems = $this->iriRepository->findByArguments($arguments, $this->settings)->count();
@@ -297,7 +296,9 @@ class ApiController extends ActionController
         }
 
         $totalPages = (int)ceil($totalItems / $limit);
-        if ($totalPages < 1) $totalPages = 1;
+        if ($totalPages < 1) {
+            $totalPages = 1;
+        }
 
         if ($arguments['page']) {
             ($arguments['page'] <= $totalPages) ? $page = (int)$arguments['page'] : $page = $totalPages;
@@ -313,16 +314,16 @@ class ApiController extends ActionController
         switch ($sorting) {
             case 1:
             default:
-                $orderings = array('value' => QueryInterface::ORDER_ASCENDING);
+                $orderings = ['value' => QueryInterface::ORDER_ASCENDING];
                 break;
             case 2:
-                $orderings = array('value' => QueryInterface::ORDER_DESCENDING);
+                $orderings = ['value' => QueryInterface::ORDER_DESCENDING];
                 break;
             case 3:
-                $orderings = array('label' => QueryInterface::ORDER_ASCENDING);
+                $orderings = ['label' => QueryInterface::ORDER_ASCENDING];
                 break;
             case 4:
-                $orderings = array('label' => QueryInterface::ORDER_DESCENDING);
+                $orderings = ['label' => QueryInterface::ORDER_DESCENDING];
                 break;
         }
 
@@ -355,7 +356,6 @@ class ApiController extends ActionController
      * Returns a single resource in different content types / document representations
      *
      * @param \Digicademy\Lod\Domain\Model\Iri $resource
-     * @return void
      * @throws \TYPO3\CMS\Extbase\Exception
      */
     private function showAction(
@@ -376,8 +376,6 @@ class ApiController extends ActionController
 
     /**
      * Returns a Hydra API Documentation
-     *
-     * @return void
      */
     private function apiDocumentationAction(): void
     {
@@ -388,7 +386,8 @@ class ApiController extends ActionController
             $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction(
                 $GLOBALS['TYPO3_REQUEST'],
                 'The requested page does not exist',
-                ['code' => PageAccessFailureReasons::PAGE_NOT_FOUND]);
+                ['code' => PageAccessFailureReasons::PAGE_NOT_FOUND]
+            );
             throw new ImmediateResponseException($response, 4215392081);
         }
 
@@ -398,13 +397,10 @@ class ApiController extends ActionController
 
     /**
      * Returns a Hydra API entry point
-     *
-     * @return void
      */
     private function apiEntryPointAction(): void
     {
         // assign current action for disambiguation in about template
         $this->view->assign('action', 'apiEntryPoint');
     }
-
 }

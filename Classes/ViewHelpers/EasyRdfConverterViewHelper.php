@@ -37,13 +37,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class EasyRdfConverterViewHelper extends AbstractViewHelper
 {
-    public function __construct(protected readonly ContainerInterface $container)
-    {}
+    public function __construct(protected readonly ContainerInterface $container) {}
 
     /**
      * Initialize ViewHelper arguments
-     *
-     * @return void
      */
     public function initializeArguments(): void
     {
@@ -79,7 +76,6 @@ class EasyRdfConverterViewHelper extends AbstractViewHelper
     public function render(): string
     {
         if (class_exists('\EasyRdf\Graph')) {
-
             // set data
             $data = isset($this->arguments['data'])
                 ? $this->arguments['data']
@@ -98,7 +94,6 @@ class EasyRdfConverterViewHelper extends AbstractViewHelper
             // set options for conversion and convert data
             if (count($options) > 0) {
                 if ($options['registerNamespace']) {
-
                     // purge all default namespaces
                     if ($options['purgeDefaultNamespaces']) {
                         foreach (
@@ -127,7 +122,6 @@ class EasyRdfConverterViewHelper extends AbstractViewHelper
                     $this->arguments['outputFormat']
                 );
             }
-
         } else {
             throw new Exception(
                 'The EasyRdf library is needed but seems not to be available',

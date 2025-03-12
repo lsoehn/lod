@@ -31,7 +31,6 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 class ForeignRecordFieldIdentifierGenerator extends AbstractIdentifierGenerator implements IdentifierGeneratorInterface
 {
-
     /**
      * Takes a field value from the record associated with the IRI as basis for the identifier generation.
      * Will only set an identifier if the record field in the IRI is set

@@ -30,7 +30,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class RemoveEmptyLinesViewHelper extends AbstractViewHelper
 {
-
     /**
      * Removes empty lines from encapsulated template content
      *

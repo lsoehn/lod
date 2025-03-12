@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_bnode',
@@ -16,8 +17,8 @@ return [
         'searchFields' => 'label,comment,value',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_bnode.svg',
         'security' => [
-            'ignorePageTypeRestriction' => true
-        ]
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => ['showitem' => '
@@ -44,7 +45,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'comment' => [
@@ -64,7 +65,7 @@ return [
                 'readOnly' => true,
                 'size' => 30,
                 'eval' => 'trim,unique',
-                'required' => true
+                'required' => true,
             ],
         ],
         'statements' => [
@@ -90,7 +91,7 @@ return [
                 'overrideChildTca' => [
                     'types' => [
                         '1' => [
-                            'showitem' => '--palette--;;PredicateObject, reference_statements, graph, --palette--;;flags'
+                            'showitem' => '--palette--;;PredicateObject, reference_statements, graph, --palette--;;flags',
                         ],
                     ],
                 ],

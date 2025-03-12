@@ -31,14 +31,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class IdentifierGeneratorService
 {
-
     /**
      * @param string $generatorName
      * @param array $generatorConfiguration
      * @param array $record
      * @return string
      */
-     public function generateIdentifier(
+    public function generateIdentifier(
         string $generatorName,
         array $generatorConfiguration,
         array $record
@@ -51,5 +50,5 @@ class IdentifierGeneratorService
         $id = $generator->generate();
 
         return $id;
-     }
+    }
 }

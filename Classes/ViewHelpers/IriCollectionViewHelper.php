@@ -37,8 +37,6 @@ class IriCollectionViewHelper extends AbstractViewHelper
 
     /**
      * Initialize ViewHelper arguments
-     *
-     * @return void
      */
     public function initializeArguments(): void
     {
@@ -53,8 +51,6 @@ class IriCollectionViewHelper extends AbstractViewHelper
     /**
      * Collects lists of IRIs (as template variable).
      * Useful for RDF serialisation (esp. JSON-LD).
-     *
-     * @return void
      */
     public function render(): void
     {

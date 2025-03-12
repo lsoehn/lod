@@ -28,15 +28,14 @@
 namespace Digicademy\Lod\Service;
 
 use Digicademy\Lod\Domain\Model\Record;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\Form\FormDataProvider\TcaRecordTitle;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\{
     ConfigurationManager,
     ConfigurationManagerInterface
 };
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 /**
@@ -46,7 +45,7 @@ class ItemMappingService
 {
     public function __construct(
         protected readonly DataMapper $dataMapper
-    ){}
+    ) {}
 
     /**
      * @param string $record
@@ -76,13 +75,12 @@ class ItemMappingService
         $result = $this->load($record);
 
         if ($result['row']) {
-
             $formDataProvider = GeneralUtility::makeInstance(TcaRecordTitle::class);
             $tcaProcessing = $formDataProvider->addData([
                 'databaseRow' => $result['row'],
                 'processedTca' => $GLOBALS['TCA'][$result['tablename']],
                 'tablename' => $result['tablename'],
-                'title' => $GLOBALS['TSFE']->sL($GLOBALS['TCA'][$result['tablename']]['ctrl']['title'])
+                'title' => $GLOBALS['TSFE']->sL($GLOBALS['TCA'][$result['tablename']]['ctrl']['title']),
             ]);
 
             $item = GeneralUtility::makeInstance(Record::class);
@@ -115,7 +113,6 @@ class ItemMappingService
 
         // if class and tablename exist perform MM query for items, map them and add them to the object storage
         if ($tablename && $uid) {
-
             $row = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getConnectionForTable($tablename)
                 ->select(
@@ -128,7 +125,7 @@ class ItemMappingService
                 $result = [
                     'tablename'  => $tablename,
                     'uid' => $uid,
-                    'row' => $row
+                    'row' => $row,
                 ];
             }
         }
@@ -167,7 +164,7 @@ class ItemMappingService
                     } else {
                         continue;
                     }
-                // if no recordType is configured directly match table name to configured class
+                    // if no recordType is configured directly match table name to configured class
                 } else {
                     $className = $key;
                 }
@@ -187,21 +184,27 @@ class ItemMappingService
      * Signal/Slot method that maps tablename_uid strings from TCA group fields to objects
      *
      * @param object $domainObject
-     * @return void
      */
     public function mapGenericProperty(object $domainObject): void
     {
         // map record property of IRI object (if not empty)
         if (get_class($domainObject) == 'Digicademy\Lod\Domain\Model\Iri') {
-            if ($domainObject->getRecord() !== '') $domainObject->setRecord($this->mapGenericItem($domainObject->getRecord()));
+            if ($domainObject->getRecord() !== '') {
+                $domainObject->setRecord($this->mapGenericItem($domainObject->getRecord()));
+            }
         }
 
         // map subject, predicate and object in statements
         if (get_class($domainObject) == 'Digicademy\Lod\Domain\Model\Statement') {
-            if ($domainObject->getSubject() !== '') $domainObject->setSubject($this->mapItem($domainObject->getSubject()));
-            if ($domainObject->getPredicate() !== '') $domainObject->setPredicate($this->mapItem($domainObject->getPredicate()));
-            if ($domainObject->getObject() !== '') $domainObject->setObject($this->mapItem($domainObject->getObject()));
+            if ($domainObject->getSubject() !== '') {
+                $domainObject->setSubject($this->mapItem($domainObject->getSubject()));
+            }
+            if ($domainObject->getPredicate() !== '') {
+                $domainObject->setPredicate($this->mapItem($domainObject->getPredicate()));
+            }
+            if ($domainObject->getObject() !== '') {
+                $domainObject->setObject($this->mapItem($domainObject->getObject()));
+            }
         }
     }
-
 }

@@ -30,18 +30,18 @@ namespace Digicademy\Lod\Domain\Repository;
 use Digicademy\Lod\Utility\Frontend\SearchUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\{
     QueryInterface,
     QueryResultInterface,
     Repository
 };
-use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 
 class IriRepository extends Repository
 {
     protected $defaultOrderings = [
         'value' => QueryInterface::ORDER_ASCENDING,
-        'label' => QueryInterface::ORDER_ASCENDING
+        'label' => QueryInterface::ORDER_ASCENDING,
     ];
 
     public function __construct(
@@ -64,8 +64,7 @@ class IriRepository extends Repository
         string $value,
         string $action = 'show',
         array $additionalPids = []
-    ): ?object
-    {
+    ): ?object {
         // initialize query object
         $query = $this->createQuery();
 
@@ -74,7 +73,6 @@ class IriRepository extends Repository
 
         // namespace constraint (but only if it appears once and without http(s)://)
         if (substr_count($value, ':') == 1 && substr_count($value, '://') == 0) {
-
             $iriParts = GeneralUtility::trimExplode(':', $value);
             $settings = $this->configurationManager->getConfiguration('Settings');
             $namespace = $this->iriNamespaceRepository->findByPrefix($iriParts[0], $action, $settings)->getFirst();
@@ -82,7 +80,7 @@ class IriRepository extends Repository
             if ($namespace) {
                 $constraints[] = $query->equals('namespace', $namespace);
                 $value = $iriParts[1];
-            // if namespace was given but could not be resolved whole IRI has to be considered non existent
+                // if namespace was given but could not be resolved whole IRI has to be considered non existent
             } else {
                 $value = '';
             }
@@ -90,7 +88,6 @@ class IriRepository extends Repository
 
         // only continue if no namespace was given or given namespace could be resolved successfully
         if ($value) {
-
             // optionally extend storagePids for the query
             if ($additionalPids) {
                 $query->getQuerySettings()->setStoragePageIds(
@@ -108,7 +105,6 @@ class IriRepository extends Repository
 
             // execute
             $result = $query->execute()->getFirst();
-
         } else {
             // empty result
             $result = null;
@@ -127,8 +123,7 @@ class IriRepository extends Repository
     public function findByArguments(
         array $arguments,
         array $settings
-    ): ?QueryResultInterface
-    {
+    ): ?QueryResultInterface {
         // initialize query object
         $query = $this->createQuery();
 
@@ -137,7 +132,6 @@ class IriRepository extends Repository
 
         // search constraint
         if ($arguments['query']) {
-
             $keywordList = SearchUtility::wordSplit($arguments['query']);
 
             if (count($keywordList) > 0) {
@@ -173,7 +167,7 @@ class IriRepository extends Repository
 
         // predicate constraint if valid
         if ($arguments['predicate']) {
-            $predicate = $this->findByValue($arguments['predicate'],'list', $additionalPidList);
+            $predicate = $this->findByValue($arguments['predicate'], 'list', $additionalPidList);
             if ($predicate) {
                 $constraints[] = $query->equals('statements.predicate_uid', $predicate);
             } else {
@@ -183,7 +177,7 @@ class IriRepository extends Repository
 
         // object constraint if valid
         if ($arguments['object']) {
-            $object = $this->findByValue($arguments['object'],'list', $additionalPidList);
+            $object = $this->findByValue($arguments['object'], 'list', $additionalPidList);
             if ($object) {
                 $constraints[] = $query->equals('statements.object_uid', $object);
             } else {

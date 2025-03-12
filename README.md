@@ -14,9 +14,9 @@ officially released to the TYPO3 extension repository but is fully usable.
 | 10.4   | 9.5-10.4 | 7.2-7.4 | None                                 |
 | 7.6    | 7.6      | 7.0-7.2 | None                                 |
 
-## Tests
+## Tests, Upgrades, Fixes
 
-This extension comes with a range configurations for analyses and tests that work with the tools listed in its Composer dev requirements. All dev requirements should be installed at project level.
+This extension comes with a range configurations for analyses, tests, and automatic fixes that work with the tools listed in its Composer dev requirements. All dev requirements should be installed at project level.
 
 All examples given here assume that tests are executed from the root folder of a TYPO3 project and this extension is located in the `packages` folder for development purposes.
 
@@ -31,6 +31,10 @@ vendor/bin/phpstan analyse -c packages/lod/phpstan.neon --memory-limit 2G
  vendor/bin/rector process --config packages/lod/rector.php
  ```
 
+### PHP-CS Fixer
+```bash
+composer exec php-cs-fixer fix packages/lod
+```
 
 ## Research Software Engineering
 

@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Digicademy\Lod\Backend\Form\FieldWizard;
 
 use TYPO3\CMS\Backend\Form\AbstractNode;
@@ -56,10 +58,10 @@ class EnhancedTableList extends AbstractNode
                     $allowedTablesHtml[] = '</span>';
                 } else {
                 */
-                    $allowedTablesHtml[] = '<a href="#" class="btn btn-default t3js-element-browser" data-mode="db" data-params="' . htmlspecialchars($itemName . '|||' . $tableName) . '">';
-                    $allowedTablesHtml[] =  $icon;
-                    $allowedTablesHtml[] =  htmlspecialchars($label);
-                    $allowedTablesHtml[] = '</a>';
+                $allowedTablesHtml[] = '<a href="#" class="btn btn-default t3js-element-browser" data-mode="db" data-params="' . htmlspecialchars($itemName . '|||' . $tableName) . '">';
+                $allowedTablesHtml[] =  $icon;
+                $allowedTablesHtml[] =  htmlspecialchars($label);
+                $allowedTablesHtml[] = '</a>';
                 //}
             }
         }

@@ -41,5 +41,4 @@ abstract class AbstractResolver
         protected array $settings,
         protected ContentObjectRenderer $contentObjectRenderer
     ) {}
-
 }

@@ -27,15 +27,13 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use Digicademy\Lod\Domain\Model\Statement;
-use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Bnode extends AbstractEntity
 {
-
     /**
      * label
      *
@@ -80,8 +78,6 @@ class Bnode extends AbstractEntity
      * Sets the label
      *
      * @param string $label
-     *
-     * @return void
      */
     public function setLabel($label): void
     {
@@ -102,8 +98,6 @@ class Bnode extends AbstractEntity
      * Sets the comment
      *
      * @param string $comment
-     *
-     * @return void
      */
     public function setComment($comment): void
     {
@@ -124,8 +118,6 @@ class Bnode extends AbstractEntity
      * Sets the value
      *
      * @param string $value
-     *
-     * @return void
      */
     public function setValue($value): void
     {
@@ -146,12 +138,9 @@ class Bnode extends AbstractEntity
      * Sets the statements
      *
      * @param ObjectStorage<Statement> $statements
-     *
-     * @return void
      */
     public function setStatements(ObjectStorage $statements): void
     {
         $this->statements = $statements;
     }
-
 }

@@ -31,7 +31,6 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractValueObject;
 
 class Representation extends AbstractValueObject
 {
-
     /**
      * parent
      *
@@ -109,8 +108,6 @@ class Representation extends AbstractValueObject
      * Sets the parent
      *
      * @param string $parent
-     *
-     * @return void
      */
     public function setParent(string $parent): void
     {
@@ -131,8 +128,6 @@ class Representation extends AbstractValueObject
      * Sets the tablename
      *
      * @param string $tablename
-     *
-     * @return void
      */
     public function setTablename(string $tablename): void
     {
@@ -153,8 +148,6 @@ class Representation extends AbstractValueObject
      * Sets the scheme
      *
      * @param string $scheme
-     *
-     * @return void
      */
     public function setScheme(string $scheme): void
     {
@@ -175,8 +168,6 @@ class Representation extends AbstractValueObject
      * Sets the authority
      *
      * @param string $authority
-     *
-     * @return void
      */
     public function setAuthority(string $authority): void
     {
@@ -197,8 +188,6 @@ class Representation extends AbstractValueObject
      * Sets the path
      *
      * @param string $path
-     *
-     * @return void
      */
     public function setPath(string $path): void
     {
@@ -219,8 +208,6 @@ class Representation extends AbstractValueObject
      * Sets the query
      *
      * @param string $query
-     *
-     * @return void
      */
     public function setQuery(string $query): void
     {
@@ -241,8 +228,6 @@ class Representation extends AbstractValueObject
      * Sets the fragment
      *
      * @param string $fragment
-     *
-     * @return void
      */
     public function setFragment(string $fragment): void
     {
@@ -263,8 +248,6 @@ class Representation extends AbstractValueObject
      * Sets the contentType
      *
      * @param string $contentType
-     *
-     * @return void
      */
     public function setContentType(string $contentType): void
     {
@@ -285,12 +268,9 @@ class Representation extends AbstractValueObject
      * Sets the contentLanguage
      *
      * @param string $contentLanguage
-     *
-     * @return void
      */
     public function setContentLanguage(string $contentLanguage): void
     {
         $this->contentLanguage = $contentLanguage;
     }
-
 }

@@ -32,8 +32,6 @@ class LangDatatypeViewHelper extends AbstractViewHelper
 {
     /**
      * Initialize ViewHelper arguments
-     *
-     * @return void
      */
     public function initializeArguments(): void
     {
@@ -64,25 +62,25 @@ class LangDatatypeViewHelper extends AbstractViewHelper
 
         switch ($format) {
             case 'rdfxml':
-                    $languageValue = ' xml:lang="' . $language . '"';
-                    $datatypeValue = ' rdf:datatype="' . $datatype . '"';
+                $languageValue = ' xml:lang="' . $language . '"';
+                $datatypeValue = ' rdf:datatype="' . $datatype . '"';
                 break;
             case 'rdfa':
-                    $languageValue = ' lang="' . $language . '"';
-                    $datatypeValue = ' datatype="' . $datatype . '"';
+                $languageValue = ' lang="' . $language . '"';
+                $datatypeValue = ' datatype="' . $datatype . '"';
                 break;
             case 'jsonld':
-                    $languageValue = '"@language": "'. $language .'",';
-                    $datatypeValue = '"@type": "'. $datatype .'",';
+                $languageValue = '"@language": "' . $language . '",';
+                $datatypeValue = '"@type": "' . $datatype . '",';
                 break;
             case 'turtle':
             case 'ntriples':
-                    $languageValue = '@' . $language;
-                    $datatypeValue = '^^<' . $datatype . '>';
+                $languageValue = '@' . $language;
+                $datatypeValue = '^^<' . $datatype . '>';
                 break;
             default:
-                    $languageValue = '';
-                    $datatypeValue = '';
+                $languageValue = '';
+                $datatypeValue = '';
                 break;
         }
 

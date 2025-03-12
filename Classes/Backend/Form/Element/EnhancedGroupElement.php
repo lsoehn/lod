@@ -2,14 +2,14 @@
 
 namespace Digicademy\Lod\Backend\Form\Element;
 
+use TYPO3\CMS\Backend\Form\Element\GroupElement;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Utility\{
     GeneralUtility,
     MathUtility,
     StringUtility
 };
-use TYPO3\CMS\Backend\Form\Element\GroupElement;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /*
  * Copy of the core group element with the sole purpose of changing hardcoded HTML
@@ -18,7 +18,6 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  */
 class EnhancedGroupElement extends GroupElement
 {
-
     /**
      * This will render a selector box into which elements from either
      * the file system or database can be inserted. Relations.
@@ -248,7 +247,7 @@ class EnhancedGroupElement extends GroupElement
         $html[] =       '</div>';
         $html[] =       '<div class="form-wizards-items-aside">';
         $html[] =           '<div class="btn-group-vertical">';
-        if ($maxItems > 1 && $size >=5 && $showMoveIcons) {
+        if ($maxItems > 1 && $size >= 5 && $showMoveIcons) {
             $html[] =           '<a href="#"';
             $html[] =               ' class="btn btn-default t3js-btn-option t3js-btn-moveoption-top"';
             $html[] =               ' data-fieldname="' . htmlspecialchars($elementName) . '"';
@@ -315,7 +314,7 @@ class EnhancedGroupElement extends GroupElement
         $resultArray['requireJsModules'][] = ['TYPO3/CMS/Backend/FormEngine/Element/GroupElement' => '
             function(GroupElement) {
                 new GroupElement(' . GeneralUtility::quoteJSvalue($fieldId) . ');
-            }'
+            }',
         ];
 
         $resultArray['html'] = implode(LF, $html);

@@ -27,14 +27,12 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use Digicademy\Lod\Domain\Model\Statement;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Graph extends AbstractEntity
 {
-
     /**
      * IRI
      *
@@ -78,8 +76,6 @@ class Graph extends AbstractEntity
      * Sets the graph iri
      *
      * @param Iri $iri
-     *
-     * @return void
      */
     public function setIri(Iri $iri): void
     {
@@ -100,8 +96,6 @@ class Graph extends AbstractEntity
      * Sets the label
      *
      * @param string $label
-     *
-     * @return void
      */
     public function setLabel(string $label): void
     {
@@ -122,8 +116,6 @@ class Graph extends AbstractEntity
      * Sets the comment
      *
      * @param string $comment
-     *
-     * @return void
      */
     public function setComment(string $comment): void
     {
@@ -144,12 +136,9 @@ class Graph extends AbstractEntity
      * Sets the statements
      *
      * @param ObjectStorage<Statement> $statements
-     *
-     * @return void
      */
     public function setStatements(ObjectStorage $statements): void
     {
         $this->statements = $statements;
     }
-
 }

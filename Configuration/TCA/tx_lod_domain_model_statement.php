@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_statement',
@@ -18,21 +19,21 @@ return [
         'searchFields' => 'subject,predicate,object,name',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_statement.svg',
         'security' => [
-            'ignorePageTypeRestriction' => true
-        ]
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => ['showitem' => '--palette--;;SubjectPredicateObject, reference_statements, graph, --palette--;;flags, sys_language_uid'],
     ],
     'palettes' => [
         'flags' => [
-            'showitem' => 'hidden, object_inversion, object_recursion'
+            'showitem' => 'hidden, object_inversion, object_recursion',
         ],
         'SubjectPredicateObject' => [
-            'showitem' => 'subject, predicate, object'
+            'showitem' => 'subject, predicate, object',
         ],
         'PredicateObject' => [
-            'showitem' => 'predicate, object'
+            'showitem' => 'predicate, object',
         ],
     ],
     'columns' => [
@@ -46,7 +47,7 @@ return [
         'sys_language_uid' => [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
-            'config' => ['type' => 'language']
+            'config' => ['type' => 'language'],
         ],
         'graph' => [
             'exclude' => true,
@@ -86,7 +87,7 @@ return [
                         'options' => [
                             'table' => 'tx_lod_domain_model_graph',
                             'pid' => '###PAGE_TSCONFIG_ID###',
-                            'setValue' => 'set'
+                            'setValue' => 'set',
                         ],
                     ],
                     'editPopup' => [
@@ -106,8 +107,8 @@ return [
                         'userFunc' => 'Digicademy\Lod\Utility\Backend\IriUtility->filterByType',
                         'parameters' => [
                             'field' => 'subject',
-                            'default' => '1,2'
-                         ],
+                            'default' => '1,2',
+                        ],
                     ],
                 ],
                 'prepend_tname' => 1,
@@ -120,8 +121,8 @@ return [
                         'additionalSearchFields' => 'value',
                     ],
                     'tx_lod_domain_model_iri' => [
-// @TODO: make this configurable per TSConfig per page
-/*
+                        // @TODO: make this configurable per TSConfig per page
+                        /*
                         'searchCondition' => 'type = 1',
 */
                         'additionalSearchFields' => 'prefix_value,label,comment,value',
@@ -186,7 +187,7 @@ return [
                 'foreign_table' => 'tx_lod_domain_model_iri',
                 'prepend_tname' => 1,
                 'size' => 1,
-/*
+                /*
                 'filter' => [
                     [
                         'userFunc' => 'Digicademy\Lod\Utility\Backend\IriUtility->filterByType',
@@ -252,8 +253,8 @@ return [
                         'userFunc' => 'Digicademy\Lod\Utility\Backend\IriUtility->filterByType',
                         'parameters' => [
                             'field' => 'object',
-                            'default' => '1,2'
-                         ],
+                            'default' => '1,2',
+                        ],
                     ],
                 ],
                 'prepend_tname' => 1,
@@ -266,8 +267,8 @@ return [
                         'additionalSearchFields' => 'label',
                     ],
                     'tx_lod_domain_model_iri' => [
-// @TODO: make this configurable per TSConfig per page
-/*
+                        // @TODO: make this configurable per TSConfig per page
+                        /*
                         'searchCondition' => 'type = 1',
 */
                         'additionalSearchFields' => 'prefix_value,label,comment,value',
@@ -359,7 +360,7 @@ return [
                 'overrideChildTca' => [
                     'types' => [
                         '1' => [
-                            'showitem' => '--palette--;;PredicateObject, --palette--;;flags'
+                            'showitem' => '--palette--;;PredicateObject, --palette--;;flags',
                         ],
                     ],
                 ],

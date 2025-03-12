@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_vocabulary',
@@ -14,8 +15,8 @@ return [
         'searchFields' => 'label,comment',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_vocabulary.svg',
         'security' => [
-            'ignorePageTypeRestriction' => true
-        ]
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => ['showitem' => 'hidden, iri, label, comment, terms'],
@@ -60,7 +61,7 @@ return [
                         'options' => [
                             'table' => 'tx_lod_domain_model_iri',
                             'pid' => '###PAGE_TSCONFIG_ID###',
-                            'setValue' => 'set'
+                            'setValue' => 'set',
                         ],
                     ],
                     'editPopup' => [
@@ -75,7 +76,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'comment' => [
@@ -117,7 +118,7 @@ return [
                         'options' => [
                             'table' => 'tx_lod_domain_model_iri',
                             'pid' => '###PAGE_TSCONFIG_ID###',
-                            'setValue' => 'set'
+                            'setValue' => 'set',
                         ],
                     ],
                     'editPopup' => [

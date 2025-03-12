@@ -66,7 +66,6 @@ class VocabularyController extends ActionController
     {
         // if a vocabulary is set in the plugin
         if ((int)$selectedVocabularyUid = $this->settings['general']['selectedVocabulary']) {
-
             // assign the selected vocabulary
 
             /**
@@ -105,7 +104,7 @@ class VocabularyController extends ActionController
         $environment = [
             'TYPO3_REQUEST_HOST' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'),
             'TYPO3_REQUEST_URL' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'),
-            'TSFE' => ['pageArguments' => $GLOBALS['TSFE']->pageArguments]
+            'TSFE' => ['pageArguments' => $GLOBALS['TSFE']->pageArguments],
         ];
         $this->view->assign('environment', $environment);
 

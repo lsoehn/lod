@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Digicademy\Lod\Backend\Form\FieldControl;
 
 /*
@@ -27,7 +29,6 @@ use TYPO3\CMS\Core\Utility\{
  */
 class AddRecord extends AbstractNode
 {
-
     /**
      * Add button control
      *
@@ -106,34 +107,34 @@ class AddRecord extends AbstractNode
         /** @var \TYPO3\CMS\Backend\Routing\UriBuilder $uriBuilder */
         $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
 
-/*
-        $onClick = [];
-        $onClick[] = 'this.blur();';
-        $onClick[] = 'if (!TBE_EDITOR.curSelected(' . GeneralUtility::quoteJSvalue($itemName) . ')) {';
-        $onClick[] =    'top.TYPO3.Modal.confirm(';
-        $onClick[] =        '"' . $languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:warning.header') . '",';
-        $onClick[] =        '"' . $languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:mess.noSelItemForEdit') . '",';
-        $onClick[] =        'top.TYPO3.Severity.notice, [{text: TYPO3.lang[\'button.ok\'] || \'OK\', btnClass: \'btn-notice\', name: \'ok\'}]';
-        $onClick[] =    ')';
-        $onClick[] =    '.on("button.clicked", function(e) {';
-        $onClick[] =        'if (e.target.name == "ok") { top.TYPO3.Modal.dismiss(); }}';
-        $onClick[] =    ');';
-        $onClick[] =    'return false;';
-        $onClick[] = '}';
-        $onClick[] = 'vHWin=window.open(';
-        $onClick[] =    GeneralUtility::quoteJSvalue($url);
-        $onClick[] =    '+\'&P[currentValue]=\'+TBE_EDITOR.rawurlencode(';
-        $onClick[] =        'document.editform[' . GeneralUtility::quoteJSvalue($itemName) . '].value';
-        $onClick[] =    ')';
-        $onClick[] =    '+\'&P[currentSelectedValues]=\'+TBE_EDITOR.curSelected(';
-        $onClick[] =        GeneralUtility::quoteJSvalue($itemName);
-        $onClick[] =    '),';
-        $onClick[] =    '\'\',';
-        $onClick[] =    GeneralUtility::quoteJSvalue($windowOpenParameters);
-        $onClick[] = ');';
-        $onClick[] = 'vHWin.focus();';
-        $onClick[] = 'return false;';
-*/
+        /*
+                $onClick = [];
+                $onClick[] = 'this.blur();';
+                $onClick[] = 'if (!TBE_EDITOR.curSelected(' . GeneralUtility::quoteJSvalue($itemName) . ')) {';
+                $onClick[] =    'top.TYPO3.Modal.confirm(';
+                $onClick[] =        '"' . $languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:warning.header') . '",';
+                $onClick[] =        '"' . $languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:mess.noSelItemForEdit') . '",';
+                $onClick[] =        'top.TYPO3.Severity.notice, [{text: TYPO3.lang[\'button.ok\'] || \'OK\', btnClass: \'btn-notice\', name: \'ok\'}]';
+                $onClick[] =    ')';
+                $onClick[] =    '.on("button.clicked", function(e) {';
+                $onClick[] =        'if (e.target.name == "ok") { top.TYPO3.Modal.dismiss(); }}';
+                $onClick[] =    ');';
+                $onClick[] =    'return false;';
+                $onClick[] = '}';
+                $onClick[] = 'vHWin=window.open(';
+                $onClick[] =    GeneralUtility::quoteJSvalue($url);
+                $onClick[] =    '+\'&P[currentValue]=\'+TBE_EDITOR.rawurlencode(';
+                $onClick[] =        'document.editform[' . GeneralUtility::quoteJSvalue($itemName) . '].value';
+                $onClick[] =    ')';
+                $onClick[] =    '+\'&P[currentSelectedValues]=\'+TBE_EDITOR.curSelected(';
+                $onClick[] =        GeneralUtility::quoteJSvalue($itemName);
+                $onClick[] =    '),';
+                $onClick[] =    '\'\',';
+                $onClick[] =    GeneralUtility::quoteJSvalue($windowOpenParameters);
+                $onClick[] = ');';
+                $onClick[] = 'vHWin.focus();';
+                $onClick[] = 'return false;';
+        */
 
         return [
             'iconIdentifier' => $options['iconIdentifier'],

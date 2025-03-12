@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_literal',
@@ -14,15 +15,15 @@ return [
         'searchFields' => 'type,value,lang,datatype,',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_literal.svg',
         'security' => [
-            'ignorePageTypeRestriction' => true
-        ]
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => ['showitem' => 'hidden, --palette--;;value'],
     ],
     'palettes' => [
         'value' => [
-            'showitem' => 'value, language, datatype'
+            'showitem' => 'value, language, datatype',
         ],
     ],
     'columns' => [
@@ -41,7 +42,7 @@ return [
                 'cols' => '25',
                 'rows' => '5',
                 'eval' => 'trim',
-                'required' => true
+                'required' => true,
             ],
         ],
         'language' => [
@@ -54,7 +55,7 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
                 'items' => [
-                    ['label' => '', 'value' => '']
+                    ['label' => '', 'value' => ''],
                 ],
                 'itemsProcFunc' => \TYPO3\CMS\Core\Service\IsoCodeService::class . '->renderIsoCodeSelectDropdown',
             ],
@@ -119,7 +120,7 @@ return [
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-                'eval' => ''
+                'eval' => '',
             ],
         ],
     ],

@@ -43,9 +43,9 @@ class JsonldSerializeViewHelper extends AbstractViewHelper
      */
     public function render(): string
     {
-        $this->jsonLD = json_decode($this->renderChildren(),true);
+        $this->jsonLD = json_decode($this->renderChildren(), true);
         $this->mergeKeysRecursive($this->jsonLD['@graph']);
-        return json_encode($this->jsonLD, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT);
+        return json_encode($this->jsonLD, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     }
 
     /**
@@ -53,7 +53,6 @@ class JsonldSerializeViewHelper extends AbstractViewHelper
      * type properties into an array of strings on each level.
      *
      * @param array $array
-     * @return void
      */
     private function mergeKeysRecursive(array &$array): void
     {
@@ -69,7 +68,9 @@ class JsonldSerializeViewHelper extends AbstractViewHelper
                         $element[$property][] = $value;
                         unset($element[$key]);
                     }
-                    if (is_array($value)) $this->mergeKeysRecursive($value);
+                    if (is_array($value)) {
+                        $this->mergeKeysRecursive($value);
+                    }
                 }
                 if ($type) {
                     (count($type) > 1) ? $element['@type'] = $type : $element['@type'] = $type[0];

@@ -1,5 +1,7 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
 namespace Digicademy\Lod\Backend\Form\FieldControl;
 
 use TYPO3\CMS\Backend\Form\AbstractNode;
@@ -15,7 +17,6 @@ use TYPO3\CMS\Core\Utility\{
  */
 class EnhancedAddRecord extends AbstractNode
 {
-
     /**
      * Add button control
      *
@@ -64,7 +65,7 @@ class EnhancedAddRecord extends AbstractNode
             // @metacontext: process PageTSConfig marker for wizard pid
             if (
                 preg_match('/###PAGE_TSCONFIG_ID###/', $options['pid'])
-                && $this->data['pageTsConfig']['TCEFORM.'][$this->data['tableName'].'.'][$this->data['fieldName'].'.']['PAGE_TSCONFIG_ID']
+                && $this->data['pageTsConfig']['TCEFORM.'][$this->data['tableName'] . '.'][$this->data['fieldName'] . '.']['PAGE_TSCONFIG_ID']
             ) {
                 $pid = $this->data['pageTsConfig']['TCEFORM.'][$this->data['tableName'] . '.'][$this->data['fieldName'] . '.']['PAGE_TSCONFIG_ID'];
             } else {
@@ -101,7 +102,7 @@ class EnhancedAddRecord extends AbstractNode
                 'hmac' => GeneralUtility::hmac('editform' . $itemName, 'wizard_js'),
                 'fieldChangeFunc' => $parameterArray['fieldChangeFunc'],
                 'fieldChangeFuncHash' => GeneralUtility::hmac(serialize($parameterArray['fieldChangeFunc']), 'backend-link-browser'),
-//                'returnUrl' => $this->data['returnUrl'],
+                //                'returnUrl' => $this->data['returnUrl'],
             ],
         ];
 

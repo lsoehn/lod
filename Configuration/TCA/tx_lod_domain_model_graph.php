@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_graph',
@@ -16,8 +17,8 @@ return [
         'searchFields' => 'label,comment',
         'iconfile' => 'EXT:lod/Resources/Public/Icons/tx_lod_domain_model_graph.svg',
         'security' => [
-            'ignorePageTypeRestriction' => true
-        ]
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => ['showitem' => 'hidden, iri, label, comment, statements'],
@@ -41,8 +42,8 @@ return [
                         'userFunc' => 'Digicademy\Lod\Utility\Backend\IriUtility->filterByType',
                         'parameters' => [
                             'field' => 'iri',
-                            'default' => 1
-                         ],
+                            'default' => 1,
+                        ],
                     ],
                 ],
                 'prepend_tname' => false,
@@ -78,7 +79,7 @@ return [
                     ],
                     'editPopup' => [
                         'disabled' => false,
-                    ]
+                    ],
                 ],
             ],
         ],
@@ -88,7 +89,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'comment' => [

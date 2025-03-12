@@ -27,13 +27,11 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
-use Digicademy\Lod\Domain\Model\Iri;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Vocabulary extends AbstractEntity
 {
-
     /**
      * IRI
      *
@@ -60,7 +58,7 @@ class Vocabulary extends AbstractEntity
      *
      * @var ObjectStorage<Iri>
      */
-    protected $terms = null;
+    protected $terms;
 
     /**
      * Returns the graph iri
@@ -76,14 +74,11 @@ class Vocabulary extends AbstractEntity
      * Sets the graph iri
      *
      * @param Iri $iri
-     *
-     * @return void
      */
     public function setIri(Iri $iri): void
     {
         $this->iri = $iri;
     }
-
 
     /**
      * Returns the label
@@ -99,8 +94,6 @@ class Vocabulary extends AbstractEntity
      * Sets the label
      *
      * @param string $label
-     *
-     * @return void
      */
     public function setLabel(string $label): void
     {
@@ -121,8 +114,6 @@ class Vocabulary extends AbstractEntity
      * Sets the comment
      *
      * @param string $comment
-     *
-     * @return void
      */
     public function setComment(string $comment): void
     {
@@ -143,12 +134,9 @@ class Vocabulary extends AbstractEntity
      * Sets the terms
      *
      * @param ObjectStorage<Iri> $terms
-     *
-     * @return void
      */
     public function setTerms(ObjectStorage $terms): void
     {
         $this->terms = $terms;
     }
-
 }

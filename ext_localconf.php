@@ -1,4 +1,5 @@
 <?php
+
 defined('TYPO3') or die();
 
 use Digicademy\Lod\Backend\Form\Element\EnhancedGroupElement;
@@ -15,44 +16,44 @@ use Digicademy\Lod\Resolver\{
     T3Resolver
 };
 use TYPO3\CMS\Backend\Form\Element\GroupElement;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
-use TYPO3\CMS\Core\Imaging\IconRegistry;
-use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 
 // PLUGINS
 
 ExtensionUtility::configurePlugin(
     'Lod',
     'Vocabulary',
-    array(
+    [
         VocabularyController::class => 'show',
-    ),
-    array(
+    ],
+    [
         VocabularyController::class => '',
-    )
+    ]
 );
 
 ExtensionUtility::configurePlugin(
     'Lod',
     'Api',
-    array(
+    [
         ApiController::class => 'about',
-    ),
-    array(
+    ],
+    [
         ApiController::class => 'about',
-    )
+    ]
 );
 
 ExtensionUtility::configurePlugin(
     'Lod',
     'Serializer',
-    array(
+    [
         SerializerController::class => 'iri',
-    ),
-    array(
+    ],
+    [
         SerializerController::class => '',
-    )
+    ]
 );
 
 // REGISTERES URI RESOLVER
@@ -88,22 +89,22 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['proc
 
 // add modified addRecord fieldControl (make it reusable for different types of records)
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][138471234123] = [
-   'nodeName' => 'enhancedAddRecord',
-   'priority' => 30,
-   'class' => EnhancedAddRecord::class
+    'nodeName' => 'enhancedAddRecord',
+    'priority' => 30,
+    'class' => EnhancedAddRecord::class,
 ];
 
 // add modified tableList fieldWizard (take out hard coded connection to elementBrowser)
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1617617718] = [
-   'nodeName' => 'enhancedTableList',
-   'priority' => 30,
-   'class' => EnhancedTableList::class
+    'nodeName' => 'enhancedTableList',
+    'priority' => 30,
+    'class' => EnhancedTableList::class,
 ];
 
 // XCLASS group field to change hardcoded HTML arrangement of fieldControl
 // we don't register a new formEngine node and use XCLASS since has problems in data handling (tested)
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][GroupElement::class] = [
-   'className' => EnhancedGroupElement::class
+    'className' => EnhancedGroupElement::class,
 ];
 
 // exclude extension parameters from cHash generation

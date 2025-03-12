@@ -29,7 +29,6 @@ namespace Digicademy\Lod\Generator;
 
 interface IdentifierGeneratorInterface
 {
-
     /**
      * @return string
      */

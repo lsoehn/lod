@@ -33,7 +33,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class IriUtility
 {
-
     /**
      * Filters IRIs by type (class = 1 or property = 2) configured in TCA
      *
@@ -48,7 +47,6 @@ class IriUtility
 
         // apply filter to record, but only for IRI table
         if (preg_match('/tx_lod_domain_model_iri/', $parameters['values'][0])) {
-
             // trim record uid
             $recordUid = (int)substr(strrchr($parameters['values'][0], '_'), 1);
 

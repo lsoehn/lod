@@ -29,6 +29,4 @@ namespace Digicademy\Lod\View\Serializer;
 
 use TYPO3\CMS\Fluid\View\TemplateView;
 
-class Iri extends TemplateView
-{
-}
+class Iri extends TemplateView {}

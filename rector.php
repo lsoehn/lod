@@ -15,7 +15,7 @@ use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__
+        __DIR__,
     ])
     // uncomment to reach your current PHP version
     // ->withPhpSets()
@@ -41,6 +41,6 @@ return RectorConfig::configure()
     ->withSkip([
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
-        ]
+        ],
     ])
 ;

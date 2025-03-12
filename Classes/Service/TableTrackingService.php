@@ -28,12 +28,12 @@
 namespace Digicademy\Lod\Service;
 
 use Doctrine\DBAL\ArrayParameterType;
+use TYPO3\CMS\Core\Database\Query\QueryHelper;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\{
     Connection,
     ConnectionPool
 };
-use TYPO3\CMS\Core\Database\Query\QueryHelper;
-use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -43,7 +43,7 @@ class TableTrackingService
     /**
      * Service constructor
      */
-     public function __construct(
+    public function __construct(
         protected string $action,
         protected string $table,
         protected array $record,
@@ -52,11 +52,9 @@ class TableTrackingService
 
     /**
      * Creates IRI records for records in tracked tables
-     *
-     * @return void
      */
-     public function track(): void
-     {
+    public function track(): void
+    {
         $existingIRIs = $this->iriExists();
         $tableAndUid = $this->table . '_' . $this->record['uid'];
         $dataMap = [];
@@ -72,32 +70,32 @@ class TableTrackingService
             if ($this->action == 'update' && array_key_exists('hidden', $this->record) && $this->configuration['hideUnhide'] == '1') {
                 foreach ($existingIRIs as $iri) {
                     if ($this->record['hidden'] != $iri['hidden']) {
-                        $dataMap = array(
-                            'tx_lod_domain_model_iri' => array(
+                        $dataMap = [
+                            'tx_lod_domain_model_iri' => [
                                 $iri['uid'] => ['hidden' => $this->record['hidden']],
-                            )
-                        );
+                            ],
+                        ];
                     }
                 }
             }
             // action delete and deleteUndelete = 1 is set
             if ($this->action == 'delete' && $this->configuration['deleteUndelete'] == '1') {
                 foreach ($existingIRIs as $iri) {
-                    $cmdMap = array(
-                        'tx_lod_domain_model_iri' => array(
+                    $cmdMap = [
+                        'tx_lod_domain_model_iri' => [
                             $iri['uid'] => ['delete' => 1],
-                        )
-                    );
+                        ],
+                    ];
                 }
             }
             // action undelete and deleteUndelete = 1 is set
             if ($this->action == 'undelete' && $this->configuration['deleteUndelete'] == '1') {
                 foreach ($existingIRIs as $iri) {
-                    $cmdMap = array(
-                        'tx_lod_domain_model_iri' => array(
+                    $cmdMap = [
+                        'tx_lod_domain_model_iri' => [
                             $iri['uid'] => ['undelete' => 1],
-                        )
-                    );
+                        ],
+                    ];
                 }
             }
         } else {
@@ -106,7 +104,6 @@ class TableTrackingService
             // in case of an 'updated' tracked record that has no iri (this is why we are in else) also leads to iri creation
             // a copied tracked record is the same as a new record - no iri will yet exists with a 'tablename_uid' in the iri record field
             if ($this->action == 'new' || $this->action == 'update') {
-
                 $iriUid = 'NEW' . uniqid('');
 
                 if ($this->configuration['iri.']['pid']) {
@@ -148,53 +145,59 @@ class TableTrackingService
                             'record_uid' => $this->record['uid'],
                             'record_tablename' => $this->table,
                         ],
-                    ]
+                    ],
                 ];
 
                 if (is_array($this->configuration['representations.'])) {
-
                     foreach ($this->configuration['representations.'] as $representationToCreate) {
-
                         $representationUid = 'NEW' . uniqid('');
 
                         ($representationToCreate['pid'] || $representationToCreate['pid.']) ?
                             $representationPid = (int)$contentObjectRenderer->stdWrap(
-                                $representationToCreate['pid'], $representationToCreate['pid.']
+                                $representationToCreate['pid'],
+                                $representationToCreate['pid.']
                             ) : $representationPid = 1;
 
                         ($representationToCreate['scheme'] || $representationToCreate['scheme.']) ?
                             $scheme = $contentObjectRenderer->stdWrap(
-                                $representationToCreate['scheme'], $representationToCreate['scheme.']
+                                $representationToCreate['scheme'],
+                                $representationToCreate['scheme.']
                             ) : $scheme = '';
 
                         ($representationToCreate['authority'] || $representationToCreate['authority.']) ?
                             $authority = $contentObjectRenderer->stdWrap(
-                                $representationToCreate['authority'], $representationToCreate['authority.']
+                                $representationToCreate['authority'],
+                                $representationToCreate['authority.']
                             ) : $authority = '';
 
                         ($representationToCreate['path'] || $representationToCreate['path.']) ?
                             $path = $contentObjectRenderer->stdWrap(
-                                $representationToCreate['path'], $representationToCreate['path.']
+                                $representationToCreate['path'],
+                                $representationToCreate['path.']
                             ) : $path = '';
 
                         ($representationToCreate['query'] || $representationToCreate['query.']) ?
                             $query = $contentObjectRenderer->stdWrap(
-                                $representationToCreate['query'], $representationToCreate['query.']
+                                $representationToCreate['query'],
+                                $representationToCreate['query.']
                             ) : $query = '';
 
                         ($representationToCreate['fragment'] || $representationToCreate['fragment.']) ?
                             $fragment = $contentObjectRenderer->stdWrap(
-                                $representationToCreate['fragment'], $representationToCreate['fragment.']
+                                $representationToCreate['fragment'],
+                                $representationToCreate['fragment.']
                             ) : $fragment = '';
 
                         ($representationToCreate['content_type'] || $representationToCreate['content_type.']) ?
                             $contentType = $contentObjectRenderer->stdWrap(
-                                $representationToCreate['content_type'], $representationToCreate['content_type.']
+                                $representationToCreate['content_type'],
+                                $representationToCreate['content_type.']
                             ) : $contentType = '';
 
                         ($representationToCreate['content_language'] || $representationToCreate['content_language.']) ?
                             $contentLanguage = $contentObjectRenderer->stdWrap(
-                                $representationToCreate['content_language'], $representationToCreate['content_language.']
+                                $representationToCreate['content_language'],
+                                $representationToCreate['content_language.']
                             ) : $contentLanguage = '';
 
                         $dataMap['tx_lod_domain_model_representation'][$representationUid] = [
@@ -206,45 +209,49 @@ class TableTrackingService
                             'query' => $query,
                             'fragment' => $fragment,
                             'content_type' => $contentType,
-                            'content_language' => $contentLanguage
+                            'content_language' => $contentLanguage,
                         ];
                     }
                 }
 
                 if (is_array($this->configuration['statements.'])) {
-
                     foreach ($this->configuration['statements.'] as $statementToCreate) {
-
                         $statementUid = 'NEW' . uniqid('');
 
                         ($statementToCreate['pid'] || $statementToCreate['pid.']) ?
                             $statementPid = (int)$contentObjectRenderer->stdWrap(
-                                $statementToCreate['pid'], $statementToCreate['pid.']
+                                $statementToCreate['pid'],
+                                $statementToCreate['pid.']
                             ) : $statementPid = 1;
 
                         ($statementToCreate['predicate'] || $statementToCreate['predicate.']) ?
                             $predicateUid = $contentObjectRenderer->stdWrap(
-                                $statementToCreate['predicate'], $statementToCreate['predicate.']
+                                $statementToCreate['predicate'],
+                                $statementToCreate['predicate.']
                             ) : $predicateUid = '';
 
                         ($statementToCreate['object'] || $statementToCreate['object.']) ?
                             $objectUid = $contentObjectRenderer->stdWrap(
-                                $statementToCreate['object'], $statementToCreate['object.']
+                                $statementToCreate['object'],
+                                $statementToCreate['object.']
                             ) : $objectUid = '';
 
                         ($statementToCreate['object_type'] || $statementToCreate['object_type.']) ?
                             $objectType = $contentObjectRenderer->stdWrap(
-                                $statementToCreate['object_type'], $statementToCreate['object_type.']
+                                $statementToCreate['object_type'],
+                                $statementToCreate['object_type.']
                             ) : $objectType = 'tx_lod_domain_model_iri';
 
                         ($statementToCreate['graph'] || $statementToCreate['graph.']) ?
                             $graph = $contentObjectRenderer->stdWrap(
-                                $statementToCreate['graph'], $statementToCreate['graph.']
+                                $statementToCreate['graph'],
+                                $statementToCreate['graph.']
                             ) : $graph = '';
 
                         ($statementToCreate['recursion'] || $statementToCreate['recursion.']) ?
                             $objectRecursion = $contentObjectRenderer->stdWrap(
-                                $statementToCreate['recursion'], $statementToCreate['recursion.']
+                                $statementToCreate['recursion'],
+                                $statementToCreate['recursion.']
                             ) : $objectRecursion = 0;
 
                         $dataMap['tx_lod_domain_model_statement'][$statementUid] = [
@@ -261,7 +268,6 @@ class TableTrackingService
                         ];
                     }
                 }
-
             }
 
             // in case of a deleted tracked record that has no IRI nothing is done
@@ -276,8 +282,7 @@ class TableTrackingService
             $tce->start([], $cmdMap);
             $tce->process_cmdmap();
         }
-
-     }
+    }
 
     /**
      * Checks if an IRI exists for the tracked record (by looking at the record field and the uid)

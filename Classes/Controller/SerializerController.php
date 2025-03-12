@@ -55,24 +55,28 @@ class SerializerController extends ActionController
      * The initialize action executes an IRI lookup for the current request either by a uid directly set from a
      * serializer plugin or by tracking specified arguments (by TS) in the current request arguments. If an IRI
      * could be found it is retrieved and set as request argument for the serializeAction.
-     *
-     * @return void
      */
     public function initializeAction(): void
     {
         // check if Iri is set from flexform or TS (flexform overriding TS)
-        if ($this->settings['general']['selectedIri'] || $this->settings['selectedIri']) {
-
-            ($this->settings['general']['selectedIri']) ? $iri = $this->settings['general']['selectedIri'] :
+        if (
+            $this->settings['general']['selectedIri'] ||
+            $this->settings['selectedIri']
+        ) {
+            if ($this->settings['general']['selectedIri']) {
+                $iri = $this->settings['general']['selectedIri'];
+            } else {
                 $iri = $this->settings['selectedIri'];
+            }
             $iri = $this->iriRepository->findByUid($iri);
 
-        // otherwise iterate through record mappings configured in TS
+            // otherwise iterate through record mappings configured in TS
         } elseif ($this->settings['recordToArgumentMapping']) {
-
             // first iterate through all possible tables and try to catch a record from current request arguments
             foreach ($this->settings['recordToArgumentMapping'] as $tablename => $recordConfiguration) {
-                if ($tablename == 'pages') continue;
+                if ($tablename == 'pages') {
+                    continue;
+                }
                 if ($recordConfiguration['pluginNamespace']) {
                     $foreignPluginVars = $this->request->getQueryParams()[$recordConfiguration['pluginNamespace']];
                     ArrayUtility::mergeRecursiveWithOverrule(
@@ -96,21 +100,24 @@ class SerializerController extends ActionController
             // if no iri was found check if pages table was mapped (serves as a default)
             if (!isset($tablenameRecord) && $this->settings['recordToArgumentMapping']['pages']) {
                 $argumentValue = $this->request->getQueryParams()[$this->settings['recordToArgumentMapping']['pages']['argumentName']] ?? null;
-                if (!is_null($argumentValue)) $tablenameRecord = 'pages_' . (int)$argumentValue;
+                if (!is_null($argumentValue)) {
+                    $tablenameRecord = 'pages_' . (int)$argumentValue;
+                }
             }
 
             // IRI record lookup
-            if (isset($tablenameRecord)) $iri = $this->iriRepository->findBy(['record' => $tablenameRecord])->getFirst();
+            if (isset($tablenameRecord)) {
+                $iri = $this->iriRepository->findBy(['record' => $tablenameRecord])->getFirst();
+            }
         }
 
         // if IRI could be found
         if (isset($iri)) {
-
             // set as argument
             $this->request->withArgument('iri', $iri);
 
             // determine serialization format
-           if (is_object($iri->getRecord())) {
+            if (is_object($iri->getRecord())) {
                 $tablename = $iri->getRecord()->getTablename();
             }
         }
@@ -136,14 +143,14 @@ class SerializerController extends ActionController
      */
     public function iriAction(): ResponseInterface
     {
-
         // assign current settings
-        if (isset($this->settings['general']['mode'])) $this->settings['mode'] = $this->settings['general']['mode'];
+        if (isset($this->settings['general']['mode'])) {
+            $this->settings['mode'] = $this->settings['general']['mode'];
+        }
         $this->view->assign('settings', $this->settings);
 
         // assign IRI if available
         if ($this->request->hasArgument('iri')) {
-
             // assign namespaces
             $apiSettings = $this->configurationManager->getConfiguration('Settings', 'lod', 'api');
             $this->view->assign('iriNamespaces', $this->iriNamespaceRepository->findSelected('show', $apiSettings));
@@ -155,7 +162,7 @@ class SerializerController extends ActionController
             $environment = [
                 'TYPO3_REQUEST_HOST' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'),
                 'TYPO3_REQUEST_URL' => GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'),
-                'TSFE' => ['pageArguments' => $GLOBALS['TSFE']->pageArguments]
+                'TSFE' => ['pageArguments' => $GLOBALS['TSFE']->pageArguments],
             ];
 
             $this->view->assign('environment', $environment);
