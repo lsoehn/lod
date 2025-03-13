@@ -60,7 +60,7 @@ class EnhancedGroupElement extends GroupElement
         $selectedItemsCount = count($selectedItems);
 
         $maxItems = $config['maxitems'];
-        $autoSizeMax = MathUtility::forceIntegerInRange($config['autoSizeMax'], 0);
+        $autoSizeMax = MathUtility::forceIntegerInRange($config['autoSizeMax'] ?? false, 0);
         $size = 5;
         if (isset($config['size'])) {
             $size = (int)$config['size'];
