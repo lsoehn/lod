@@ -40,7 +40,9 @@ class LabelUtility
         $TSConfig = BackendUtility::getPagesTSconfig($parameters['row']['pid']);
 
         // check for display pattern and initialize $iriLabel
-        if (is_array($TSConfig['tx_lod.']['settings.']['iriLabel.']) && array_key_exists('displayPattern', $TSConfig['tx_lod.']['settings.']['iriLabel.'])) {
+        if (
+            isset($TSConfig['tx_lod.']['settings.']['iriLabel.']['displayPattern'])
+        ) {
             $iriLabel = $TSConfig['tx_lod.']['settings.']['iriLabel.']['displayPattern'];
 
             // strangely, we do not get the full row anymore in the label_userFunc of TYPO3 11 - which is why we need to fetch the full IRI here
@@ -66,12 +68,12 @@ class LabelUtility
             }
 
             // replace ###NAMESPACE_PREFIX###
-            if (is_array($namespace) && $namespace['prefix']) {
+            if (isset($namespace['prefix'])) {
                 $iriLabel = preg_replace('/###NAMESPACE_PREFIX###/', $namespace['prefix'], $iriLabel);
             }
 
             // replace ###NAMESPACE_IRI###
-            if (is_array($namespace) && $namespace['iri']) {
+            if (isset($namespace['iri'])) {
                 $iriLabel = preg_replace('/###NAMESPACE_IRI###/', $namespace['iri'], $iriLabel);
             }
         }
