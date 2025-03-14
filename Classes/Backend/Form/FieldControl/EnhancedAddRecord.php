@@ -124,7 +124,7 @@ class EnhancedAddRecord extends AbstractNode
             ],
             $resultArray['javaScriptModules'][] = JavaScriptModuleInstruction::create(
                 '../typo3conf/ext/lod/Resources/Public/JavaScript/EnhancedAddRecord.js'
-            )->instance('#' . $id)
+            )->instance('#' . $id),
         ];
     }
 }

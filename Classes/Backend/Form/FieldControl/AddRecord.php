@@ -146,7 +146,7 @@ class AddRecord extends AbstractNode
             ],
             $resultArray['javaScriptModules'][] = JavaScriptModuleInstruction::create(
                 '@typo3/backend/form-engine/field-control/add-record.js'
-            )->instance("#$id")
+            )->instance("#$id"),
         ];
     }
 }

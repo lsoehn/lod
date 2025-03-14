@@ -12,7 +12,6 @@ use TYPO3\CMS\Core\Utility\{
     StringUtility
 };
 
-
 /*
  * Copy of the core group element with the sole purpose of changing hardcoded HTML
  * Allow for horizontal field controls (needed for statement table group fields / triple composer)

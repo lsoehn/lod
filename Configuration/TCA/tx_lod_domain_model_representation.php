@@ -1,5 +1,7 @@
 <?php
 
+use Digicademy\Lod\Service\IsoCodeService;
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:tx_lod_domain_model_representation',
@@ -137,7 +139,7 @@ return [
                 'items' => [
                     ['label' => '', 'value' => ''],
                 ],
-                'itemsProcFunc' => \TYPO3\CMS\Core\Service\IsoCodeService::class . '->renderIsoCodeSelectDropdown',
+                'itemsProcFunc' => IsoCodeService::class . '->renderIsoCodeSelectDropdown',
             ],
         ],
     ],

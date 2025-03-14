@@ -58,12 +58,12 @@ class LabelUtility
             $namespace = [];
 
             // if called in the context of an edit form title the namespace field (strangely) is an array and not an integer - reset
-            if (is_array($parameters['row']['namespace'])) {
+            if (isset($parameters['row']['namespace']) && is_array($parameters['row']['namespace'])) {
                 $parameters['row']['namespace'] = $parameters['row']['namespace'][0];
             }
 
             // if namespace fetch namespace record
-            if ($parameters['row']['namespace'] > 0) {
+            if (isset($parameters['row']['namespace']) && $parameters['row']['namespace'] > 0) {
                 $namespace = BackendUtility::getRecord('tx_lod_domain_model_namespace', (int)$parameters['row']['namespace']);
             }
 
