@@ -1,10 +1,8 @@
 # Linked Open Data for TYPO3
 
-Provides a semantic layer for a TYPO3 instance with LOD API, terminology service,
-RDF serializer and URI resolver.
+Provides a semantic layer for a TYPO3 instance with LOD API, terminology service, RDF serializer and URI resolver.
 
-This is the development repository for the LOD extension. The extension has not yet been
-officially released to the TYPO3 extension repository but is fully usable.
+This is the development repository for the LOD extension. The extension has not yet been officially released to the TYPO3 extension repository but is fully usable.
 
 **TYPO3 version compatibility**:
 
@@ -18,7 +16,7 @@ officially released to the TYPO3 extension repository but is fully usable.
 
 This extension comes with a range configurations for analyses, tests, and automatic fixes that work with the tools listed in its Composer dev requirements. All dev requirements should be installed at project level.
 
-All examples given here assume that tests are executed from the root folder of a TYPO3 project and this extension is located in the `packages` folder for development purposes.
+All examples given here assume that these tools are executed from the root folder of a TYPO3 project and this extension is located in the `packages` folder for development purposes.
 
 ### PHPStan
 
