@@ -313,8 +313,8 @@ class EnhancedGroupElement extends GroupElement
         $html[] =   '<input type="hidden" name="' . htmlspecialchars($elementName) . '" value="' . htmlspecialchars(implode(',', $listOfSelectedValues)) . '" />';
         $html[] = '</div>';
 
-        $resultArray['requireJsModules'][] = JavaScriptModuleInstruction::forRequireJS(
-            'TYPO3/CMS/Backend/FormEngine/Element/GroupElement'
+        $resultArray['javaScriptModules'][] = JavaScriptModuleInstruction::create(
+            '@typo3/backend/form-engine/element/group-element.js'
         )->instance($fieldId);
 
         $resultArray['html'] = implode(LF, $html);

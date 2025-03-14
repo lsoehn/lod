@@ -122,11 +122,9 @@ class EnhancedAddRecord extends AbstractNode
                 'data-element' => $itemName,
                 'data-window-parameters' => $windowOpenParameters,
             ],
-            'requireJsModules' => [
-                ['../typo3conf/ext/lod/Resources/Public/JavaScript/EnhancedAddRecord' => JavaScriptModuleInstruction::forRequireJS(
-                    'TYPO3/CMS/Backend/FormEngine/Element/GroupElement'
-                )->instance('#' . $id)
-            ],
+            $resultArray['javaScriptModules'][] = JavaScriptModuleInstruction::create(
+                '../typo3conf/ext/lod/Resources/Public/JavaScript/EnhancedAddRecord.js'
+            )->instance('#' . $id)
         ];
     }
 }
