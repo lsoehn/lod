@@ -8,7 +8,6 @@ return [
         'sortby' => 'sorting',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'dividers2tabs' => true,
         'delete' => 'deleted',
         'origUid' => 't3_origuid',
         'enablecolumns' => [

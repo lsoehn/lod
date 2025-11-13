@@ -9,7 +9,6 @@ return [
         'default_sortby' => 'prefix',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'dividers2tabs' => true,
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden',

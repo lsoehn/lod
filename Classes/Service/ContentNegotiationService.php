@@ -162,9 +162,8 @@ class ContentNegotiationService
      */
     public function setAcceptedMimeTypes(): void
     {
-        // if accept header is set get a weighted list of accepted formats
-        // @TODO: use $GLOBALS['TYPO3_REQUEST']
-        $httpAcceptHeader = getenv('HTTP_ACCEPT');
+        // Use PSR-7 request to get Accept header
+        $httpAcceptHeader = $this->request->getHeaderLine('Accept');
         if ($httpAcceptHeader) {
             $this->acceptedMimeTypes = $this->processAcceptHeader($httpAcceptHeader);
         } else {

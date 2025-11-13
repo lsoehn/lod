@@ -12,7 +12,6 @@ return [
         'default_sortby' => 'type ASC, label ASC, value ASC',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'dividers2tabs' => true,
         'delete' => 'deleted',
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',

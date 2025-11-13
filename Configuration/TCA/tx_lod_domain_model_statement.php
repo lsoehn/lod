@@ -9,7 +9,6 @@ return [
         'default_sortby' => 'graph,subject',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'dividers2tabs' => true,
         'delete' => 'deleted',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',

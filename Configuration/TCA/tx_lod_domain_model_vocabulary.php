@@ -7,7 +7,6 @@ return [
         'default_sortby' => 'label',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'dividers2tabs' => true,
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden',
