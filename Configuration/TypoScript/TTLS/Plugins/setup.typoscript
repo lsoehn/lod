@@ -1,4 +1,4 @@
-[getTSFE().type == 2021]
+[traverse(page, 'uid') == 2021]
 
 plugin.tx_lod {
   format = ttls

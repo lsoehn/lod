@@ -1,4 +1,4 @@
-[getTSFE().type == 2004]
+[traverse(page, 'uid') == 2004]
 
 plugin.tx_lod {
   format = rdfxml
