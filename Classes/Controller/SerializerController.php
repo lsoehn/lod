@@ -114,7 +114,7 @@ class SerializerController extends ActionController
         // if IRI could be found
         if (isset($iri)) {
             // set as argument
-            $this->request->withArgument('iri', $iri);
+            $this->request = $this->request->withArgument('iri', $iri);
 
             // determine serialization format
             if (is_object($iri->getRecord())) {
@@ -133,7 +133,7 @@ class SerializerController extends ActionController
             $format = 'jsonld';
         }
 
-        $this->request->withFormat($format);
+        $this->request = $this->request->withFormat($format);
     }
 
     /**
