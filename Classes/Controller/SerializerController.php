@@ -78,10 +78,10 @@ class SerializerController extends ActionController
                     continue;
                 }
                 if ($recordConfiguration['pluginNamespace']) {
-                    $foreignPluginVars = $this->request->getQueryParams()[$recordConfiguration['pluginNamespace']];
+                    $foreignPluginVars = $this->request->getQueryParams()[$recordConfiguration['pluginNamespace']] ?? [];
                     ArrayUtility::mergeRecursiveWithOverrule(
                         $foreignPluginVars,
-                        $this->request->getParsedBody()[$recordConfiguration['pluginNamespace']]
+                        ($this->request->getParsedBody() ?? [])[$recordConfiguration['pluginNamespace']] ?? []
                     );
                     if ($foreignPluginVars[$recordConfiguration['argumentName']] > 0) {
                         $tablenameRecord = $tablename . '_' . (int)$foreignPluginVars[$recordConfiguration['argumentName']];
