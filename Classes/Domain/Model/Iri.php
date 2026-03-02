@@ -341,7 +341,8 @@ class Iri extends AbstractEntity
         $inverseStatements = $statementRepository->findByPosition('object', $this);
         foreach ($inverseStatements as $inverseStatement) {
             if ($inverseStatement->getSubject() !== null &&
-                $inverseStatement->getPredicate() !== null
+                $inverseStatement->getPredicate() !== null &&
+                $inverseStatement->getObjectInversion()
             ) {
                 $subject = $inverseStatement->getSubject();
                 $object = $inverseStatement->getObject();
