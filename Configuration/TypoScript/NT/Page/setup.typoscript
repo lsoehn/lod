@@ -16,5 +16,5 @@ nt {
 }
 
 [traverse(page, 'uid') == 2013]
-nt.10  < lib.tx_lod.plugin
+nt.10 < lib.tx_lod.plugin
 [global]

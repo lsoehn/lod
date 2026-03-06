@@ -91,16 +91,16 @@ plugin.tx_lod_api {
       }
     }
     list {
-#      additionalPidList =
-#      namespaceList =
+      #      additionalPidList =
+      #      namespaceList =
     }
     show {
-#      namespaceList =
+      #      namespaceList =
     }
     apiDocumentation {
       keys {
         0 = api
-#        PID = KEYWORD
+        #        PID = KEYWORD
       }
     }
     resolver {
