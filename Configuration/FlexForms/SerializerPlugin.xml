@@ -10,7 +10,6 @@
                         <label>LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.selectedIri</label>
                         <config>
                             <type>group</type>
-                            <internal_type>db</internal_type>
                             <allowed>tx_lod_domain_model_iri</allowed>
                             <prepend_tname>0</prepend_tname>
                             <size>1</size>
@@ -30,20 +29,20 @@
                             <renderType>selectSingle</renderType>
                             <items>
                                 <numIndex index="10">
-                                    <numIndex index="0">LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.format.jsonld</numIndex>
-                                    <numIndex index="1">jsonld</numIndex>
+                                    <label>LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.format.jsonld</label>
+                                    <value>jsonld</value>
                                 </numIndex>
                                 <numIndex index="20">
-                                    <numIndex index="0">LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.format.turtle</numIndex>
-                                    <numIndex index="1">ttl</numIndex>
+                                    <label>LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.format.turtle</label>
+                                    <value>ttl</value>
                                 </numIndex>
                                 <numIndex index="30">
-                                    <numIndex index="0">LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.format.rdfxml</numIndex>
-                                    <numIndex index="1">rdfxml</numIndex>
+                                    <label>LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.format.rdfxml</label>
+                                    <value>rdfxml</value>
                                 </numIndex>
                                 <numIndex index="40">
-                                    <numIndex index="0">LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.format.ntriples</numIndex>
-                                    <numIndex index="1">nt</numIndex>
+                                    <label>LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.format.ntriples</label>
+                                    <value>nt</value>
                                 </numIndex>
                             </items>
                         </config>
@@ -55,12 +54,13 @@
                             <renderType>selectSingle</renderType>
                             <items>
                                 <numIndex index="10">
-                                    <numIndex index="0">LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.mode.embedded</numIndex>
-                                    <numIndex index="1">embedded</numIndex>
+                                    <label>LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.mode.embedded</label>
+                                    <value>embedded</value>
                                 </numIndex>
                                 <numIndex index="99">
-                                    <numIndex index="0">LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.mode.none</numIndex>
-                                    <numIndex index="1"/></numIndex>
+                                    <label>LLL:EXT:lod/Resources/Private/Language/locallang_db.xlf:plugin.serializer.mode.none</label>
+                                    <value/>
+                                </numIndex>
                             </items>
                         </config>
                     </settings.general.mode>
