@@ -87,9 +87,9 @@ class Statement extends AbstractEntity
     /**
      * Returns the named graph
      *
-     * @return Graph $graph
+     * @return Graph|null $graph
      */
-    public function getGraph(): Graph
+    public function getGraph(): ?Graph
     {
         return $this->graph;
     }
@@ -107,7 +107,7 @@ class Statement extends AbstractEntity
     /**
      * Returns the subject
      *
-     * @return mixed
+     * @return string
      */
     public function getSubject()
     {
@@ -126,7 +126,7 @@ class Statement extends AbstractEntity
 
     /**
      * Returns the predicate
-     * @return mixed
+     * @return string
      */
     public function getPredicate()
     {
@@ -146,7 +146,7 @@ class Statement extends AbstractEntity
     /**
      * Returns the object
      *
-     * @return mixed
+     * @return string
      */
     public function getObject()
     {

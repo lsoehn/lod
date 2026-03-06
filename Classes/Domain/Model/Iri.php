@@ -117,10 +117,6 @@ class Iri extends AbstractEntity
     #[Lazy]
     protected $inverseStatements;
 
-    public function __construct(
-        protected readonly StatementRepository $statementRepository
-    ) {}
-
     /**
      * Returns the type
      *
@@ -340,8 +336,9 @@ class Iri extends AbstractEntity
     public function getInverseStatements(): ObjectStorage
     {
         $objectStorage = GeneralUtility::makeInstance(ObjectStorage::class);
-        $inverseStatements = $this->statementRepository->findByPosition('object', $this);
+        $statementRepository = GeneralUtility::makeInstance(StatementRepository::class);
 
+        $inverseStatements = $statementRepository->findByPosition('object', $this);
         foreach ($inverseStatements as $inverseStatement) {
             if ($inverseStatement->getSubject() !== null &&
                 $inverseStatement->getPredicate() !== null &&

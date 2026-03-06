@@ -60,6 +60,9 @@ class StatementRepository extends Repository
         IriNamespace $graph = null
     ): QueryResultInterface {
         $query = $this->createQuery();
+        $query->getQuerySettings()
+            ->setRespectStoragePage(false);
+
         $constraints = [];
 
         // Check for valid position value.
@@ -67,7 +70,7 @@ class StatementRepository extends Repository
             throw new Exception('Position string can only be subject, predicate or object', 1572638693);
         }
 
-        // Check for valid ressource class.
+        // Check for valid resource class.
         $resourceClass = get_class($resource);
         if (
             !in_array(
@@ -83,7 +86,7 @@ class StatementRepository extends Repository
         $resourceUid = $resource->getUid();
         $constraints[] = $query->equals(
             $position,
-            self::ENTITY_CLASS_TABLES[$resourceClass] . $resource->getUid()
+            self::ENTITY_CLASS_TABLES[$resourceClass] . $resourceUid,
         );
 
         // Possibly set graph name.
