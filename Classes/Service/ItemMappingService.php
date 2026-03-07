@@ -90,7 +90,10 @@ class ItemMappingService
             $item->setRow($tcaProcessing['databaseRow']);
             $item->_setProperty('uid', (int)$tcaProcessing['databaseRow']['uid']);
             $item->setPid($tcaProcessing['databaseRow']['pid']);
-            $item->setDomainObject($this->map($result['row'], $result['tablename']));
+            $domainObject = $this->map($result['row'], $result['tablename']);
+            if ($domainObject !== null) {
+                $item->setDomainObject($domainObject);
+            }
         }
 
         return $item;

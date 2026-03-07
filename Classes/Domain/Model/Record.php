@@ -62,7 +62,7 @@ class Record extends AbstractEntity
     /**
      * domainObject
      *
-     * @var object
+     * @var object|null
      */
     protected $domainObject;
 
@@ -149,9 +149,9 @@ class Record extends AbstractEntity
     /**
      * Returns the domainObject
      *
-     * @return object $domainObject
+     * @return object|null $domainObject
      */
-    public function getDomainObject(): object
+    public function getDomainObject(): ?object
     {
         return $this->domainObject;
     }
@@ -159,9 +159,9 @@ class Record extends AbstractEntity
     /**
      * Sets the domainObject
      *
-     * @param object $domainObject
+     * @param object|null $domainObject
      */
-    public function setDomainObject(object $domainObject): void
+    public function setDomainObject(?object $domainObject): void
     {
         $this->domainObject = $domainObject;
     }
