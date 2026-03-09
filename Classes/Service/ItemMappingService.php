@@ -31,11 +31,8 @@ use Digicademy\Lod\Domain\Model\Record;
 use TYPO3\CMS\Backend\Form\FormDataProvider\TcaRecordTitle;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\{
-    ConfigurationManager,
-    ConfigurationManagerInterface
-};
 use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
 
 /**
@@ -43,8 +40,11 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper;
  */
 class ItemMappingService
 {
+    protected array $classesCache = [];
+
     public function __construct(
-        protected readonly DataMapper $dataMapper
+        protected readonly DataMapper $dataMapper,
+        protected readonly PackageManager $packageManager
     ) {}
 
     /**
@@ -137,6 +137,27 @@ class ItemMappingService
     }
 
     /**
+     * Loads the merged class configuration from all active packages' Classes.php files.
+     *
+     * @return array<class-string, array<string, mixed>>
+     */
+    protected function getClasses(): array
+    {
+        if (!$this->classesCache) {
+            foreach ($this->packageManager->getActivePackages() as $activePackage) {
+                $persistenceClassesFile = $activePackage->getPackagePath() . 'Configuration/Extbase/Persistence/Classes.php';
+                if (file_exists($persistenceClassesFile)) {
+                    $definedClasses = require $persistenceClassesFile;
+                    if (is_array($definedClasses)) {
+                        $this->classesCache = array_replace_recursive($this->classesCache, $definedClasses);
+                    }
+                }
+            }
+        }
+        return $this->classesCache;
+    }
+
+    /**
      * Maps record row to a configured domain object
      *
      * @param array $row
@@ -146,23 +167,19 @@ class ItemMappingService
     protected function map(array $row, string $tablename): ?object
     {
         $result = null;
-
-        // try to find a TypoScript based class mapping for the given tablename
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
         $className = '';
-        $frameworkConfiguration = $configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 
-        foreach ($frameworkConfiguration['persistence']['classes'] as $key => $value) {
+        // find a class mapping for the given tablename from Classes.php configuration
+        foreach ($this->getClasses() as $key => $value) {
             // if current table name matches a configured table name
             if (
-                array_key_exists('mapping', $value) &&
-                array_key_exists('tableName', $value['mapping']) &&
-                $value['mapping']['tableName'] == $tablename
+                array_key_exists('tableName', $value) &&
+                $value['tableName'] === $tablename
             ) {
                 // check if recordType is configured and matches the row
-                if (array_key_exists('recordType', $value['mapping'])) {
+                if (array_key_exists('recordType', $value)) {
                     $typeColumnName = $GLOBALS['TCA'][$tablename]['ctrl']['type'];
-                    if ($row[$typeColumnName] == $value['mapping']['recordType']) {
+                    if ($row[$typeColumnName] == $value['recordType']) {
                         $className = $key;
                     } else {
                         continue;
