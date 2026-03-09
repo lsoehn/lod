@@ -35,6 +35,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\{
     GeneralUtility
 };
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class DataHandler
 {
@@ -394,9 +395,13 @@ class DataHandler
     {
         // get extension configuration
         $backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('lod');
+        // get array of tables registered in extension configuration for tracking
+        $tablesToTrack = $backendConfiguration['trackTables'] ?? [];
 
-        // get list of tables registered in extConf for tracking
-        $tablesToTrack = GeneralUtility::trimExplode(',', $backendConfiguration['trackTables']);
+        // get list of tables registered in extension configuration for tracking (useful for configuration via backend settings)
+        if (is_string($tablesToTrack)) {
+            $tablesToTrack = GeneralUtility::trimExplode(',', $backendConfiguration['trackTables'], true);
+        }
 
         // further steps only executed if current table is in tracked table list
         if (in_array($table, $tablesToTrack)) {
