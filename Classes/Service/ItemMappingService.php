@@ -209,20 +209,20 @@ class ItemMappingService
     {
         // map record property of IRI object (if not empty)
         if (get_class($domainObject) == 'Digicademy\Lod\Domain\Model\Iri') {
-            if ($domainObject->getRecord() !== '') {
+            if (!empty($domainObject->getRecord())) {
                 $domainObject->setRecord($this->mapGenericItem($domainObject->getRecord()));
             }
         }
 
         // map subject, predicate and object in statements
         if (get_class($domainObject) == 'Digicademy\Lod\Domain\Model\Statement') {
-            if ($domainObject->getSubject() !== '') {
+            if (!empty($domainObject->getSubject())) {
                 $domainObject->setSubject($this->mapItem($domainObject->getSubject()));
             }
-            if ($domainObject->getPredicate() !== '') {
+            if (!empty($domainObject->getPredicate())) {
                 $domainObject->setPredicate($this->mapItem($domainObject->getPredicate()));
             }
-            if ($domainObject->getObject() !== '') {
+            if (!empty($domainObject->getObject())) {
                 $domainObject->setObject($this->mapItem($domainObject->getObject()));
             }
         }
