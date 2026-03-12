@@ -47,7 +47,9 @@ class IriRepository extends Repository
     public function __construct(
         protected IriNamespaceRepository $iriNamespaceRepository,
         protected ConfigurationManagerInterface $configurationManager
-    ) {}
+    ) {
+        parent::__construct();
+    }
 
     /**
      * IRI lookup by string representation (like 'prefix:value').
