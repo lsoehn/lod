@@ -29,6 +29,7 @@ namespace Digicademy\Lod\Service;
 
 use Digicademy\Lod\Domain\Model\Representation;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * The resolver service resolves IRIs to URLs (by representations).
@@ -67,7 +68,8 @@ class ResolverService
         if ($this->availableResolvers[$scheme]) {
             $resolver = GeneralUtility::makeInstance(
                 $this->availableResolvers[$scheme],
-                $settings[$scheme]
+                $settings[$scheme],
+                GeneralUtility::makeInstance(ContentObjectRenderer::class)
             );
             $url = $resolver->resolveToUrl($representation);
         }
