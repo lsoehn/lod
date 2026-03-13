@@ -15,6 +15,6 @@ ttls {
   }
 }
 
-[getTSFE().type == 2021]
+[(getTSFE() ? getTSFE().type : 0) == 2021]
 ttls.10 < lib.tx_lod.plugin
 [global]
