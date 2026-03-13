@@ -86,6 +86,10 @@ class EasyRdfConverterViewHelper extends AbstractViewHelper
                 ? $this->arguments['options']
                 : [];
 
+            if (empty(trim($data))) {
+                return '';
+            }
+
             $graph = $this->container->get(Graph::class);
 
             // parse rendered data into EasyRdf graph
