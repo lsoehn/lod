@@ -30,3 +30,11 @@ services:
   # the following services are instantiated within a BE hook and need no autowiring
   # Digicademy\Lod\Service\IdentifierGeneratorService:
   # Digicademy\Lod\Service\TableTrackingService:
+
+  # EasyRdf classes registered for container retrieval in view helpers
+  EasyRdf\Graph:
+    public: true
+    shared: false
+  EasyRdf\RdfNamespace:
+    public: true
+    shared: false
