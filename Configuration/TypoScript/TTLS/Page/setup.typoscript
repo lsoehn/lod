@@ -15,6 +15,6 @@ ttls {
   }
 }
 
-[traverse(page, 'uid') == 2021]
+[getTSFE().type == 2021]
 ttls.10 < lib.tx_lod.plugin
 [global]

@@ -1,4 +1,4 @@
-[traverse(page, 'uid') == 2014]
+[getTSFE().type == 2014]
 
 plugin.tx_lod {
   format = jsonld
