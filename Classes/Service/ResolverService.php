@@ -68,7 +68,7 @@ class ResolverService
         if ($this->availableResolvers[$scheme]) {
             $resolver = GeneralUtility::makeInstance(
                 $this->availableResolvers[$scheme],
-                $settings[$scheme],
+                $settings[$scheme] ?? [],
                 GeneralUtility::makeInstance(ContentObjectRenderer::class)
             );
             $url = $resolver->resolveToUrl($representation);
