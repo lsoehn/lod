@@ -35,7 +35,6 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\{
     GeneralUtility
 };
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class DataHandler
 {
@@ -319,7 +318,7 @@ class DataHandler
         }
 
         // start generation if configured and no identifier exists
-        if ($tableConfiguredForIdentifierGeneration == true && $record['value'] == '') {
+        if ($tableConfiguredForIdentifierGeneration == true && $record['value'] === '') {
             // get generator service
             $generatorService = GeneralUtility::makeInstance(IdentifierGeneratorService::class);
             $generatorName = $TSConfig['tx_lod.']['settings.']['identifierGenerator.'][$table . '.']['type'];
