@@ -27,6 +27,7 @@
 
 namespace Digicademy\Lod\Domain\Model;
 
+use Digicademy\Lod\Domain\Model\Record;
 use Digicademy\Lod\Domain\Repository\StatementRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
@@ -88,6 +89,8 @@ class Iri extends AbstractEntity
 
     /**
      * record
+     *
+     * ToDo: refactor code, cause logic depends on type mutation currently, see Service/ItemMappingService.php (line 113)
      *
      * @var string
      */
@@ -260,9 +263,9 @@ class Iri extends AbstractEntity
     /**
      * Returns the record
      *
-     * @return string $record
+     * ToDo: refactor code, cause logic depends on type mutation currently, see Service/ItemMappingService.php (line 113)
      */
-    public function getRecord(): ?string
+    public function getRecord()
     {
         return $this->record;
     }
@@ -270,9 +273,9 @@ class Iri extends AbstractEntity
     /**
      * Sets the record
      *
-     * @param string $record
+     * ToDo: refactor code, cause logic depends on type mutation currently, see Service/ItemMappingService.php (line 113)
      */
-    public function setRecord(string $record): void
+    public function setRecord($record): void
     {
         $this->record = $record;
     }
