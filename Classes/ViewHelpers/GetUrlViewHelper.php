@@ -26,20 +26,26 @@
 
 namespace Digicademy\Lod\ViewHelpers;
 
+use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class GetUrlViewHelper extends AbstractViewHelper
 {
-    /**
-     * Initialize ViewHelper arguments
-     */
     public function initializeArguments(): void
     {
         $this->registerArgument(
             'url',
             'string',
             'The url to fetch content from',
+            true
+        );
+
+        $this->registerArgument(
+            'verify',
+            'bool',
+            'Whether to verify SSL certificates',
+            false,
             true
         );
     }
@@ -49,6 +55,16 @@ class GetUrlViewHelper extends AbstractViewHelper
      */
     public function render(): string
     {
-        return GeneralUtility::getUrl($this->arguments['url']);
+        $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+
+        $response = $requestFactory->request(
+            $this->arguments['url'],
+            'GET',
+            [
+                'verify' => (bool)$this->arguments['verify']
+            ]
+        );
+
+        return $response->getBody()->getContents();
     }
 }
