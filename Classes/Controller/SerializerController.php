@@ -164,7 +164,7 @@ class SerializerController extends ActionController
 
             // provide environment vars
             $environment = [
-                'TYPO3_REQUEST_HOST' => $normalizedParams->getRequestHost(),
+                'TYPO3_SITE_BASE_URL' => rtrim($normalizedParams->getSiteUrl(), '/'),
                 'TYPO3_REQUEST_URL' => $normalizedParams->getRequestUrl(),
                 'TSFE' => ['pageArguments' => $GLOBALS['TSFE']->pageArguments],
             ];

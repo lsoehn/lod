@@ -65,7 +65,7 @@ class T3Resolver extends AbstractResolver implements ResolverInterface
                     // evaluated by typoLink_URL function; therefore append request host to make sure that the
                     // url is absolute
                     if (!preg_match('#://#', $url)) {
-                        $url = $GLOBALS['TYPO3_REQUEST']->getAttribute('normalizedParams')->getRequestHost() . $url;
+                        $url = rtrim($GLOBALS['TYPO3_REQUEST']->getAttribute('normalizedParams')->getSiteUrl(), '/') . $url;
                     }
                 }
             }
