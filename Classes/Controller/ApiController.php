@@ -118,7 +118,7 @@ class ApiController extends ActionController
 
         // set environment
         $environment = [
-            'TYPO3_REQUEST_HOST' => $normalizedParams->getRequestHost(),
+            'TYPO3_SITE_BASE_URL' => rtrim($normalizedParams->getSiteUrl(), '/'),
             'TYPO3_REQUEST_URL' => $normalizedParams->getRequestUrl(),
             'TSFE' => ['pageArguments' => $GLOBALS['TSFE']->pageArguments, 'page' => $GLOBALS['TSFE']->page],
         ];
@@ -149,7 +149,7 @@ class ApiController extends ActionController
               ->withAddedHeader('Access-Control-Allow-Methods', $this->settings['general']['CORS']['accessControlAllowMethods'])
               ->withAddedHeader('Access-Control-Allow-Headers', $this->settings['general']['CORS']['accessControlAllowHeaders'])
               ->withAddedHeader('Access-Control-Expose-Headers', $this->settings['general']['CORS']['accessControlExposeHeaders'])
-              ->withAddedHeader('Link', '<' . $environment['TYPO3_REQUEST_HOST'] . $apiDocumentationPath . '>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
+              ->withAddedHeader('Link', '<' . $environment['TYPO3_SITE_BASE_URL'] . $apiDocumentationPath . '>; rel="http://www.w3.org/ns/hydra/core#apiDocumentation"');
         }
 
         // hydra JSON-LD entry point
